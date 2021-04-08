@@ -211,13 +211,13 @@ export const menu: Menu[] = [
 
 interface MenuItemProps {
   menu: Menu,
-  click: (text: string) => void,
+  click: (menu: Menu) => void,
   collapse: {[key: string]: boolean},
   submenu?: any
 }
 
 export const MenuItem = ({menu, click, collapse, submenu}: MenuItemProps) => (
-  <ListItem button key={menu.text} onClick={() => click(menu.text)} sx={{pl: submenu ?  4 : ''}}>
+  <ListItem button key={menu.text} onClick={() => click(menu)} sx={{pl: submenu ?  4 : ''}}>
     <ListItemIcon sx={{color: 'white'}}>
       {menu.icon}
     </ListItemIcon>              

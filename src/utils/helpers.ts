@@ -5,4 +5,6 @@
  * 
  */
 
-export {}
+export const cssHelper = {
+  important: (text: string) => `${text} !important`
+}

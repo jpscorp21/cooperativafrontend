@@ -1,16 +1,16 @@
-import { AppBar, Collapse, Drawer, IconButton, List, ListItem, ListItemIcon, ListItemText, makeStyles, Toolbar, Typography, useTheme } from '@material-ui/core';
+import { AppBar, Collapse, Drawer, Hidden, IconButton, List, makeStyles, Toolbar, Typography, useTheme } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import clsx from 'clsx';
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { menu, MenuItem } from '../data/menu';
-import {teal, grey} from '@material-ui/core/colors';
-import { StarBorder } from '@material-ui/icons';
+import { menu, MenuItem, Menu } from '../data/menu';
+import {teal} from '@material-ui/core/colors';
+import { cssHelper } from '../utils/helpers';
+import useResponsive from '../utils/hooks/useResponsive';
 
-const color = teal[500];
 
 const drawerWidth = 300;
 
@@ -18,24 +18,69 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex'
   },
-  appBar: {    
+  appBar: {       
     transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    })
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),       
+    // [theme.breakpoints.up('sm')]: {
+    //   width: cssHelper.important(`calc(100% - ${drawerWidth}px)`),    
+    //   transition: theme.transitions.create('width', {
+    //     easing: theme.transitions.easing.easeOut,
+    //     duration: theme.transitions.duration.enteringScreen,
+    //   }),         
+    // },         
   },
   appBarShift: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth,
+    [theme.breakpoints.up('sm')]: {
+      width: cssHelper.important(`calc(100% - ${drawerWidth}px)`),    
+      marginLeft: drawerWidth,      
+      transition: theme.transitions.create(['margin', 'width'], {
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.enteringScreen,
+      }),       
+    },  
+       
+  },
+  // menuButton: {    
+  //   [theme.breakpoints.up('sm')]: {
+  //     display: cssHelper.important('none')
+  //   }
+  // },
+  // necessary for content to be below app bar
+  toolbar: {
+    ...theme.mixins.toolbar,
+    transition: theme.transitions.create(['margin', 'width'], {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+  },
+  toolbarShift: {    
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
-  drawer: {    
+  drawer: {  
     width: drawerWidth,
-    flexShrink: 0
+    flexShrink: 0,
+    // [theme.breakpoints.up('sm')]: {
+    //   width: drawerWidth,
+    //   flexShrink: 0,
+    //   transition: theme.transitions.create('width', {
+    //     easing: theme.transitions.easing.easeOut,
+    //     duration: theme.transitions.duration.enteringScreen,
+    //   }), 
+    // },      
   },
+  // drawerShift: {  
+  //   [theme.breakpoints.up('sm')]: {      
+  //     transition: theme.transitions.create('width', {
+  //       easing: theme.transitions.easing.easeOut,
+  //       duration: theme.transitions.duration.enteringScreen,
+  //     }),          
+  //   },      
+  // },
   drawerPaper: {
     width: drawerWidth,
     boxSizing: 'border-box',
@@ -54,33 +99,48 @@ const useStyles = makeStyles((theme) => ({
     display: 'none'
   },
   content: {
-    flexGrow: 1,    
-    paddingTop: '50px',
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
     marginLeft: -drawerWidth,
+    flexGrow: 1,   
+    [theme.breakpoints.up('sm')]: {
+      transition: theme.transitions.create('margin', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),    
+      marginLeft: -drawerWidth,
+    },    
   },
   contentShift: {
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    marginLeft: 0,
+    [theme.breakpoints.up('sm')]: {
+      transition: theme.transitions.create('margin', {
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.enteringScreen,
+      }),    
+      marginLeft: 0,
+    }
   },
 }));
 
 const AppSidebar = () => {
 
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
+  
+  const [open, setOpen] = React.useState(true); 
   const [openCollapse, setOpenCollapse] = React.useState<{[key: string]: boolean}>({});
   const theme = useTheme(); 
 
+  const { mobile } = useResponsive();
+
   const menuSidebar = useMemo(() => [...menu], []);
 
-  const [mobileOpen, setMobileOpen] = React.useState(true);
+  const [mobileOpen, setMobileOpen] = React.useState(false);
+
+  useEffect(() => {
+    if (mobile) {
+      setOpen(false);
+    } else {
+      setOpen(true);
+    }
+  }, [mobile])
 
 
   const handleDrawerToggle = () => {
@@ -88,83 +148,100 @@ const AppSidebar = () => {
   }
 
 
-  const handleDrawerClick = (text: string) => {
-    console.log('click');
-    setOpenCollapse(prev => ({...prev, [text]: !prev[text] }));
+  const handleDrawerClick = (menu: Menu) => {
+    if (menu.url && mobile) {
+      setOpen(false);
+      // setOpenCollapse({});
+    }
+    setOpenCollapse(prev => ({...prev, [menu.text]: !prev[menu.text] }));
 
   }
 
+  const contentDrawer = (
+    <div>
+
+        {/* <div className={classes.toolbar}></div> */}
+            {/* <IconButton sx={{color: 'white'}} onClick={handleDrawerClick}> 
+              {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+            </IconButton> */}        
+        <List>
+          { 
+            menuSidebar.map(item => (
+              <>
+              <MenuItem menu={item} key={item.text} click={handleDrawerClick} collapse={openCollapse} />            
+              {
+                item.submenu ? 
+                  (
+                    <Collapse sx={{backgroundColor: "#35444C"}} in={openCollapse[item.text]} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
+                    {
+                      item.submenu.map(subitem => <MenuItem key={subitem.text} menu={subitem} click={handleDrawerClick} collapse={openCollapse} submenu />)    
+                    }
+                    </List>
+                  </Collapse>                
+                  
+                ) : null
+              }
+              </>
+            ))
+          }
+        </List>
+    </div>
+  )
+
   return ( 
     <div className={classes.root}>
+    
     <AppBar 
       position="fixed"
-      className={clsx(classes.appBar, 
-      {
-        [classes.appBarShift]: open
-      })}
+      className={clsx(classes.appBar)}
     >
-      <Toolbar variant="dense" sx={{pl: 0}}> 
+      <Toolbar variant="dense" className={clsx(classes.toolbar, {
+        [classes.appBarShift]: open,
+        [classes.toolbarShift]: !open,
+        
+      })}> 
         <IconButton
           color="inherit"
           size="small"   
-          edge="start"       
+          edge="start"                 
           aria-label="abrir drawer"
           sx={{ mr: 2, pt: 0, pl: 0 }}
           onClick={handleDrawerToggle}
         >
           <MenuIcon fontSize="medium" />
         </IconButton>
-        <Typography variant="h6" component="div">
+        <Typography variant="h6" noWrap component="div">
               Estrella Ltda
         </Typography>
       </Toolbar>
     </AppBar>
-    
-    <Drawer
-      className={classes.drawer}
-      classes={{paper: classes.drawerPaper}}      
-      variant="persistent"
-      anchor="left"      
-      open={open}
-    >
-      {/* <div className={classes.drawerHeader}>
-          <IconButton sx={{color: 'white'}} onClick={handleDrawerClick}> 
-            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-          </IconButton>
-      </div> */}
-      <List>
-        { 
-          menuSidebar.map(item => (
-            <>
-              <MenuItem menu={item} click={handleDrawerClick} collapse={openCollapse} />
-            {/* <ListItem button key={item.text} onClick={() => handleDrawerClick(item.text)}>
-              <ListItemIcon sx={{color: 'white'}}>
-                {item.icon}
-              </ListItemIcon>              
-              <ListItemText sx={{color: 'white'}}>{item.text}</ListItemText> 
-              {openCollapse[item.text] ? <ExpandLessIcon sx={{color: 'white'}} /> : < ExpandMoreIcon sx={{color: 'white'}} />}                   
-            </ListItem> */}
-            {
-              item.submenu ? 
-                (
-                  <Collapse sx={{backgroundColor: "#35444C"}} in={openCollapse[item.text]} timeout="auto" unmountOnExit>
-                  <List component="div" disablePadding>
-                  {
-                    item.submenu.map(subitem => <MenuItem menu={subitem} click={handleDrawerClick} collapse={openCollapse} submenu />)    
-                  }
-                  </List>
-                </Collapse>                
-                
-              ) : null
-            }
-            </>
-          ))
-        }
-      </List>
-    </Drawer>
-    <main className={clsx(classes.content, {
-      [classes.contentShift]: open
-    })}>
+    <nav className={clsx(classes.drawer)}> 
+      <Hidden smDown implementation="css">
+        <Drawer          
+          classes={{paper: classes.drawerPaper}}      
+          variant="persistent"               
+          open={open}
+        >
+          {contentDrawer}
+        </Drawer>
+      </Hidden>
+      <Hidden smUp implementation="css">
+        <Drawer 
+          variant="temporary"
+          open={open && mobile}
+          onClose={handleDrawerToggle}
+          classes={{
+            paper: classes.drawerPaper
+          }}          
+          ModalProps={{keepMounted: true}}
+        >
+          {contentDrawer}
+        </Drawer>
+      </Hidden>
+    </nav>
+    <main className={clsx(classes.content, {[classes.contentShift]: open})}>
+      <div className={classes.toolbar}></div>
       <Typography paragraph>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
           tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
