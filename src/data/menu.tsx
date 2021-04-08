@@ -9,7 +9,7 @@ import ArchiveIcon from '@material-ui/icons/Archive';
 import React from 'react';
 import { ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 
-export interface Menu {
+export interface Menu { 
   icon: React.ReactNode,
   text: string,
   url?: string,

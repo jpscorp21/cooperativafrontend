@@ -2,12 +2,13 @@ import './App.scss';
 import { Button } from '@material-ui/core';
 import AppSidebar from './components/AppSidebar';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import Layout from './components/Layout';
+import { AppRoutes } from './routes/AppRoutes';
 
 function App() {
   return (
-    <>
-    <CssBaseline />
-    <AppSidebar></AppSidebar>
+    <Layout>
+      <AppRoutes></AppRoutes>
     {/* <div className="App">
       <header className="App-header">        
         <p>
@@ -24,7 +25,7 @@ function App() {
         <Button variant="contained" >Aprender React</Button> 
       </header>
     </div> */}
-    </>
+    </Layout>
   );
 } 
 
