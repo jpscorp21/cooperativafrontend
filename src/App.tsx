@@ -1,12 +1,15 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './App.scss';
+import { Button } from '@material-ui/core';
+import AppSidebar from './components/AppSidebar';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+    <>
+    <CssBaseline />
+    <AppSidebar></AppSidebar>
+    {/* <div className="App">
+      <header className="App-header">        
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
@@ -16,11 +19,13 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
         </a>
+        
+        <Button variant="contained" >Aprender React</Button> 
       </header>
-    </div>
+    </div> */}
+    </>
   );
-}
+} 
 
 export default App;
