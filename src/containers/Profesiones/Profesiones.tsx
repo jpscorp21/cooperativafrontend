@@ -1,9 +1,9 @@
-const Profesion = () => {
+const Profesiones = () => {
   return (
     <div>
-      Profesion
+      Profesiones
     </div>
   )
 }
  
-export default Profesion
+export default Profesiones

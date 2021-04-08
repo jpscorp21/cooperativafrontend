@@ -39,7 +39,7 @@ export const menu: Menu[] = [
       {
         icon: <ArchiveIcon></ArchiveIcon>,
         text: 'Estados Civiles',
-        url: '/estados-civiles',
+        url: '/estadocivil',
       },
       {
         icon: <ArchiveIcon></ArchiveIcon>,
@@ -49,7 +49,7 @@ export const menu: Menu[] = [
       {
         icon: <ArchiveIcon></ArchiveIcon>,
         text: 'Puestos Laborales',
-        url: '/puestos-laborales',
+        url: '/puestolaboral',
       },
       {
         icon: <ArchiveIcon></ArchiveIcon>,
@@ -65,7 +65,7 @@ export const menu: Menu[] = [
       {
         icon: <ArchiveIcon></ArchiveIcon>,
         text: 'Cuenta',
-        url: '/cuenta',
+        url: '/cuentas',
       },
     ]
   },
@@ -114,12 +114,12 @@ export const menu: Menu[] = [
       {
         icon: <DescriptionIcon></DescriptionIcon>,
         text: 'Ver D. Juradas',
-        url: '/cajaahorrovista',
+        url: '/declaracionjurada', 
       },
       {
         icon: <DescriptionIcon></DescriptionIcon>,
         text: 'Nueva D. Jurada',
-        url: '/cajaahorrovista',
+        url: '/declaracionjurada',
       },
     ]
   },
@@ -141,6 +141,7 @@ export const menu: Menu[] = [
       {
         icon: <DescriptionIcon></DescriptionIcon>,
         text: 'Aportes',
+        url: '/aportes'
       }
     ]
   },
@@ -151,6 +152,7 @@ export const menu: Menu[] = [
       {
         icon: <DescriptionIcon></DescriptionIcon>,
         text: 'Solidaridad',
+        url: '/solidaridad', 
       }
     ]
   },
@@ -174,31 +176,31 @@ export const menu: Menu[] = [
 
         icon: <DescriptionIcon></DescriptionIcon>,
         text: 'Pagos',
-        url: '/solicitudcredito',
+        url: '/pagos',
       },
       {
 
         icon: <DescriptionIcon></DescriptionIcon>,
         text: 'Modalidad Pago',
-        url: '/solicitudcredito',
+        url: '/modalidadpago',
       },
       {
 
         icon: <DescriptionIcon></DescriptionIcon>,
         text: 'Tipo Crédito',
-        url: '/solicitudcredito',
+        url: '/tipocredito', 
       },
       {
 
         icon: <DescriptionIcon></DescriptionIcon>,
         text: 'Tipo Garantia',
-        url: '/solicitudcredito',
+        url: '/tipogarantia',
       },
       {
 
         icon: <DescriptionIcon></DescriptionIcon>,
         text: 'Tipo Solicitud',
-        url: '/solicitudcredito',
+        url: '/tiposolicitud',
       },
     ]
   },

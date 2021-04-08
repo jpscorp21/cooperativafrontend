@@ -1,9 +1,9 @@
-const Timbrado = () => {
+const Timbrados = () => {
   return (
     <div>
-      Timbrado
+      Timbrados
     </div>
   )
 }
  
-export default Timbrado
+export default Timbrados
