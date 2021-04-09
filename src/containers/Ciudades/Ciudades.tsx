@@ -1,11 +1,11 @@
 import { Box, Button, Grid, TextField } from "@material-ui/core"
+import WrapperCard from "../../components/WrapperCard"
 
 const Ciudades = () => {
   return (
-    < Box sx={{p:3}}>
-      <div> 
-        Ciudades
-      </div>
+    <WrapperCard title="Ciudades">
+    < Box sx={{p:2, pt: 0}}>
+      
       <Button variant="contained" sx={{mr:1}}>Nuevo</Button>
       <Button variant="outlined" sx={{mr:1}}>Refrescar</Button>
       <Button variant="outlined">Barrios</Button>
@@ -23,6 +23,7 @@ const Ciudades = () => {
 
       </form>
     </ Box>
+    </WrapperCard>
   )
 }
  

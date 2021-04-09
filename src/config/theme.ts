@@ -7,6 +7,12 @@ const theme = createMuiTheme({
       main: teal[600]
     },
   },
+  typography: {
+    h5: {
+      fontSize: '1.25rem',
+      fontWeight: 600
+    }
+  }
 });
 
 export default theme;
