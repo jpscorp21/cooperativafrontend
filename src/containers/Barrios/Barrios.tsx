@@ -24,6 +24,7 @@ const Barrios = () => {
       <InputLabel >Ciudad</InputLabel>
         <Select
           fullWidth
+          label="ciudad"
         >
           <MenuItem value={10}>Capiata</MenuItem>
           <MenuItem value={21}>Itaugua</MenuItem>
