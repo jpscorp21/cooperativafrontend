@@ -7,7 +7,7 @@ import Select from "@material-ui/core/Select";
 
 const Barrios = () => {
   return (
-    <WrapperCard title="Barrios">
+    <WrapperCard title="Formulario Barrio">
     < Box sx={{p:2, pt: 0}}>
       
       <Button variant="contained" sx={{mr:1}}>Nuevo</Button>
