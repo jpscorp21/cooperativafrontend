@@ -7,7 +7,7 @@ import React, { PropsWithChildren, useEffect, useMemo } from 'react'
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { menu, MenuItem, Menu } from '../data/menu';
-import {teal} from '@material-ui/core/colors';
+import {blueGrey, deepPurple, grey, teal} from '@material-ui/core/colors';
 import { cssHelper } from '../utils/helpers';
 import useResponsive from '../utils/hooks/useResponsive';
 import { useHistory } from 'react-router';
@@ -22,17 +22,11 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex'
   },
   appBar: {       
+    
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
-    }),       
-    // [theme.breakpoints.up('sm')]: {
-    //   width: cssHelper.important(`calc(100% - ${drawerWidth}px)`),    
-    //   transition: theme.transitions.create('width', {
-    //     easing: theme.transitions.easing.easeOut,
-    //     duration: theme.transitions.duration.enteringScreen,
-    //   }),         
-    // },         
+    }),           
   },
   appBarShift: {
     [theme.breakpoints.up('sm')]: {
@@ -66,29 +60,13 @@ const useStyles = makeStyles((theme) => ({
   },
   drawer: {  
     width: drawerWidth,
-    flexShrink: 0,
-    // [theme.breakpoints.up('sm')]: {
-    //   width: drawerWidth,
-    //   flexShrink: 0,
-    //   transition: theme.transitions.create('width', {
-    //     easing: theme.transitions.easing.easeOut,
-    //     duration: theme.transitions.duration.enteringScreen,
-    //   }), 
-    // },      
+    flexShrink: 0,    
   },
-  // drawerShift: {  
-  //   [theme.breakpoints.up('sm')]: {      
-  //     transition: theme.transitions.create('width', {
-  //       easing: theme.transitions.easing.easeOut,
-  //       duration: theme.transitions.duration.enteringScreen,
-  //     }),          
-  //   },      
-  // },
   drawerPaper: {
     width: drawerWidth,
     boxSizing: 'border-box',
     color: 'white',
-    background: `#263238 !important`
+    background: cssHelper.important('#2D3F50')
   },
   drawerHeader: {
     display: 'flex',
@@ -178,7 +156,7 @@ const AppSidebar = ({children}: PropsWithChildren<{}>) => {
               {
                 item.submenu ? 
                   (
-                    <Collapse sx={{backgroundColor: "#35444C"}} in={openCollapse[item.text]} timeout="auto" unmountOnExit>
+                    <Collapse sx={{backgroundColor: blueGrey[900]}} in={openCollapse[item.text]} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
                     {
                       item.submenu.map((subitem, index) => <MenuItem key={index} menu={subitem} click={handleDrawerClick} collapse={openCollapse} submenu />)    
@@ -208,16 +186,15 @@ const AppSidebar = ({children}: PropsWithChildren<{}>) => {
         
       })}> 
         <IconButton
-          color="inherit"
-          size="small"   
+          color="primary"
           edge="start"                 
           aria-label="abrir drawer"
-          sx={{ mr: 2, pt: 0, pl: 0 }}
+          sx={{ p: 1 }}
           onClick={handleDrawerToggle}
         >
           <MenuIcon fontSize="medium" />
         </IconButton>
-        <Typography variant="h6" noWrap component="div">
+        <Typography sx={{color: theme.palette.primary.main, fontWeight: "500"}} variant="h5" noWrap component="div">
               Estrella Ltda
         </Typography>
       </Toolbar>
