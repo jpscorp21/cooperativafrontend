@@ -220,7 +220,7 @@ interface MenuItemProps {
 
 export const MenuItem = ({menu, click, collapse, submenu}: MenuItemProps) => (
   <ListItem button key={menu.text} onClick={() => click(menu)} sx={{pl: submenu ?  4 : ''}}>
-    <ListItemIcon sx={{color: '#ffd600'}}>
+    <ListItemIcon sx={{color: 'white'}}>
       {menu.icon}
     </ListItemIcon>              
     <ListItemText sx={{color: 'white'}}>{menu.text}</ListItemText> 

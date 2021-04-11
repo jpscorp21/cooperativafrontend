@@ -14,7 +14,7 @@ const theme = createMuiTheme({
   },
   typography: {
     fontFamily: [
-      '"Montserrat"',
+      '"Nunito"',
       'Roboto',
       'Helveitca Neue'
     ].join(','),
@@ -27,7 +27,8 @@ const theme = createMuiTheme({
     MuiToolbar: {      
       styleOverrides: {
         root: {
-          background: 'white',
+          color: 'white',
+          background: cyan[800],
           boxShadow: 'none !important'
         }
       }
@@ -49,10 +50,12 @@ const theme = createMuiTheme({
              
           backgroundColor: 'white !important',          
         },
-        root: {
-          backgroundColor: 'white !important',          
+        root: {                    
           borderBottom: '1px solid #E7E7E7', 
           // hide last border
+          '&:nth-of-type(odd)': {
+            backgroundColor: '#F4F8FB',
+          },
           '&:last-child td, &:last-child th': {
             border: 0,
           },
@@ -63,17 +66,16 @@ const theme = createMuiTheme({
       styleOverrides: {        
         head: {        
           fontWeight: 'bold',
-          background: '#EBEBEB',            
+          // background: '#EBEBEB',            
         },
         root: {          
-          paddingTop: 12,
-          paddingBottom: 12,
+          paddingTop: 6,
+          paddingBottom: 6,
           fontSize: '14px'
           
         },
-        body: {          
-          color: grey[500],
-          fontWeight: 'bold'
+        body: {           
+          
         }
       }      
     }

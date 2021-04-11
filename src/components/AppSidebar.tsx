@@ -186,7 +186,7 @@ const AppSidebar = ({children}: PropsWithChildren<{}>) => {
         
       })}> 
         <IconButton
-          color="primary"
+          color="inherit"
           edge="start"                 
           aria-label="abrir drawer"
           sx={{ p: 1 }}
@@ -194,7 +194,7 @@ const AppSidebar = ({children}: PropsWithChildren<{}>) => {
         >
           <MenuIcon fontSize="medium" />
         </IconButton>
-        <Typography sx={{color: theme.palette.primary.main, fontWeight: "500"}} variant="h5" noWrap component="div">
+        <Typography sx={{color: 'white', fontWeight: "500"}} variant="h5" noWrap component="div">
               Estrella Ltda
         </Typography>
       </Toolbar>

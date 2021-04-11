@@ -29,43 +29,57 @@ const Ciudades = () => {
     </Stack> */}
 
     <Box px={2} pt={2}>
-    <Paper elevation={1} sx={{pb: 2}}>      
-        
-    <Typography sx={{px: 2, py: 2}} variant="h5" component="h5">Ciudades</Typography> 
-          <TableContainer>
-            <Table aria-label="lista de ciudades">
-              <TableHead>
-                <TableRow>
-                  <TableCell>Código</TableCell>
-                  <TableCell>Descripción</TableCell>
-                  <TableCell>Observación</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                <TableRow>
-                  <TableCell>10</TableCell>
-                  <TableCell>Caacupe</TableCell>
-                  <TableCell>Obs...</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>20</TableCell>
-                  <TableCell>Asunción</TableCell>
-                  <TableCell>Obs...</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>30</TableCell>
-                  <TableCell>Eusebio Ayala</TableCell>
-                  <TableCell>Obs...</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>40</TableCell>
-                  <TableCell>Tobati</TableCell>
-                  <TableCell>Obs...</TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
-          </TableContainer>
-          </Paper>
+      <Box sx={{pb: 1, display: "flex"}} alignItems="center" justifyContent="space-between">
+      <Typography variant="h5" component="h5">Ciudades</Typography> 
+      <Button variant="outlined" color="secondary" sx={{mr:1}}>Refrescar</Button>
+      <Button variant="outlined" color="secondary">Barrios</Button>
+      <Box sx={{display: "flex"}}>
+        <Button size="small" variant="contained" color="secondary" sx={{mr: 1}}>Nuevo</Button>
+        <Button variant="contained" color="secondary">Nuevo</Button>
+      </Box>
+    </Box>
+    <Paper elevation={1} sx={{pt: 2}}> 
+      <Box px={2} pb={1}>
+        <Typography variant="h5" component="h5">Ciudades</Typography> 
+
+        <Button variant="contained" color="secondary" sx={{mr:1}}>Nuevo</Button>
+        <Button variant="outlined" color="secondary" sx={{mr:1}}>Refrescar</Button>
+        <Button variant="outlined" color="secondary">Barrios</Button>
+      </Box>
+      <TableContainer>
+        <Table aria-label="lista de ciudades">
+          <TableHead>
+            <TableRow>
+              <TableCell>Código</TableCell>
+              <TableCell>Descripción</TableCell>
+              <TableCell>Observación</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            <TableRow>
+              <TableCell>10</TableCell>
+              <TableCell>Caacupe</TableCell>
+              <TableCell>Obs...</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>20</TableCell>
+              <TableCell>Asunción</TableCell>
+              <TableCell>Obs...</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>30</TableCell>
+              <TableCell>Eusebio Ayala</TableCell>
+              <TableCell>Obs...</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>40</TableCell>
+              <TableCell>Tobati</TableCell>
+              <TableCell>Obs...</TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Paper>
     </Box>
     <WrapperCard title="Ciudades">
     < Box sx={{p:2, pt: 0}}>
