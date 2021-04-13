@@ -1,21 +1,16 @@
-import { AppBar, Box, Collapse, Drawer, Hidden, IconButton, List, makeStyles, Toolbar, Typography, useTheme } from '@material-ui/core';
+import { AppBar, Box, Collapse, Drawer, Hidden, IconButton, List, makeStyles, Toolbar, Typography } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import clsx from 'clsx';
 import React, { PropsWithChildren, useEffect, useMemo } from 'react'
-import ExpandLessIcon from '@material-ui/icons/ExpandLess';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { menu, MenuItem, Menu } from '../data/menu';
-import {blueGrey, deepPurple, grey, teal} from '@material-ui/core/colors';
+import {blueGrey} from '@material-ui/core/colors';
 import { cssHelper } from '../utils/helpers';
 import useResponsive from '../utils/hooks/useResponsive';
 import { useHistory } from 'react-router';
-<div>
-  <MenuIcon></MenuIcon>
-</div>
+
 
 const drawerWidth = 300;
+const breakpointDrawer = 'md';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     }),           
   },
   appBarShift: {
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up(breakpointDrawer)]: {
       width: cssHelper.important(`calc(100% - ${drawerWidth}px)`),    
       marginLeft: drawerWidth,      
       transition: theme.transitions.create(['margin', 'width'], {
@@ -66,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
     width: drawerWidth,
     boxSizing: 'border-box',
     color: 'white',
-    background: cssHelper.important('#2D3F50')
+    background: cssHelper.important('#0B233C')    
   },
   drawerHeader: {
     display: 'flex',
@@ -80,9 +75,10 @@ const useStyles = makeStyles((theme) => ({
     display: 'none'
   },
   content: {
+    maxWidth: '100%',
     marginLeft: -drawerWidth,
     flexGrow: 1,   
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up(breakpointDrawer)]: {
       transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.leavingScreen,
@@ -91,7 +87,7 @@ const useStyles = makeStyles((theme) => ({
     },    
   },
   contentShift: {
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up(breakpointDrawer)]: {
       transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen,
@@ -109,21 +105,18 @@ const AppSidebar = ({children}: PropsWithChildren<{}>) => {
   
   const [open, setOpen] = React.useState(true); 
   const [openCollapse, setOpenCollapse] = React.useState<{[key: string]: boolean}>({});
-  const theme = useTheme(); 
 
-  const { mobile } = useResponsive();
+  const { desktop } = useResponsive();
 
-  const menuSidebar = useMemo(() => [...menu], []);
+  const menuSidebar = useMemo(() => [...menu], []);  
 
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-
-  useEffect(() => {
-    if (mobile) {
+  useEffect(() => { 
+    if (desktop) {
       setOpen(false);
     } else {
       setOpen(true);
     }
-  }, [mobile])
+  }, [desktop])
 
 
   const handleDrawerToggle = () => {
@@ -137,7 +130,7 @@ const AppSidebar = ({children}: PropsWithChildren<{}>) => {
       history.push(menu.url);
     }
 
-    if (menu.url && mobile) {
+    if (menu.url && desktop) {
       setOpen(false);
       
       // setOpenCollapse({});
@@ -185,14 +178,13 @@ const AppSidebar = ({children}: PropsWithChildren<{}>) => {
         [classes.toolbarShift]: !open,
         
       })}> 
-        <IconButton
-          color="inherit"
+        <IconButton          
           edge="start"                 
           aria-label="abrir drawer"
           sx={{ p: 1 }}
           onClick={handleDrawerToggle}
         >
-          <MenuIcon fontSize="medium" />
+          <MenuIcon fontSize="medium" sx={{color: 'white'}} />
         </IconButton>
         <Typography sx={{color: 'white', fontWeight: "500"}} variant="h5" noWrap component="div">
               Estrella Ltda
@@ -200,7 +192,7 @@ const AppSidebar = ({children}: PropsWithChildren<{}>) => {
       </Toolbar>
     </AppBar>
     <nav className={clsx(classes.drawer)}> 
-      <Hidden smDown implementation="css">
+      <Hidden mdDown implementation="css">
         <Drawer          
           classes={{paper: classes.drawerPaper}}      
           variant="persistent"               
@@ -209,10 +201,10 @@ const AppSidebar = ({children}: PropsWithChildren<{}>) => {
           {contentDrawer}
         </Drawer>
       </Hidden>
-      <Hidden smUp implementation="css">
+      <Hidden mdUp implementation="css">
         <Drawer 
           variant="temporary"
-          open={open && mobile}
+          open={open && desktop}
           onClose={handleDrawerToggle}
           classes={{
             paper: classes.drawerPaper

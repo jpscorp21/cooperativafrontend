@@ -1,11 +1,12 @@
 import { createMuiTheme } from "@material-ui/core/styles";
-import { green, deepPurple, teal, cyan, grey } from "@material-ui/core/colors";
+import { green, cyan } from "@material-ui/core/colors";
+import { esES } from '@material-ui/core/locale';
 
 const theme = createMuiTheme({
   
   palette: {    
     primary: {
-      main: cyan[900],    
+      main: cyan[800],    
       "600": green[700]
     },
     secondary: {
@@ -20,15 +21,17 @@ const theme = createMuiTheme({
     ].join(','),
     h5: {
       fontSize: '1.25rem',
-      fontWeight: 800
+      fontWeight: 700
+    },
+    body2: {
+      color: 'black !important'
     }
   },
   components: {
     MuiToolbar: {      
       styleOverrides: {
         root: {
-          color: 'white',
-          background: cyan[800],
+          color: 'white',          
           boxShadow: 'none !important'
         }
       }
@@ -39,23 +42,22 @@ const theme = createMuiTheme({
       },
       styleOverrides: {
         root: {
-          background: 'white',
+          
           boxShadow: 'none !important'
         }
       }
     },
     MuiTableRow: {
       styleOverrides: {
-        head: {   
-             
-          backgroundColor: 'white !important',          
+        head: {                
+          backgroundColor: cyan[800],          
         },
         root: {                    
           borderBottom: '1px solid #E7E7E7', 
           // hide last border
-          '&:nth-of-type(odd)': {
-            backgroundColor: '#F4F8FB',
-          },
+          // '&:nth-of-type(odd)': {
+          //   backgroundColor: '#F4F8FB',
+          // },
           '&:last-child td, &:last-child th': {
             border: 0,
           },
@@ -64,13 +66,14 @@ const theme = createMuiTheme({
     },
     MuiTableCell: {
       styleOverrides: {        
-        head: {        
+        head: { 
+          color: 'white',       
           fontWeight: 'bold',
           // background: '#EBEBEB',            
         },
         root: {          
-          paddingTop: 6,
-          paddingBottom: 6,
+          paddingTop: 4,
+          paddingBottom: 4,
           fontSize: '14px'
           
         },
@@ -78,8 +81,30 @@ const theme = createMuiTheme({
           
         }
       }      
+    },
+    MuiTablePagination: {
+      defaultProps: {
+        
+        labelRowsPerPage: '',
+        
+        
+      },
+      styleOverrides: {
+
+        root: {
+          color: 'black',
+          
+        }
+      }
+    },
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          color: 'black'
+        }
+      }
     }
   }
-});
+}, esES);
 
 export default theme;

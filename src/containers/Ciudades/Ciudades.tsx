@@ -1,107 +1,103 @@
-import { Box, Button, Grid, IconButton, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography, useTheme } from "@material-ui/core"
-import React from "react"
-import WrapperCard from "../../components/WrapperCard"
-import MenuIcon from '@material-ui/icons/Menu';
+import { Box, Button, Dialog, Grid, Paper, TextField, Typography } from "@material-ui/core"
+import { useMemo, useState } from "react"
+import AddIcon from '@material-ui/icons/Add';
+import RefreshIcon from '@material-ui/icons/Refresh';
+import CustomTable, { ColumnCustomTable } from "../../components/CustomTable";
+import AccionesCell from "../../components/AccionesCell";
+import { useQuery } from "react-query";
+import { ciudades } from "../../api/ciudades";
 
+const useCiudades = () => {
+  const {data: items} = useQuery('ciudades', ciudades.getAll);  
+
+  return items;
+}
 
 const Ciudades = () => {
 
+  const items = useCiudades(); 
+
+  const [openModal, setOpenModal] = useState(false)  
+
+  const handlePageChange = (page: number) => {
+    console.log(page);
+  }
+
+  const handleEditar = (item: any) => {
+    console.log({item});
+  }
+
+  const hancleCloseModal = (e: any) => {
+    setOpenModal(false);
+  }
+
+  const columns = useMemo(() => [
+    {
+      key: 'codigo',
+      label: 'Codigo',          
+    },
+    {
+      key: 'descripcion',
+      label: 'Descripcion',            
+    },    
+    {
+      key: 'acciones',
+      label: 'Acciones',
+      align: 'right',
+      render: (item: any) => <AccionesCell item={item} onEditar={handleEditar} />
+    },
+  ] as ColumnCustomTable[], [])
+
   return (
-    <>    
-    {/* <Stack direction="row" spacing={2} sx={{p: 2}} justifyContent="space-between" alignItems="center">
-      <Typography variant="h5" component="h1">Ciudades</Typography>
-      <Stack direction="row" spacing={2}>
-
-        <Button variant="outlined" color="secondary">Refrescar</Button>
-        <Button variant="contained" color="secondary">
-        <MenuIcon fontSize="medium" />
-        </Button>
-        <IconButton
-          color="primary"          
-          edge="start"                 
-          aria-label="abrir drawer"
-          sx={{ p: 1 }}          
-        >
-          <MenuIcon fontSize="medium" />
-        </IconButton>
-        <Button variant="contained" color="secondary">Nuevo</Button>
-      </Stack>
-    </Stack> */}
-
-    <Box px={2} pt={2}>
-      <Box sx={{pb: 1, display: "flex"}} alignItems="center" justifyContent="space-between">
-      <Typography variant="h5" component="h5">Ciudades</Typography> 
-      <Button variant="outlined" color="secondary" sx={{mr:1}}>Refrescar</Button>
-      <Button variant="outlined" color="secondary">Barrios</Button>
-      <Box sx={{display: "flex"}}>
-        <Button size="small" variant="contained" color="secondary" sx={{mr: 1}}>Nuevo</Button>
-        <Button variant="contained" color="secondary">Nuevo</Button>
+    <>  
+      {/* TITULO */}
+      <Box px={2} pt={3} pb={3}>
+        <Typography variant="h5" component="h5">
+          Ciudades            
+        </Typography> 
       </Box>
-    </Box>
-    <Paper elevation={1} sx={{pt: 2}}> 
-      <Box px={2} pb={1}>
-        <Typography variant="h5" component="h5">Ciudades</Typography> 
 
-        <Button variant="contained" color="secondary" sx={{mr:1}}>Nuevo</Button>
-        <Button variant="outlined" color="secondary" sx={{mr:1}}>Refrescar</Button>
-        <Button variant="outlined" color="secondary">Barrios</Button>
-      </Box>
-      <TableContainer>
-        <Table aria-label="lista de ciudades">
-          <TableHead>
-            <TableRow>
-              <TableCell>Código</TableCell>
-              <TableCell>Descripción</TableCell>
-              <TableCell>Observación</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            <TableRow>
-              <TableCell>10</TableCell>
-              <TableCell>Caacupe</TableCell>
-              <TableCell>Obs...</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>20</TableCell>
-              <TableCell>Asunción</TableCell>
-              <TableCell>Obs...</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>30</TableCell>
-              <TableCell>Eusebio Ayala</TableCell>
-              <TableCell>Obs...</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>40</TableCell>
-              <TableCell>Tobati</TableCell>
-              <TableCell>Obs...</TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </Paper>
-    </Box>
-    <WrapperCard title="Ciudades">
-    < Box sx={{p:2, pt: 0}}>
-      
-      <Button variant="contained" color="secondary" sx={{mr:1}}>Nuevo</Button>
-      <Button variant="outlined" color="secondary" sx={{mr:1}}>Refrescar</Button>
-      <Button variant="outlined" color="secondary">Barrios</Button>
-      <form>
-      <Grid container sx={{mt:2}}>
+      {/* BOTONES */}
+      <Box px={2} pb={2}>
+          <Button variant="contained" size="small" color="secondary" sx={{mb: 2, mr: 2}} onClick={() => setOpenModal(true)}  startIcon={<AddIcon />}>Nuevo</Button>
+          <Button variant="outlined" size="small" color="secondary" sx={{mb: 2}}  startIcon={<RefreshIcon />}>Refrescar</Button>        
+          <TextField sx={{bgcolor: 'white'}} fullWidth placeholder="Buscar una ciudad" name="descripcion" size="small" />
+      </Box>   
+
+      {/* TABLA */}
+      <Box sx={{px: 2}}>
+        <CustomTable columns={columns} data={items} onPageChange={handlePageChange}></CustomTable>
+      </Box>  
+
+      {/* MODAL  */}
+      <Dialog open={openModal} onClose={hancleCloseModal}>
+        <Paper elevation={6} sx={{p: 2}}>
         
-      <Grid item xs={12} sx={{mb:2}}>
-      <TextField fullWidth label="Descripción" name="descripcion" size="small" />
-      </Grid>
-      <Grid item xs={12}>
-      <TextField fullWidth label="Observación" multiline name="obvervacion" size="small" rows={4}/>
-      </Grid>
-      
-    </Grid>
+          <Typography variant="h5" component="h5" sx={{pb: 2}}>
+            Formulario Ciudad
+          </Typography>          
+          <form>
+            <Grid container sx={{mt:2}}>
+              
+              <Grid item xs={12} sx={{mb:2}}>
+                <TextField fullWidth label="Código" name="codigo" size="small" disabled />
+              </Grid>
+              <Grid item xs={12} sx={{mb:2}}>
+                <TextField fullWidth label="Descripción" name="descripcion" size="small" autoFocus />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField fullWidth label="Observación" multiline name="obvervacion" size="small" rows={4}/>
+              </Grid>            
+            </Grid>
 
-      </form>
-    </ Box>
-    </WrapperCard>
+            <Box sx={{pt: 4, textAlign: 'center'}}>
+              <Button variant="contained" fullWidth color="secondary">Guardar cambios</Button>
+
+            </Box>
+          </form>
+
+        </Paper>
+      </Dialog>      
     </>
   )
 }

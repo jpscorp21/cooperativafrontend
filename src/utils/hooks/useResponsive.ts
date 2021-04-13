@@ -7,7 +7,7 @@ const useResponsive = () => {
 
   const mobile = useMediaQuery(theme.breakpoints.down('sm'));
   const tablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
-  const desktop = useMediaQuery(theme.breakpoints.up('md'));
+  const desktop = useMediaQuery(theme.breakpoints.down('md'));
 
   return {mobile, tablet, desktop};
 }

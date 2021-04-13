@@ -6,14 +6,19 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from "react-router-dom";
 import { ThemeProvider } from '@material-ui/core';
 import theme from './config/theme';
+import { QueryClientProvider, QueryClient } from 'react-query';
+
+const queryClient = new QueryClient();
 
 ReactDOM.render(
   <React.StrictMode>
+    <QueryClientProvider client={queryClient}>
     <ThemeProvider theme={theme}>
       <Router>        
         <App />
       </Router>
     </ThemeProvider>
+    </QueryClientProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

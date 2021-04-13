@@ -1,7 +1,4 @@
 import './App.scss';
-import { Button } from '@material-ui/core';
-import AppSidebar from './components/AppSidebar';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import Layout from './components/Layout';
 import { AppRoutes } from './routes/AppRoutes';
 
