@@ -54,7 +54,7 @@ const EstadoCivil = () => {
       {/* TITULO */}
       <Box px={2} pt={3} pb={3}>
         <Typography variant="h5" component="h5">
-          Formulario Estado Civil           
+         Estados Civiles           
         </Typography> 
       </Box>
 
@@ -79,6 +79,10 @@ const EstadoCivil = () => {
           </Typography>          
           <form>
             <Grid container sx={{mt:2}}>
+
+              <Grid item xs={12} sx={{mb:2}}>
+                <TextField fullWidth label="Código" name="codigo" size="small" disabled />
+              </Grid>
               
               <Grid item xs={12} sx={{mb:2}}>
                 <TextField fullWidth label="Descripción" name="descripcion" size="small" autoFocus />
