@@ -100,7 +100,7 @@ export const menu: Menu[] = [
         text: 'Ver Socios',
         url: '/socios',
       },
-      {
+      { 
         icon: <DescriptionIcon></DescriptionIcon>,
         text: 'Nuevo Socio',
         url: '/socios/form',

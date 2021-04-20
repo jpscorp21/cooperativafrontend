@@ -12,7 +12,7 @@ export interface ColumnCustomTable {
 
 interface CustomTableProps { 
     columns: ColumnCustomTable[];
-    data: any[];
+    data: any;
     onPageChange?: (page: number) => void;
 }
 
