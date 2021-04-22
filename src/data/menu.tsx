@@ -171,13 +171,7 @@ export const menu: Menu[] = [
         icon: <DescriptionIcon></DescriptionIcon>,
         text: 'Crear Solicitud Crédito',
         url: '/solicitudcredito',
-      },
-      {
-
-        icon: <DescriptionIcon></DescriptionIcon>,
-        text: 'Pagos',
-        url: '/pagos',
-      },
+      },      
       {
 
         icon: <DescriptionIcon></DescriptionIcon>,
