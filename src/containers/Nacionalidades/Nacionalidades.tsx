@@ -68,7 +68,7 @@ const Nacionalidades = () => {
         <CustomTable columns={columns} data={items} onPageChange={handlePageChange}></CustomTable>
       </Box> 
 
-
+handle
       <NacionalidadesFormModal openModal={openModal} handleCloseModal={hancleCloseModal}></NacionalidadesFormModal>
     
   </>

@@ -31,7 +31,7 @@ const EstadoCivil = () => {
     console.log({item});
   }
 
-  const hancleCloseModal = (e: any) => {
+  const handleCloseModal = (e: any) => {
     setOpenModal(false);
   }
 
@@ -72,7 +72,7 @@ const EstadoCivil = () => {
       </Box> 
 
 
-      <EstadoCivilFormModal openModal={openModal} handleCloseModal={hancleCloseModal}></EstadoCivilFormModal>
+      <EstadoCivilFormModal openModal={openModal} handleCloseModal={handleCloseModal}></EstadoCivilFormModal>
     
     </>
   )

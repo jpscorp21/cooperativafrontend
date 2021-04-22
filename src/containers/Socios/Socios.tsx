@@ -16,7 +16,7 @@ const Socios = () => {
     console.log({item});
   }
 
-  const hancleCloseModal = (e: any) => {
+  const handleCloseModal = (e: any) => {
     setOpenModal(false);
   }
 

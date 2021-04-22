@@ -27,7 +27,7 @@ const Barrios = () => {
     console.log(page);
   }
 
-  const hancleCloseModal = (e: any) => {
+  const handleCloseModal = (e: any) => {
     setOpenModal(false);
   }
   
@@ -69,7 +69,7 @@ const Barrios = () => {
         <CustomTable columns={columns} data={items} onPageChange={handlePageChange}></CustomTable>
       </Box> 
 
-    <Dialog open={openModal} onClose={hancleCloseModal}>
+    <Dialog open={openModal} onClose={handleCloseModal}>
         <Paper elevation={6} sx={{p: 2}}>
         
           <Typography variant="h5" component="h5" sx={{pb: 2}}>

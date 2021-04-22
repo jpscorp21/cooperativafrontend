@@ -30,7 +30,7 @@ const Cuentas = () => {
     console.log({item});
   }
 
-  const hancleCloseModal = (e: any) => {
+  const handleCloseModal = (e: any) => {
     setOpenModal(false);
   }
 
@@ -69,7 +69,7 @@ const Cuentas = () => {
     </Box> 
 
      {/* MODAL  */}
-     <Dialog open={openModal} onClose={hancleCloseModal}>
+     <Dialog open={openModal} onClose={handleCloseModal}>
       <Paper elevation={6} sx={{p: 2}}>
       
         <Typography variant="h5" component="h5" sx={{pb: 2}}>
