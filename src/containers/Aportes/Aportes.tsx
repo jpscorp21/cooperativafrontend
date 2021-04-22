@@ -1,4 +1,4 @@
-import TituloContainer from "../../components/TituloPrincipalContainer"
+import TituloContainer from "../../components/TituloContainer"
 
 const Aportes = () => {
   return (

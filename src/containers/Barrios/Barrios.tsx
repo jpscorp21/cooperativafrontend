@@ -10,7 +10,8 @@ import CustomTable, { ColumnCustomTable } from "../../components/CustomTable";
 import AddIcon from '@material-ui/icons/Add';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import { barrios } from "../../api/barrios";
-import TituloContainer from "../../components/TituloPrincipalContainer";
+import TituloContainer from "../../components/TituloContainer";
+import ButtonActionContainer from "../../components/ButtonActionContainer";
 
 const useBarrios = () => {
   const {data: items} = useQuery('barrios', barrios.getAll);  
@@ -55,13 +56,17 @@ const Barrios = () => {
     <>
       <TituloContainer>Barrios</TituloContainer>
 
-      {/* BOTONES */}
+      <ButtonActionContainer onNew={() => setOpenModal(true)} onRefresh={() => console.log('refrescando')}>
+        <Button variant="outlined" size="small" color="secondary" sx={{mb: 2, ml: 1}}  >Ciudad</Button>
+      </ButtonActionContainer>      
+
       <Box px={2} pb={2}>
-          <Button variant="contained" size="small" color="secondary" sx={{mb: 2, mr: 2}} onClick={() => setOpenModal(true)}  startIcon={<AddIcon />}>Nuevo</Button>
-          <Button variant="outlined" size="small" color="secondary" sx={{mb: 2 , mr: 2}}  startIcon={<RefreshIcon />}>Refrescar</Button>        
-          <Button variant="outlined" size="small" color="secondary" sx={{mb: 2, mr: 2}}  >Ciudad</Button>
-          <TextField sx={{bgcolor: 'white'}} fullWidth placeholder="Buscar una ciudad" name="descripcion" size="small" />
-      </Box> 
+        <TextField sx={{bgcolor: 'white'}} fullWidth placeholder="Buscar" size="small" />
+      </Box>     
+
+      <Box sx={{px: 2}}>
+        <CustomTable columns={columns} data={items} onPageChange={handlePageChange}></CustomTable>
+      </Box>  
 
       {/* TABLA */}
       <Box sx={{px: 2}}>

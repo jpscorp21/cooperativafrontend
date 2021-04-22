@@ -6,7 +6,7 @@ import AccionesCell from "../../components/AccionesCell";
 import CustomTable, { ColumnCustomTable } from "../../components/CustomTable";
 import AddIcon from '@material-ui/icons/Add';
 import RefreshIcon from '@material-ui/icons/Refresh';
-import TituloContainer from "../../components/TituloPrincipalContainer";
+import TituloContainer from "../../components/TituloContainer";
 
 const useTipoCuentas = () => {
   const {data: items} = useQuery('tipocuentas', tipocuentas.getAll);  

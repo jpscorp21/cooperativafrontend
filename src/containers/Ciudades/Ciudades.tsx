@@ -10,7 +10,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import Field from "../../components/control/Field";
 import { errors, validation } from "../../utils/errorMessages";
-import TituloContainer from "../../components/TituloPrincipalContainer";
+import TituloContainer from "../../components/TituloContainer";
+import ButtonActionContainer from "../../components/ButtonActionContainer";
 
 const initialForm = () => ({
   descripcion: '',
@@ -70,8 +71,8 @@ const Ciudades = () => {
   }
 
   return (
-    <>  
-      {/* TITULO */}
+    <>        
+
       <TituloContainer>Ciudades</TituloContainer>
 
       {
@@ -83,12 +84,12 @@ const Ciudades = () => {
         ) : null
       }
 
-      {/* BOTONES */}
+      
+      <ButtonActionContainer onNew={() => setOpenModal(true)} onRefresh={() => console.log('refrescando')} />
+
       <Box px={2} pb={2}>
-          <Button variant="contained" size="small" color="secondary" sx={{mb: 2, mr: 2}} onClick={() => setOpenModal(true)}  startIcon={<AddIcon />}>Nuevo</Button>
-          <Button variant="outlined" size="small" color="secondary" sx={{mb: 2}}  startIcon={<RefreshIcon />}>Refrescar</Button>        
-          <TextField sx={{bgcolor: 'white'}} fullWidth placeholder="Buscar una ciudad" name="descripcion" size="small" />
-      </Box>   
+        <TextField sx={{bgcolor: 'white'}} fullWidth placeholder="Buscar una ciudad" size="small" />
+      </Box>            
 
       {/* TABLA */} 
       <Box sx={{px: 2}}>
