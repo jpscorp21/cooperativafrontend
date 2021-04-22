@@ -6,6 +6,7 @@ import CustomTable, { ColumnCustomTable } from "../../components/CustomTable";
 import { estadosciviles } from "../../api/estadosciviles";
 import RefreshIcon from '@material-ui/icons/Refresh';
 import AddIcon from '@material-ui/icons/Add';
+import TituloContainer from "../../components/TituloPrincipalContainer";
 
 
 const useEstadosCiviles = () => {
@@ -52,11 +53,8 @@ const EstadoCivil = () => {
   return (
     <>
       {/* TITULO */}
-      <Box px={2} pt={3} pb={3}>
-        <Typography variant="h5" component="h5">
-         Estados Civiles           
-        </Typography> 
-      </Box>
+      
+      <TituloContainer>Estados Civiles</TituloContainer>      
 
       {/* BOTONES */}
       <Box px={2} pb={2}>

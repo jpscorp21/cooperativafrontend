@@ -1,8 +1,8 @@
+import TituloContainer from "../../components/TituloPrincipalContainer"
+
 const TipoSolicitud = () => {
   return (
-    <div>
-      TipoSolicitud
-    </div>
+    <TituloContainer>Tipo Solicitud</TituloContainer>      
   )
 }
  

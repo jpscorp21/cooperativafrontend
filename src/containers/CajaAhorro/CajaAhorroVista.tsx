@@ -1,8 +1,8 @@
+import TituloContainer from "../../components/TituloPrincipalContainer"
+
 const CajaAhorroVista = () => {
   return (
-    <div>
-      CajaAhorroVista
-    </div>
+    <TituloContainer>Ahorro a la Vista</TituloContainer>
   )
 }
  

@@ -6,6 +6,7 @@ import AccionesCell from "../../components/AccionesCell";
 import CustomTable, { ColumnCustomTable } from "../../components/CustomTable";
 import AddIcon from '@material-ui/icons/Add';
 import RefreshIcon from '@material-ui/icons/Refresh';
+import TituloContainer from "../../components/TituloPrincipalContainer";
 
 
 const usePuestosLaborales = () => {
@@ -50,11 +51,9 @@ const PuestoLaboral = () => {
   return (
     <>
       {/* TITULO */}
-      <Box px={2} pt={3} pb={3}>
-        <Typography variant="h5" component="h5">
-          Puestos Laborales           
-        </Typography> 
-      </Box>
+      
+        <TituloContainer>Puestos Laborales</TituloContainer>
+      
 
       {/* BOTONES */}
       <Box px={2} pb={2}>

@@ -1,8 +1,10 @@
+import TituloContainer from "../../components/TituloPrincipalContainer"
+
 const TipoCredito = () => {
   return (
-    <div>
-      TipoCredito
-    </div>
+    <>
+      <TituloContainer>Tipo Crédito</TituloContainer>
+    </>
   )
 }
  

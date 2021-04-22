@@ -1,8 +1,10 @@
+import TituloContainer from "../../components/TituloPrincipalContainer"
+
 const Facturas = () => {
   return (
-    <div>
-      Facturas
-    </div>
+    <>
+      <TituloContainer>Facturas</TituloContainer>
+    </>
   )
 }
  

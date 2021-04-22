@@ -1,8 +1,10 @@
+import TituloContainer from "../../components/TituloPrincipalContainer"
+
 const Conceptos = () => {
   return (
-    <div>
-      Conceptos
-    </div>
+    <>
+      <TituloContainer>Conceptos</TituloContainer>
+    </>
   )
 }
  

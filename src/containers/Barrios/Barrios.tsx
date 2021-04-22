@@ -10,6 +10,7 @@ import CustomTable, { ColumnCustomTable } from "../../components/CustomTable";
 import AddIcon from '@material-ui/icons/Add';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import { barrios } from "../../api/barrios";
+import TituloContainer from "../../components/TituloPrincipalContainer";
 
 const useBarrios = () => {
   const {data: items} = useQuery('barrios', barrios.getAll);  
@@ -52,12 +53,7 @@ const Barrios = () => {
 
   return (
     <>
-      {/* TITULO */}
-      <Box px={2} pt={3} pb={3}>
-        <Typography variant="h5" component="h5">
-          Barrios            
-        </Typography> 
-      </Box>
+      <TituloContainer>Barrios</TituloContainer>
 
       {/* BOTONES */}
       <Box px={2} pb={2}>

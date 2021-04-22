@@ -1,8 +1,10 @@
+import TituloContainer from "../../components/TituloPrincipalContainer"
+
 const DeclaracionJurada = () => {
   return (
-    <div>
-      DeclaracionJurada
-    </div>
+    <>
+      <TituloContainer>Declaración Jurada</TituloContainer>
+    </>
   )
 }
  

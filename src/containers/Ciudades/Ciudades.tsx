@@ -10,6 +10,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import Field from "../../components/control/Field";
 import { errors, validation } from "../../utils/errorMessages";
+import TituloContainer from "../../components/TituloPrincipalContainer";
 
 const initialForm = () => ({
   descripcion: '',
@@ -71,11 +72,7 @@ const Ciudades = () => {
   return (
     <>  
       {/* TITULO */}
-      <Box px={2} pt={3} pb={3}>
-        <Typography variant="h5" component="h5">
-          Ciudades            
-        </Typography> 
-      </Box>
+      <TituloContainer>Ciudades</TituloContainer>
 
       {
         submitting ? (

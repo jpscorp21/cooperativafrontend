@@ -1,8 +1,10 @@
+import TituloContainer from "../../components/TituloPrincipalContainer"
+
 const Timbrados = () => {
   return (
-    <div>
-      Timbrados
-    </div>
+    <>
+      <TituloContainer>Timbrados</TituloContainer>
+    </>
   )
 }
  

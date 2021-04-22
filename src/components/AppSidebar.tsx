@@ -61,7 +61,8 @@ const useStyles = makeStyles((theme) => ({
     width: drawerWidth,
     boxSizing: 'border-box',
     color: 'white',
-    background: cssHelper.important('#0B233C')    
+    background: cssHelper.important('#263238')    
+    // background: cssHelper.important('#0B233C')    
   },
   drawerHeader: {
     display: 'flex',
@@ -149,7 +150,7 @@ const AppSidebar = ({children}: PropsWithChildren<{}>) => {
               {
                 item.submenu ? 
                   (
-                    <Collapse sx={{backgroundColor: blueGrey[900]}} in={openCollapse[item.text]} timeout="auto" unmountOnExit>
+                    <Collapse sx={{backgroundColor: '#35444C'}} in={openCollapse[item.text]} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
                     {
                       item.submenu.map((subitem, index) => <MenuItem key={index} menu={subitem} click={handleDrawerClick} collapse={openCollapse} submenu />)    

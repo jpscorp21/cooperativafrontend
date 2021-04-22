@@ -1,8 +1,10 @@
+import TituloContainer from "../../components/TituloPrincipalContainer"
+
 const TipoGarantia = () => {
   return (
-    <div>
-      TipoGarantia
-    </div>
+    <>
+      <TituloContainer>Tipo Garantía</TituloContainer>      
+    </>
   )
 }
  
