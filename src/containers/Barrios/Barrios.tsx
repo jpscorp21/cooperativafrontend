@@ -62,11 +62,7 @@ const Barrios = () => {
 
       <Box px={2} pb={2}>
         <TextField sx={{bgcolor: 'white'}} fullWidth placeholder="Buscar" size="small" />
-      </Box>     
-
-      <Box sx={{px: 2}}>
-        <CustomTable columns={columns} data={items} onPageChange={handlePageChange}></CustomTable>
-      </Box>  
+      </Box>           
 
       {/* TABLA */}
       <Box sx={{px: 2}}>

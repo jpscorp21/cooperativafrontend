@@ -7,6 +7,7 @@ import CustomTable, { ColumnCustomTable } from "../../components/CustomTable";
 import AddIcon from '@material-ui/icons/Add';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import TituloContainer from "../../components/TituloContainer";
+import ButtonActionContainer from "../../components/ButtonActionContainer";
 
 const useTipoCuentas = () => {
   const {data: items} = useQuery('tipocuentas', tipocuentas.getAll);  
@@ -54,12 +55,11 @@ const TipoCuenta = () => {
     <TituloContainer>Tipo Cuenta</TituloContainer>
         
 
-    {/* BOTONES */}
+    <ButtonActionContainer onNew={() => setOpenModal(true)} onRefresh={() => console.log('refrescando')} />                
+
     <Box px={2} pb={2}>
-        <Button variant="contained" size="small" color="secondary" sx={{mb: 2, mr: 2}} onClick={() => setOpenModal(true)}  startIcon={<AddIcon />}>Nuevo</Button>
-        <Button variant="outlined" size="small" color="secondary" sx={{mb: 2}}  startIcon={<RefreshIcon />}>Refrescar</Button>        
-        <TextField sx={{bgcolor: 'white'}} fullWidth placeholder="Buscar una ciudad" name="descripcion" size="small" />
-    </Box>
+      <TextField sx={{bgcolor: 'white'}} fullWidth placeholder="Buscar" size="small" />
+    </Box>     
 
     {/* TABLA */}
     <Box sx={{px: 2}}>
