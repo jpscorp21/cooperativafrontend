@@ -5,13 +5,10 @@ import RefreshIcon from '@material-ui/icons/Refresh';
 import CustomTable, { ColumnCustomTable } from "../../components/CustomTable";
 import AccionesCell from "../../components/AccionesCell";
 import CiudadesHooks from "../../queries/CiudadesHooks";
-import { Controller, useForm } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from "yup";
-import Field from "../../components/control/Field";
-import { errors, validation } from "../../utils/errorMessages";
+import { useForm } from "react-hook-form";
 import TituloContainer from "../../components/TituloContainer";
 import ButtonActionContainer from "../../components/ButtonActionContainer";
+import CiudadesFormModal from "./CiudadesFormModal";
 
 const initialForm = () => ({
   descripcion: '',
@@ -96,53 +93,16 @@ const Ciudades = () => {
         <CustomTable columns={columns} data={items} onPageChange={handlePageChange}></CustomTable>
       </Box>  
 
-      {/* MODAL  */}
-      <Dialog open={openModal} onClose={handleCloseModal}>
-        <Paper elevation={6} sx={{p: 2}}>
-        
-          <Typography variant="h5" component="h5" sx={{pb: 2}}>
-            Formulario Ciudad
-            {/* {JSON.stringify(values)} */}
-
-          </Typography>          
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <Grid container sx={{mt:2}}>
-              
-              <Grid item xs={12} sx={{mb:2}}>
-                <TextField fullWidth label="Código" name="codigo" size="small" disabled />
-              </Grid>
-              <Grid item xs={12} sx={{mb:2}}>
-                <Field 
-                  name="descripcion" 
-                  rules={validation([errors.required()])}   
-                  fullWidth 
-                  onKeyDown={handleKeyDown}
-                  ref={el => itemsRef.current[0] = el}
-                  label="Descripción" 
-                  size="small" 
-                  control={control} 
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <Field 
-                  name="observacion" 
-                  rules={validation([errors.required()])}   
-                  fullWidth 
-                  ref={el => itemsRef.current[1] = el}                  
-                  label="Observación" 
-                  size="small" 
-                  control={control} 
-                />                               
-              </Grid>            
-            </Grid>
-
-            <Box sx={{pt: 4, textAlign: 'center'}}>
-              <Button type="submit" variant="contained" fullWidth color="secondary">Guardar cambios</Button>
-            </Box>
-          </form>
-
-        </Paper>
-      </Dialog>      
+      <CiudadesFormModal
+        control={control}
+        itemsRef={itemsRef}
+        handleKeyDown={handleKeyDown}
+        handleSubmit={handleSubmit}
+        onSubmit={onSubmit}
+        openModal={openModal}
+        handleCloseModal={handleCloseModal}
+      />
+          
     </>
   )
 }
