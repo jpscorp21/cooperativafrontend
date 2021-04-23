@@ -1,11 +1,9 @@
-import { Box, Button, Grid, TextField, Dialog, Paper, Typography } from "@material-ui/core";
+import { Box, TextField } from "@material-ui/core";
 import { useQuery } from "react-query";
 import { useMemo, useState } from "react";
 import { nacionalidades } from "../../api/nacionalidades";
 import AccionesCell from "../../components/AccionesCell";
 import CustomTable, { ColumnCustomTable } from "../../components/CustomTable";
-import AddIcon from '@material-ui/icons/Add';
-import RefreshIcon from '@material-ui/icons/Refresh';
 import TituloContainer from "../../components/TituloContainer";
 import ButtonActionContainer from "../../components/ButtonActionContainer";
 import NacionalidadesFormModal from "./NacionalidadesFormModal";
@@ -30,7 +28,7 @@ const Nacionalidades = () => {
     console.log({item});
   }
 
-  const hancleCloseModal = (e: any) => {
+  const handleCloseModal = (e: any) => {
     setOpenModal(false);
   }
 
@@ -68,8 +66,7 @@ const Nacionalidades = () => {
         <CustomTable columns={columns} data={items} onPageChange={handlePageChange}></CustomTable>
       </Box> 
 
-handle
-      <NacionalidadesFormModal openModal={openModal} handleCloseModal={hancleCloseModal}></NacionalidadesFormModal>
+      <NacionalidadesFormModal openModal={openModal} handleCloseModal={handleCloseModal}></NacionalidadesFormModal>
     
   </>
   )
