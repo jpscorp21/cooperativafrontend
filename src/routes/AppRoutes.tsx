@@ -5,6 +5,7 @@ import Barrios from '../containers/Barrios/Barrios';
 import CajaAhorroVista from '../containers/CajaAhorro/CajaAhorroVista';
 import Ciudades from '../containers/Ciudades/Ciudades';
 import Cobranzas from '../containers/Cobranzas/Cobranzas';
+import CobranzasForm from '../containers/Cobranzas/CobranzasForm';
 import Conceptos from '../containers/Conceptos/Conceptos';
 import Cuentas from '../containers/Cuentas/Cuentas';
 import DeclaracionJurada from '../containers/DeclaracionJurada/DeclaracionJurada';
@@ -50,8 +51,11 @@ export const AppRoutes = () => {
       <Route path="/ciudades">        
         <Ciudades />
       </Route>
-      <Route path="/cobranzas">        
+      <Route exact path="/cobranzas">        
         <Cobranzas />
+      </Route>
+      <Route path="/cobranzas/form">        
+        <CobranzasForm />
       </Route>
       <Route path="/conceptos">        
         <Conceptos />

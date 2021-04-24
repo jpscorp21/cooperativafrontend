@@ -1,12 +1,7 @@
 import { Dialog, Paper, Typography, Grid, TextField, Box, Button } from '@material-ui/core'
-import React from 'react'
+import { FormModalProps } from '../../types'
 
-type ConceptosFormModalProps = {
-    openModal: boolean;
-    handleCloseModal(e: any): void;
-}
-
-const ConceptosFormModal = ({openModal, handleCloseModal}: ConceptosFormModalProps) => {
+const ConceptosFormModal = ({openModal, handleCloseModal}: FormModalProps) => {
     return (
         <Dialog open={openModal} onClose={handleCloseModal}>
             <Paper elevation={6} sx={{p: 2}}>

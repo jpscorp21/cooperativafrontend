@@ -75,6 +75,11 @@ export const menu: Menu[] = [
     submenu: [                
       {
         icon: <ArchiveIcon></ArchiveIcon>,
+        text: 'Nueva Cobranza',
+        url: '/cobranzas/form',
+      },
+      {
+        icon: <ArchiveIcon></ArchiveIcon>,
         text: 'Conceptos',
         url: '/conceptos',
       },
