@@ -119,7 +119,7 @@ export const menu: Menu[] = [
       {
         icon: <DescriptionIcon></DescriptionIcon>,
         text: 'Nueva D. Jurada',
-        url: '/declaracionjurada',
+        url: '/declaracionjurada/form',
       },
     ]
   },

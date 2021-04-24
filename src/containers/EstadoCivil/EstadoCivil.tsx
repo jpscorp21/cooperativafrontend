@@ -1,11 +1,9 @@
-import { Box, Button, Dialog, Paper,  Grid, TextField, Typography } from "@material-ui/core"
+import { Box, TextField } from "@material-ui/core"
 import { useQuery } from "react-query";
 import { useMemo, useState } from "react"
 import AccionesCell from "../../components/AccionesCell";
 import CustomTable, { ColumnCustomTable } from "../../components/CustomTable";
 import { estadosciviles } from "../../api/estadosciviles";
-import RefreshIcon from '@material-ui/icons/Refresh';
-import AddIcon from '@material-ui/icons/Add';
 import TituloContainer from "../../components/TituloContainer";
 import ButtonActionContainer from "../../components/ButtonActionContainer";
 import EstadoCivilFormModal from "./EstadoCivilFormModal";
