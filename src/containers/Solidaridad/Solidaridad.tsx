@@ -14,7 +14,7 @@ const Solidaridad = () => {
       <ButtonActionContainer onNew={() => setOpenModal(true)} onRefresh={() => console.log('refrescando')} />
 
       <Box px={2} pb={2}>
-        <TextField sx={{bgcolor: 'white'}} fullWidth placeholder="Buscar" size="small" />
+        <TextField sx={{bgcolor: 'white'}} fullWidth placeholder="Buscar socio" size="small" />
       </Box>         
     </>
   )

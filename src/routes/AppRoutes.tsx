@@ -8,6 +8,7 @@ import Cobranzas from '../containers/Cobranzas/Cobranzas';
 import Conceptos from '../containers/Conceptos/Conceptos';
 import Cuentas from '../containers/Cuentas/Cuentas';
 import DeclaracionJurada from '../containers/DeclaracionJurada/DeclaracionJurada';
+import DeclaracionJuradaForm from '../containers/DeclaracionJurada/DeclaracionJuradaForm';
 import DesembolsoCredito from '../containers/DesembolsoCredito/DesembolsoCredito';
 import EstadoCivil from '../containers/EstadoCivil/EstadoCivil';
 import Facturas from '../containers/Facturas/Facturas';
@@ -58,8 +59,11 @@ export const AppRoutes = () => {
       <Route path="/cuentas">        
         <Cuentas />
       </Route>
-      <Route path="/declaracionjurada">        
+      <Route exact path="/declaracionjurada">        
         <DeclaracionJurada />
+      </Route>
+      <Route path="/declaracionjurada">        
+        <DeclaracionJuradaForm />
       </Route>
       <Route path="/desembolsocredito">        
         <DesembolsoCredito />
