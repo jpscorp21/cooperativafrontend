@@ -6,7 +6,7 @@ const SociosDatosPersonales = () => {
         <>
             <Box sx={{p:2, pt: 0}}>
                 <form>
-                    <Grid container sx={{mt:2}} spacing={2}>
+                    <Grid container spacing={2}>
                         <Grid item xs={12} sm={4}>
                             <TextField fullWidth label="Numero Socio" name="numero-socio" size="small" />
                         </Grid>

@@ -7,25 +7,25 @@ const SociosDomicilioLaboral = () => {
     <>
       <Box sx={{p:2, pt: 0}}>
         <form>
-          <Grid container sx={{mt:2}}>
-            <Grid item xs={8} sx={{mb:2}}>
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={8}>
               <TextField  fullWidth label="Calle y Número" name="calleyNumero" size="small" />
             </Grid>
 
-            <Grid item xs={4} sx={{mb:2, mr: 2}}>
-              <TextField  label="Ciudad" name="ciudad" size="small"/>
+            <Grid item xs={12} sm={4}>
+              <TextField fullWidth  label="Ciudad" name="ciudad" size="small"/>
             </Grid>
 
-            <Grid item xs={4} sx={{mb:2}}>
-              <TextField   label="Barrio" name="barrio" size="small" />
+            <Grid item xs={12} sm={4}>
+              <TextField fullWidth   label="Barrio" name="barrio" size="small" />
             </Grid>
 
-            <Grid item xs={4} sx={{mb:2, mr: 2}}>
-              <TextField  label="Teléfono" name="telefono" size="small" />
+            <Grid item xs={12} sm={4}>
+              <TextField fullWidth  label="Teléfono" name="telefono" size="small" />
             </Grid>
 
-            <Grid item xs={4} sx={{mb:2}}>
-              <TextField   label="Celular" name="celular" size="small"/>
+            <Grid item xs={12} sm={4}>
+              <TextField fullWidth  label="Celular" name="celular" size="small"/>
             </Grid>
 
           </Grid>

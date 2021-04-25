@@ -7,25 +7,25 @@ const SociosDatosConyugue = () => {
     <>
       <Box sx={{p:2, pt: 0}}>
         <form>
-          <Grid container sx={{mt:2}}>
-            <Grid item xs={4} sx={{mb:2}}>
-              <TextField  label="Nombre" name="nombre" size="small" />
+          <Grid container spacing={2}>
+            <Grid item xs={4}>
+              <TextField fullWidth  label="Nombre" name="nombre" size="small" />
             </Grid>
 
-            <Grid item xs={4} sx={{mb:2, mr: 2}}>
-              <TextField  label="Apellido" name="apellido" size="small"/>
+            <Grid item xs={4}>
+              <TextField fullWidth  label="Apellido" name="apellido" size="small"/>
             </Grid>
 
-            <Grid item xs={4} sx={{mb:2}}>
-              <TextField   label="Doc. Identidad" name="cedula" size="small" />
+            <Grid item xs={4}>
+              <TextField fullWidth   label="Doc. Identidad" name="cedula" size="small" />
             </Grid>
 
-            <Grid item xs={4} sx={{mb:2, mr: 2}}>
-              <TextField  label="Fecha Nacimiento" name="fechaNacimiento" size="small" />
+            <Grid item xs={4}>
+              <TextField fullWidth  label="Fecha Nacimiento" name="fechaNacimiento" size="small" />
             </Grid>
 
-            <Grid item xs={8} sx={{mb:2}}>
-              <TextField  fullWidth label="Dirección" name="direccionParticular" size="small" />
+            <Grid item xs={8}>
+              <TextField fullWidth  label="Dirección" name="direccionParticular" size="small" />
             </Grid>
           </Grid>
         </form>

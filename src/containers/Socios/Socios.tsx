@@ -56,12 +56,12 @@ const Socios = () => {
 
     <Box sx={{p:2, pt: 0}}>
     <form>
-    <Grid container sx={{mt:2}}>
-      <Grid item xs={4} sx={{mb:2, mr: 2}}>
-      <TextField  label="Latitud" name="latitud" size="small"/>
+    <Grid container spacing={2}>
+      <Grid item xs={4}>
+      <TextField fullWidth label="Latitud" name="latitud" size="small"/>
       </Grid>
-      <Grid item xs={4} sx={{mb:2, mr: 2}}>
-      <TextField  label="Longitud" name="longitud" size="small"/>
+      <Grid item xs={4}>
+      <TextField fullWidth label="Longitud" name="longitud" size="small"/>
       </Grid>
       </Grid>
     </form>

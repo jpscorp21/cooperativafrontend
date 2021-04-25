@@ -7,7 +7,7 @@ const SociosCorrespondencia = () => {
       <>
         <Box sx={{p:2, pt: 0}}>
         <form>
-          <Grid container sx={{mt:2}}>
+          <Grid container>
             <Grid item xs={12} sx={{mb:2}}>
               <FormControl component="fieldset">
                 <FormLabel component="legend">Recibo mi correspondencia en mi Domicilio</FormLabel>
