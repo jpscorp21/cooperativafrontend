@@ -1,10 +1,7 @@
 import { Box, Button, Dialog, Grid, Paper, TextField, Typography } from "@material-ui/core"
+import { FormModalProps } from "../../types";
 
-type PuestoLaboralFormModalProps = {
-  openModal : boolean;
-  handleCloseModal(e: any): void;
-}
-const PuestoLaboralFormModal = ({openModal, handleCloseModal}: PuestoLaboralFormModalProps) => {
+const PuestoLaboralFormModal = ({openModal, handleCloseModal}: FormModalProps) => {
   return (
     <Dialog open={openModal} onClose={handleCloseModal}>
         <Paper elevation={6} sx={{p: 2}}>
@@ -13,15 +10,15 @@ const PuestoLaboralFormModal = ({openModal, handleCloseModal}: PuestoLaboralForm
             Formulario Puesto Laboral
           </Typography>          
           <form>
-            <Grid container sx={{mt:2}}>
-              <Grid item xs={12} sx={{mb:2}}>
+            <Grid container sx={{mt:2}} spacing={2}>
+              <Grid item xs={12}>
                 <TextField fullWidth label="Código" name="codigo" size="small" disabled />
               </Grid>
               
-              <Grid item xs={12} sx={{mb:2}}>
+              <Grid item xs={12}>
                 <TextField fullWidth label="Descripción" name="descripcion" size="small" autoFocus />
               </Grid>
-              <Grid item xs={12} sx={{mb:2}}>
+              <Grid item xs={12}>
                 <TextField fullWidth label="Profesión" name="profesion" size="small" autoFocus />
               </Grid>
               <Grid item xs={12}>

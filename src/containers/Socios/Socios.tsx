@@ -8,6 +8,10 @@ import TituloContainer from "../../components/TituloContainer";
 import { socios } from "../../api/socios";
 import SociosDatosPersonales from "./SociosDatosPersonales";
 import ButtonActionContainer from "../../components/ButtonActionContainer";
+import SociosDatosConyugue from "./SociosDatosConyugue";
+import SociosActividadLaboral from "./SociosActividadLaboral";
+import SociosDomicilioLaboral from "./SociosDomicilioLaboral";
+import SociosCorrespondencia from "./SociosCorrespondencia";
  
 const useSocios = () => {
   const {data: items} = useQuery('socios', socios.getAll);
@@ -22,131 +26,15 @@ const Socios = () => {
       <TituloContainer>Formulario Socios - Datos Personales</TituloContainer>
       <SociosDatosPersonales></SociosDatosPersonales>
       <ButtonActionContainer onNew={() => console.log('nuevo')} onRefresh={() => console.log('refrescando')} />
+      <TituloContainer>Formulario Socios - Datos del Conyugue</TituloContainer>
+      <SociosDatosConyugue></SociosDatosConyugue>
+      <TituloContainer>Formulario Socios - Actividad Laboral</TituloContainer>
+      <SociosActividadLaboral></SociosActividadLaboral>
+      <TituloContainer>Formulario Socios - Domicilio Laboral</TituloContainer>
+      <SociosDomicilioLaboral></SociosDomicilioLaboral>
+      <TituloContainer>Formulario Socios - Correspondencia</TituloContainer>
+      <SociosCorrespondencia></SociosCorrespondencia>
 
-    <Box px={2} pt={3} pb={3}>
-        <Typography variant="h5" component="h5">
-         Formulario Socios - Datos del Conyuge           
-        </Typography> 
-    </Box>
-
-    <Box sx={{p:2, pt: 0}}>
-    <form>
-      <Grid container sx={{mt:2}}>
-        <Grid item xs={4} sx={{mb:2}}>
-          <TextField  label="Nombre" name="nombre" size="small" />
-        </Grid>
-
-        <Grid item xs={4} sx={{mb:2, mr: 2}}>
-          <TextField  label="Apellido" name="apellido" size="small"/>
-        </Grid>
-
-        <Grid item xs={4} sx={{mb:2}}>
-          <TextField   label="Doc. Identidad" name="cedula" size="small" />
-        </Grid>
-
-        <Grid item xs={4} sx={{mb:2, mr: 2}}>
-          <TextField  label="Fecha Nacimiento" name="fechaNacimiento" size="small" />
-        </Grid>
-
-        <Grid item xs={8} sx={{mb:2}}>
-          <TextField  fullWidth label="Dirección" name="direccionParticular" size="small" />
-        </Grid>
-      </Grid>
-    </form>
-    </Box>
-
-    <Box px={2} pt={3} pb={3}>
-        <Typography variant="h5" component="h5">
-         Formulario Socios - Actividad Laboral           
-        </Typography> 
-    </Box>
-
-    <Box sx={{p:2, pt: 0}}>
-    <form>
-      <Grid container sx={{mt:2}}>
-        <Grid item xs={12} sx={{mb:2}}>
-          <FormControl component="fieldset">
-          <FormLabel component="legend">Es Empleado</FormLabel>
-          <RadioGroup row aria-label="gender" name="row-radio-buttons-group" defaultValue="si">
-          <FormControlLabel value="si" control={<Radio />} label="Sí" />
-          <FormControlLabel value="no" control={<Radio />} label="No" />
-          </RadioGroup>
-          </FormControl>
-        </Grid>
-
-        <Grid item xs={4} sx={{mb:2, mr: 2}}>
-          <TextField  label="Ingreso Mensual" name="ingresoMensual" size="small"/>
-        </Grid>
-
-        <Grid item xs={12} sx={{mb:2}}>
-          <FormControl component="fieldset">
-          <FormLabel component="legend">Posee Otros Ingresos</FormLabel>
-          <RadioGroup row aria-label="gender" name="row-radio-buttons-group" defaultValue="si">
-          <FormControlLabel value="si" control={<Radio />} label="Sí" />
-          <FormControlLabel value="no" control={<Radio />} label="No" />
-          </RadioGroup>
-          </FormControl>
-        </Grid>
-      </Grid>
-    </form>
-    </Box>
-    
-    <Box px={2} pt={3} pb={3}>
-        <Typography variant="h5" component="h5">
-         Formulario Socios - Domicilio Laboral           
-        </Typography> 
-    </Box>
-    <Box sx={{p:2, pt: 0}}>
-    <form>
-    <Grid container sx={{mt:2}}>
-      <Grid item xs={8} sx={{mb:2}}>
-      <TextField  fullWidth label="Calle y Número" name="calleyNumero" size="small" />
-      </Grid>
-
-      <Grid item xs={4} sx={{mb:2, mr: 2}}>
-      <TextField  label="Ciudad" name="ciudad" size="small"/>
-      </Grid>
-
-      <Grid item xs={4} sx={{mb:2}}>
-      <TextField   label="Barrio" name="barrio" size="small" />
-      </Grid>
-
-      <Grid item xs={4} sx={{mb:2, mr: 2}}>
-      <TextField  label="Teléfono" name="telefono" size="small" />
-      </Grid>
-      <Grid item xs={4} sx={{mb:2}}>
-      <TextField   label="Celular" name="celular" size="small"/>
-      </Grid>
-      </Grid>
-    </form>
-    </Box>
-
-    <Box px={2} pt={3} pb={3}>
-        <Typography variant="h5" component="h5">
-         Formulario Socios - Correspondencia           
-        </Typography> 
-    </Box>
-
-    <Box sx={{p:2, pt: 0}}>
-    <form>
-      <Grid container sx={{mt:2}}>
-      <Grid item xs={12} sx={{mb:2}}>
-      <FormControl component="fieldset">
-      <FormLabel component="legend">Recibo mi correspondencia en mi Domicilio</FormLabel>
-      <RadioGroup row aria-label="gender" name="row-radio-buttons-group" defaultValue="particular">
-      <FormControlLabel value="particular" control={<Radio />} label="Particular" />
-      <FormControlLabel value="laboral" control={<Radio />} label="Laboral" />
-      </RadioGroup>
-      </FormControl>
-      </Grid>
-
-      <Grid item xs={4} sx={{mb:2, mr: 2}}>
-      <TextField  label="Otro (Especificar)" name="otro" size="small"/>
-      </Grid>
-
-      </Grid>
-    </form>
-    </Box>
 
     <Box px={2} pt={3} pb={3}>
         <Typography variant="h5" component="h5">

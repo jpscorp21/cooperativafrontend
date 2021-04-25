@@ -8,18 +8,18 @@ const BarriosFormModal = ({openModal, handleCloseModal}: BarriosFormModalProps) 
   return (
     <Dialog open={openModal} onClose={handleCloseModal}>
         <Paper elevation={6} sx={{p: 2}}>
-          <Typography variant="h5" component="h5" sx={{pb: 2}}>
+          <Typography variant="h5" component="h5">
             Formulario Barrio
           </Typography>          
           <form>
-            <Grid container sx={{mt:2}}>
-              <Grid item xs={12} sx={{mb:2}}>
+            <Grid container sx={{mt:2}} spacing={2}>
+              <Grid item xs={12}>
                 <TextField fullWidth label="Código" name="codigo" size="small" disabled />
               </Grid>
-              <Grid item xs={12} sx={{mb:2}}>
+              <Grid item xs={12}>
                 <TextField fullWidth label="Descripción" name="descripcion" size="small" autoFocus />
               </Grid>
-              <FormControl fullWidth variant="outlined" sx={{mb:2}} >
+              <FormControl fullWidth variant="outlined" >
               <InputLabel>Ciudad</InputLabel>
               <Select
               fullWidth

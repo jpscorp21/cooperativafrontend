@@ -1,31 +1,29 @@
 import { Box, Button, Dialog, Grid, Paper, TextField, Typography } from "@material-ui/core"
+import { FormModalProps } from "../../types";
 
-type CuentasFormModalProps = {
-  openModal : boolean;
-  handleCloseModal(e: any): void;
-}
-const CuentasFormModal = ({openModal, handleCloseModal}: CuentasFormModalProps) => {
+
+const CuentasFormModal = ({openModal, handleCloseModal}: FormModalProps) => {
   return (
     <Dialog open={openModal} onClose={handleCloseModal}>
       <Paper elevation={6} sx={{p: 2}}>
       
-        <Typography variant="h5" component="h5" sx={{pb: 2}}>
+        <Typography variant="h5" component="h5"> 
           Formulario Cuenta
         </Typography>          
         <form>
-          <Grid container sx={{mt:2}}>
-            <Grid item xs={12} sx={{mb:2}}>
+          <Grid container sx={{mt:2}} spacing={2}>
+            <Grid item xs={12}>
               <TextField fullWidth label="Código" name="codigo" size="small" disabled />
             </Grid>
             
-            <Grid item xs={12} sx={{mb:2}}>
+            <Grid item xs={12}>
               <TextField fullWidth label="Descripción" name="descripcion" size="small" autoFocus />
             </Grid>
-            <Grid item xs={12} sx={{mb:2}}>
-              <TextField fullWidth label="Tipo Cuenta" name="tipocuenta" size="small" placeholder="--seleccione--"/>
+            <Grid item xs={12}>
+              <TextField fullWidth label="Tipo Cuenta" name="tipoCuenta" size="small" placeholder="--seleccione--"/>
             </Grid>
             <Grid item xs={12}>
-              <TextField fullWidth label="Observación" multiline name="obvervacion" size="small" rows={4}/>
+              <TextField fullWidth label="Observación" multiline name="observacion" size="small" rows={4}/>
             </Grid>            
           </Grid>
 
