@@ -163,7 +163,7 @@ export const menu: Menu[] = [
   },
   {
     icon: <DescriptionIcon></DescriptionIcon>,
-    text: 'Solicitud Crèdito',
+    text: 'Solicitud Crédito',
     submenu: [
       {
 

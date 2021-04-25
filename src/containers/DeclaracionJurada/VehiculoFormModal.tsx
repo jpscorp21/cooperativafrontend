@@ -7,31 +7,31 @@ const VehiculoFormModal = ({openModal, handleCloseModal}: FormModalProps) => {
         <Dialog open={openModal} onClose={handleCloseModal}>
             <Paper elevation={6} sx={{p: 2}}>
             
-            <Typography variant="h5" component="h5" sx={{pb: 2}}>
+            <Typography variant="h5" component="h5">
                 Formulario Vehiculo
             </Typography>          
             <form>
                 <Grid container sx={{mt:2}} spacing={2}>                
                 
-                <Grid item xs={12}>
+                <Grid item sm={6} xs={12}>
                     <TextField fullWidth label="Marca" name="marca" size="small" autoFocus  />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item sm={6} xs={12}>
                     <TextField fullWidth label="Chapa" name="chapa" size="small"  />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item sm={6} xs={12}>
                     <TextField fullWidth label="Modelo" name="modelo" size="small"  />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item sm={6} xs={12}>
                     <TextField fullWidth label="Municipio" name="municipio" size="small"  />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item sm={6} xs={12}>
                     <TextField fullWidth label="Cuota" name="cuota" size="small"  />
                 </Grid>
-                <Grid item xs={12}>
-                    <TextField fullWidth label="Valor Actual" name="cuota" size="small"  />
+                <Grid item sm={6} xs={12}>
+                    <TextField fullWidth label="Valor Actual" name="valorActual" size="small"  />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item sm={6} xs={12}>
                     <TextField fullWidth label="Saldo" name="saldo" size="small"  />
                 </Grid>                
                 <Grid item xs={12}>
