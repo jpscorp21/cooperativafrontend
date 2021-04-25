@@ -18,26 +18,25 @@ const CajaAhorroVistaFormModal = ({openModal, handleCloseModal}: CajaAhorroVista
                     <Grid item xs={12}>
                         <TextField fullWidth label="Buscar Socio" size="small" autoFocus />
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid item xs={12} sm={6}>
                         <TextField fullWidth label="Saldo Inicial*" size="small" />
                     </Grid>            
-                    <Grid item xs={12}>
+                    <Grid item xs={12} sm={6}>
                         <TextField fullWidth label="Saldo Minimo*" size="small" />
                     </Grid>            
-                    <Grid item xs={12}>
+                    <Grid item xs={12} sm={6}>
                         <TextField fullWidth label="Interes*" size="small" />
-                    </Grid>            
-                    <Grid item xs={12}>
+                    </Grid>             
+                    <Grid item xs={12} sm={6}>
                         <TextField fullWidth label="Tipo Ahorro*" size="small" />
                     </Grid>            
                     <Grid item xs={12}>
                         <TextField fullWidth label="Observación" multiline rows={4} size="small" />
                     </Grid>            
-                </Grid>
+                </Grid> 
 
                 <Box sx={{pt: 4, textAlign: 'center'}}>
-                <Button variant="contained" fullWidth color="secondary">Guardar cambios</Button>
-
+                    <Button variant="contained" fullWidth color="secondary">Guardar cambios</Button>
                 </Box>
             </form>
 

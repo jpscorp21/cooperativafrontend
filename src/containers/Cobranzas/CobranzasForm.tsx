@@ -1,8 +1,17 @@
 import { Box, Grid, Paper, TextField } from '@material-ui/core'
-import React from 'react'
+import React, { useState } from 'react'
+import CustomDatePicker from '../../components/CustomDatePicker'
 import TituloContainer from '../../components/TituloContainer'
 
 const CobranzasForm = () => {
+
+    const [selectedDate, setSelectedDate] = useState(new Date().toISOString());
+
+    const handleDateChange = (date: any, name: string) => {
+        console.log(date, name);
+        setSelectedDate(date);
+    };
+
     return (
         <>
             <TituloContainer>Formulario Cobranza</TituloContainer>  
@@ -15,6 +24,7 @@ const CobranzasForm = () => {
                             <TextField fullWidth label="Nro Factura" name="codigo" size="small" />
                         </Grid>                        
                         <Grid item xs={6} sx={{mb:2}}>
+                            <CustomDatePicker value={selectedDate} onChange={handleDateChange} name={"vencimiento"} />
                             <TextField fullWidth label="Fecha" name="codigo" size="small" />
                         </Grid>                        
                     </Grid>

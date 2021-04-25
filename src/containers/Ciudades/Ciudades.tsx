@@ -1,7 +1,5 @@
 import { Box, Button, Dialog, Grid, Paper, TextField, Typography } from "@material-ui/core"
 import { createRef, FormEvent, useMemo, useReducer, useRef, useState } from "react"
-import AddIcon from '@material-ui/icons/Add';
-import RefreshIcon from '@material-ui/icons/Refresh';
 import CustomTable, { ColumnCustomTable } from "../../components/CustomTable";
 import AccionesCell from "../../components/AccionesCell";
 import CiudadesHooks from "../../queries/CiudadesHooks";

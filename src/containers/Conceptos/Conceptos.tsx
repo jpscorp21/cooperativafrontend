@@ -1,6 +1,7 @@
 import { Box, TextField } from "@material-ui/core"
 import { useState } from "react"
 import ButtonActionContainer from "../../components/ButtonActionContainer"
+import DescripcionFormModal from "../../components/DescripcionFormModal"
 import TituloContainer from "../../components/TituloContainer"
 import ConceptosFormModal from "./ConceptosFormModal"
 
@@ -22,7 +23,7 @@ const Conceptos = () => {
         <TextField sx={{bgcolor: 'white'}} fullWidth placeholder="Buscar" size="small" />
       </Box>
 
-      <ConceptosFormModal openModal={openModal} handleCloseModal={handleCloseModal} />     
+      <DescripcionFormModal title="Formulario Concepto" openModal={openModal} handleCloseModal={handleCloseModal} />     
     </>
   )
 }

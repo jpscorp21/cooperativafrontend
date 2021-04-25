@@ -11,7 +11,7 @@ const FacturasFormModal = ({openModal, handleCloseModal}: FacturasFormModalProps
         <Dialog open={openModal} onClose={handleCloseModal}>
             <Paper elevation={6} sx={{p: 2}}>
             
-            <Typography variant="h5" component="h5" sx={{pb: 2}}>
+            <Typography variant="h5" component="h5">
                 Formulario Factura
             </Typography>          
             <form>
@@ -20,20 +20,20 @@ const FacturasFormModal = ({openModal, handleCloseModal}: FacturasFormModalProps
                         <TextField fullWidth label="Timbrado*" name="timbrado" size="small" />
                     </Grid>
 
-                    <Grid item xs={12}>
-                        <TextField fullWidth label="Cod. Establecimiento*" name="timbrado" size="small" />
+                    <Grid item xs={12} sm={6}>
+                        <TextField fullWidth label="Cod. Establecimiento*" name="codigoEstablecimiento" size="small" />
                     </Grid>
 
-                    <Grid item xs={12}>
-                        <TextField fullWidth label="Cod. Expedición*" name="timbrado" size="small" />
+                    <Grid item xs={12} sm={6}>
+                        <TextField fullWidth label="Cod. Expedición*" name="codigoExpedicion" size="small" />
                     </Grid>
 
-                    <Grid item xs={6}>
-                        <TextField fullWidth label="Nro. Desde*" name="timbrado" size="small" />
+                    <Grid item xs={12} sm={6}>
+                        <TextField fullWidth label="Nro. Desde*" name="nroDesde" size="small" />
                     </Grid>
 
-                    <Grid item xs={6}>
-                        <TextField fullWidth label="Nro. Hasta*" name="timbrado" size="small" />
+                    <Grid item xs={12} sm={6}>
+                        <TextField fullWidth label="Nro. Hasta*" name="nroHasta" size="small" />
                     </Grid>
                     
                     <Grid item xs={12}>

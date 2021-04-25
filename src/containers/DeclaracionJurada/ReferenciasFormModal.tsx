@@ -7,25 +7,25 @@ const ReferenciasFormModal = ({openModal, handleCloseModal}: FormModalProps) => 
         <Dialog open={openModal} onClose={handleCloseModal}>
             <Paper elevation={6} sx={{p: 2}}>
             
-            <Typography variant="h5" component="h5" sx={{pb: 2}}>
+            <Typography variant="h5" component="h5">
                 Formulario Referencia
             </Typography>          
             <form>
                 <Grid container sx={{mt:2}} spacing={2}>                            
                     <Grid item xs={12}>
-                        <TextField fullWidth label="Nombre" name="descripcion" size="small" autoFocus />
+                        <TextField fullWidth label="Nombre" name="nombre" size="small" autoFocus />
                     </Grid>
 
                     <Grid item xs={12}>
-                        <TextField fullWidth label="Direccion" name="descripcion" size="small" />
+                        <TextField fullWidth label="Direccion" name="direccion" size="small" />
                     </Grid>
 
                     <Grid item xs={12}>
-                        <TextField fullWidth label="Fuente" name="descripcion" size="small" />
+                        <TextField fullWidth label="Fuente" name="fuente" size="small" />
                     </Grid>
 
                     <Grid item xs={12}>
-                        <TextField fullWidth label="Teléfono" name="descripcion" size="small" />
+                        <TextField fullWidth label="Teléfono" name="telefono" size="small" />
                     </Grid>
                     
                     <Grid item xs={12}>
