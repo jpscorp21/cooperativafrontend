@@ -24,6 +24,7 @@ const BarriosFormModal = ({openModal, handleCloseModal}: BarriosFormModalProps) 
               <Select
               fullWidth
              label="ciudad"
+              name="ciudad"
               >
               <MenuItem value={10}>Capiata</MenuItem>
               <MenuItem value={21}>Itaugua</MenuItem>

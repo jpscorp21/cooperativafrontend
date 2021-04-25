@@ -41,7 +41,7 @@ const Socios = () => {
         </Grid>
 
         <Grid item xs={4} sx={{mb:2}}>
-          <TextField   label="Doc. Identidad" name="docIdentidad" size="small" />
+          <TextField   label="Doc. Identidad" name="cedula" size="small" />
         </Grid>
 
         <Grid item xs={4} sx={{mb:2, mr: 2}}>
@@ -49,7 +49,7 @@ const Socios = () => {
         </Grid>
 
         <Grid item xs={8} sx={{mb:2}}>
-          <TextField  fullWidth label="Dirección" name="direccion" size="small" />
+          <TextField  fullWidth label="Dirección" name="direccionParticular" size="small" />
         </Grid>
       </Grid>
     </form>

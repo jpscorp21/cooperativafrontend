@@ -20,10 +20,10 @@ const TimbradosFormModal = ({openModal, handleCloseModal}: TimbradosFormModalPro
                         <TextField fullWidth label="Nro. Timbrado*" name="descripcion" size="small" autoFocus />
                     </Grid>
                     <Grid item xs={12}>
-                        <TextField fullWidth label="Fecha Inicio*" name="obvervacion" size="small" />
+                        <TextField fullWidth label="Fecha Inicio*" name="fechaInicio" size="small" />
                     </Grid>            
                     <Grid item xs={12}>
-                        <TextField fullWidth label="Fecha Fin*" name="obvervacion" size="small" />
+                        <TextField fullWidth label="Fecha Fin*" name="fechaFin" size="small" />
                     </Grid>            
                     <Grid item xs={12}>
                         <TextField fullWidth label="Observación" multiline name="obvervacion" size="small" rows={4}/>

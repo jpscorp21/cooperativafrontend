@@ -6,33 +6,33 @@ const SociosDatosPersonales = () => {
         <>
             <Box sx={{p:2, pt: 0}}>
                 <form>
-                    <Grid container sx={{mt:2}}>
-                        <Grid item xs={4} sx={{mb:2}}>
-                            <TextField label="Numero Socio" name="numero-socio" size="small" />
+                    <Grid container sx={{mt:2}} spacing={2}>
+                        <Grid item xs={12} sm={4}>
+                            <TextField fullWidth label="Numero Socio" name="numero-socio" size="small" />
                         </Grid>
-                        <Grid item xs={4} sx={{mb:2}}>
-                            <TextField  label="Nombre*" name="nombre" size="small"/>
+                        <Grid item xs={12} sm={4}>
+                            <TextField fullWidth  label="Nombre*" name="nombre" size="small"/>
                         </Grid>
-                        <Grid item xs={4} sx={{mb:2}}>
-                            <TextField  label="Apellido*" name="apellido" size="small"/>
+                        <Grid item xs={12} sm={4}>
+                            <TextField fullWidth  label="Apellido*" name="apellido" size="small"/>
                         </Grid>
-                        <Grid item xs={4} sx={{mb:2}}>
-                            <TextField  label="Doc.Cédula*" name="cedula" size="small"/>
+                        <Grid item xs={12} sm={4}>
+                            <TextField fullWidth  label="Doc.Cédula*" name="cedula" size="small"/>
                         </Grid>
-                        <Grid item xs={4} sx={{mb:2}}>
-                            <TextField  label="RUC" name="ruc" size="small"/>
+                        <Grid item xs={12} sm={4}>
+                            <TextField fullWidth  label="RUC" name="ruc" size="small"/>
                         </Grid>
-                        <Grid item xs={4} sx={{mb:2}}>
-                            <TextField  label="Estado Civil*" name="estado-civil" size="small"/>
+                        <Grid item xs={12} sm={4}>
+                            <TextField fullWidth  label="Estado Civil*" name="estado-civil" size="small"/>
                         </Grid>
-                        <Grid item xs={4} sx={{mb:2}}>
-                            <TextField  label="Fecha Nacimiento*" name="fecha-nac" size="small"/>
+                        <Grid item xs={12} sm={4}>
+                            <TextField fullWidth  label="Fecha Nacimiento*" name="fecha-nac" size="small"/>
                         </Grid>
-                        <Grid item xs={4} sx={{mb:2}}>
-                            <TextField  fullWidth label="Dirección*" name="direccion" size="small" />
+                        <Grid item xs={12} sm={4}>
+                            <TextField fullWidth label="Dirección*" name="direccion" size="small" />
                         </Grid>
                         
-                        <Grid item xs={12} sx={{mb:2}}>
+                        <Grid item xs={12} sm={12}>
                             <FormControl component="fieldset">
                             <FormLabel component="legend">Género*</FormLabel>
                             <RadioGroup row aria-label="gender" name="row-radio-buttons-group" defaultValue="masculino">
@@ -43,13 +43,13 @@ const SociosDatosPersonales = () => {
                             </FormControl>
                         </Grid>
 
-                        <Grid item xs={4} sx={{mb:2}}>
-                            <TextField  label="Nacionalidad" name="nacionalidad" size="small" />
+                        <Grid item xs={12} sm={4}>
+                            <TextField fullWidth  label="Nacionalidad" name="nacionalidad" size="small" />
                         </Grid>
-                        <Grid item xs={4} sx={{mb:2}}>
-                            <TextField   label="Grado Académico" name="gradoAcademico" size="small"/>
+                        <Grid item xs={12} sm={4}>
+                            <TextField fullWidth   label="Grado Académico" name="gradoAcademico" size="small"/>
                         </Grid>
-                        <Grid item xs={12} sx={{mb:2}}>
+                        <Grid item xs={12} sm={12}>
                             <TextField fullWidth label="Motivos" multiline name="motivos" size="small" rows={4}/>
                         </Grid>
                     </Grid>
