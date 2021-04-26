@@ -12,66 +12,86 @@ import SociosDatosConyugue from "./SociosDatosConyugue";
 import SociosActividadLaboral from "./SociosActividadLaboral";
 import SociosDomicilioLaboral from "./SociosDomicilioLaboral";
 import SociosCorrespondencia from "./SociosCorrespondencia";
+import useArrayMemo from "../../shared/hooks/useArrayMemo";
+import CustomTabs from "../../components/CustomTabs";
+import TabPanel from "../../components/TabPanel";
  
 const useSocios = () => {
-  const {data: items} = useQuery('socios', socios.getAll);
+
+
   
+  const {data: items} = useQuery('socios', socios.getAll);
+
+
   return items;
 }
 
 const Socios = () => {
   const items = useSocios();
+
+  const [indexTab, setIndexTab] = useState(0);
+
+  const dataTabs = useArrayMemo([
+    'Datos Personales', 'Datos del Conyugue', 'Actividad Laboral', 'Domicilio Laboral', 'Correspondencia', 'Hijos', 'Ubicación'
+  ]) 
+
   return (
     <>
-      <TituloContainer>Formulario Socios - Datos Personales</TituloContainer>
-      <SociosDatosPersonales></SociosDatosPersonales>
-      <ButtonActionContainer onNew={() => console.log('nuevo')} onRefresh={() => console.log('refrescando')} />
-      <TituloContainer>Formulario Socios - Datos del Conyugue</TituloContainer>
-      <SociosDatosConyugue></SociosDatosConyugue>
-      <TituloContainer>Formulario Socios - Actividad Laboral</TituloContainer>
-      <SociosActividadLaboral></SociosActividadLaboral>
-      <TituloContainer>Formulario Socios - Domicilio Laboral</TituloContainer>
+   
+    <TituloContainer>Formulario Socios</TituloContainer>
+      <CustomTabs value={indexTab} onChange={setIndexTab} data={dataTabs}>
+         
+        <TabPanel value={indexTab} index={0}>            
+          <SociosDatosPersonales></SociosDatosPersonales>
+        </TabPanel>
+        <TabPanel value={indexTab} index={1}>            
+          <SociosDatosConyugue></SociosDatosConyugue>
+        </TabPanel>
+        <TabPanel value={indexTab} index={2}>            
+
+          <SociosActividadLaboral></SociosActividadLaboral>
+        </TabPanel>
+        <TabPanel value={indexTab} index={3}>            
+
       <SociosDomicilioLaboral></SociosDomicilioLaboral>
-      <TituloContainer>Formulario Socios - Correspondencia</TituloContainer>
+        </TabPanel>
+        <TabPanel value={indexTab} index={4}>            
+      
+        <TituloContainer>Formulario Socios - Correspondencia</TituloContainer>
       <SociosCorrespondencia></SociosCorrespondencia>
+        </TabPanel>
+        <TabPanel value={indexTab} index={5}>            
+      
+          <h1>Hijos</h1>
+        </TabPanel>
+        <TabPanel value={indexTab} index={6}>            
+      
+        <Box px={2} pt={3} pb={3}>
+        
+          </Box>
 
-
-    <Box px={2} pt={3} pb={3}>
-        <Typography variant="h5" component="h5">
-         Formulario Socios - Hijos           
-        </Typography> 
-    </Box>
-
-    <Box sx={{p:2, pt: 0}}>
-    <form>
-    <Button variant="contained" size="small" color="secondary" sx={{mb: 2, mr: 2}}  startIcon={<AddIcon />}>Nuevo</Button>
-    </form>
-    </Box>
-
-    <Box px={2} pt={3} pb={3}>
-        <Typography variant="h5" component="h5">
-         Formulario Socios - Ubicación           
-        </Typography> 
-    </Box>
-
-    <Box sx={{p:2, pt: 0}}>
-    <form>
-    <Grid container spacing={2}>
-      <Grid item xs={4}>
-      <TextField fullWidth label="Latitud" name="latitud" size="small"/>
-      </Grid>
-      <Grid item xs={4}>
-      <TextField fullWidth label="Longitud" name="longitud" size="small"/>
-      </Grid>
-      </Grid>
-    </form>
-    </Box>
+          <Box sx={{p:2, pt: 0}}>
+          <form>
+          <Grid container spacing={2}>
+            <Grid item xs={4}>
+            <TextField fullWidth label="Latitud" name="latitud" size="small"/>
+            </Grid>
+            <Grid item xs={4}>
+            <TextField fullWidth label="Longitud" name="longitud" size="small"/>
+            </Grid>
+            </Grid>
+          </form>
+          </Box>
+        </TabPanel>
+      </CustomTabs>
+      
+ 
     
-    <Box sx={{p:2, pt: 0}}>
+    {/* <Box sx={{p:2, pt: 0}}>
     <Button variant="contained" sx={{mr:1}}>Guardar</Button>
     <Button variant="outlined" sx={{mr:1}}>Reiniciar</Button>
     <Button variant="outlined" sx={{mr:1}}>Volver</Button>
-    </ Box>
+    </ Box> */}
     </>
   )
 }
