@@ -1,11 +1,11 @@
-import { Box, Button, Typography } from '@material-ui/core'
+import { Box, Button } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import React from 'react'
 
 type ButtonActionContainerProps = {
     onNew(): void;
-    onRefresh(): void
+    onRefresh?(): void
 }
 
 const ButtonActionContainer = ({children, onNew, onRefresh}: React.PropsWithChildren<ButtonActionContainerProps>) => {
@@ -20,7 +20,7 @@ const ButtonActionContainer = ({children, onNew, onRefresh}: React.PropsWithChil
                 startIcon={<AddIcon />}>
                 Nuevo
             </Button>
-            <Button 
+            {/* <Button 
                 variant="outlined" 
                 size="small" 
                 color="secondary" 
@@ -29,7 +29,7 @@ const ButtonActionContainer = ({children, onNew, onRefresh}: React.PropsWithChil
                 startIcon={<RefreshIcon />}
             >
                 Refrescar
-            </Button>                  
+            </Button>                   */}
             {children}
         </Box> 
     )

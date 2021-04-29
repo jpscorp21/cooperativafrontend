@@ -1,26 +1,19 @@
 import { Box, Button, Dialog, Grid, Paper, TextField, Typography } from '@material-ui/core'
-import React from 'react'
-import Field from '../../components/control/Field'
-import { errors, validation } from '../../utils/errorMessages'
+import { Field, Form } from 'react-final-form'
+import TextFieldAdapter from '../../components/control/TextFieldAdapter'
+import { FormModalProps } from '../../types'
+import { required } from '../../utils/errorMessages'
 
-type CiudadesFormModalProps = {
-    openModal: boolean;
-    handleCloseModal(e: any): void;
-    onSubmit: any;
-    handleSubmit: any;
-    control: any;
-    itemsRef: any;
-    handleKeyDown: any;
+type CiudadesFormModalProps = FormModalProps & {
+  onSubmit: any;
+  formData: any;  
 }
 
 const CiudadesFormModal = ({
     openModal, 
-    handleCloseModal, 
-    onSubmit, 
-    handleSubmit, 
-    control,
-    handleKeyDown,
-    itemsRef
+    handleCloseModal,
+    onSubmit,
+    formData   
 }: CiudadesFormModalProps) => {
 
     return (
@@ -28,11 +21,20 @@ const CiudadesFormModal = ({
         <Paper elevation={6} sx={{p: 2}}>
         
           <Typography variant="h5" component="h5" sx={{pb: 2}}>
-            Formulario Ciudad
-            {/* {JSON.stringify(values)} */}
+            Formulario Ciudad             
 
-          </Typography>          
-          <form onSubmit={handleSubmit(onSubmit)}>
+          </Typography>        
+          <Form
+            onSubmit={onSubmit}
+            initialValues={{...formData}}                         
+            render={({handleSubmit, form}) => (          
+              <>              
+              {/* <CiudadesFormModal                                                          
+                openModal={openModal}
+                handleCloseModal={handleCloseModal}
+                handleSubmit={handleSubmit}
+              /> */}
+          <form onSubmit={handleSubmit}>
             <Grid container sx={{mt:2}}>
               
               <Grid item xs={12} sx={{mb:2}}>
@@ -40,34 +42,32 @@ const CiudadesFormModal = ({
               </Grid>
               <Grid item xs={12} sx={{mb:2}}>
                 <Field 
-                  name="descripcion" 
-                  rules={validation([errors.required()])}   
+                  name="descripcion"           
                   fullWidth 
-                  onKeyDown={handleKeyDown}
-                  ref={el => itemsRef.current[0] = el}
-                  label="Descripción" 
-                  size="small" 
-                  control={control} 
-                />
+                  validate={required}
+                  component={TextFieldAdapter}                       
+                  label="Descripción*"                             
+                />               
               </Grid>
               <Grid item xs={12}>
                 <Field 
-                  name="observacion" 
-                  rules={validation([errors.required()])}   
-                  fullWidth 
-                  ref={el => itemsRef.current[1] = el}                  
-                  label="Observación" 
-                  size="small" 
-                  control={control} 
-                />                               
+                  name="observacion"           
+                  fullWidth                   
+                  component={TextFieldAdapter}                       
+                  multiline
+                  rows={4}
+                  label="Observación"                             
+                />                                             
               </Grid>            
             </Grid>
 
-            <Box sx={{pt: 4, textAlign: 'center'}}>
+            <Box sx={{pt: 4, textAlign: 'center'}}>            
               <Button type="submit" variant="contained" fullWidth color="secondary">Guardar cambios</Button>
-            </Box>
-          </form>
-
+            </Box>          
+            </form>            
+              </>                                                                                      
+            )}
+          />  
         </Paper>
       </Dialog>
     )
