@@ -14,9 +14,11 @@ interface CustomTableProps {
     columns: ColumnCustomTable[];
     data: any;
     onPageChange?: (page: number) => void;
+    count?: number;
+    page?: number;
 }
 
-const CustomTable = ({columns, data, onPageChange}: CustomTableProps) => {    
+const CustomTable = ({columns, data, onPageChange, count = 100, page = 1}: CustomTableProps) => {    
 
     return (
     <>
@@ -67,7 +69,12 @@ const CustomTable = ({columns, data, onPageChange}: CustomTableProps) => {
         </TableContainer>
       </Paper>
         <Stack alignItems="center" pt={2} >
-            <Pagination count={10} color="primary" onChange={(e, page) => onPageChange && onPageChange(page)} />
+            <Pagination
+                page={page} 
+                count={count} 
+                color="primary" 
+                onChange={(e, page) => onPageChange && onPageChange(page)} 
+            />
         </Stack>
       </>
     )

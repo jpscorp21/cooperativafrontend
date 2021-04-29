@@ -1,4 +1,5 @@
 import { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
+import { TokenResponse } from "../models/auth-model";
 
 /** 
  * 
@@ -9,6 +10,8 @@ import { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 export interface IApiResponse<T> extends AxiosResponse<T> {
   totalCount: number;
   totalPages: number;
+  currentPage: number;
+  pageSize: number;
 }
 
 export const baseUrlInterceptor = (config: AxiosRequestConfig) => {
@@ -20,7 +23,17 @@ export const baseUrlInterceptor = (config: AxiosRequestConfig) => {
 };
 
 export const authInterceptor = (config: AxiosRequestConfig) => {
-  // config.headers['Authorization'] = store.state.auth.token
+
+  const estrellaJSON = localStorage.getItem('estrella');  
+
+  if (!estrellaJSON) {
+    return config;
+  }
+
+  
+  const estrella: TokenResponse = JSON.parse(estrellaJSON);    
+
+  config.headers['Authorization'] = 'Bearer ' + estrella.token;
   return config;
 };
 
@@ -87,6 +100,8 @@ export const responseInterceptor: any = (response: IApiResponse<any>) => {
         );
         response.totalCount = response.headers['x-pagination'].totalCount;
         response.totalPages = response.headers['x-pagination'].totalPages;
+        response.currentPage = response.headers['x-pagination'].currentPaeg;
+        response.pageSize = response.headers['x-pagination'].pageSize;
       }
       break;
     case 201:

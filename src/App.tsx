@@ -1,28 +1,19 @@
+import { Route, Switch } from 'react-router-dom';
 import './App.scss';
 import Layout from './components/Layout';
+import Login from './containers/Login/Login';
 import { AppRoutes } from './routes/AppRoutes';
 
 function App() {
   return (
-    <Layout>
-      <AppRoutes></AppRoutes>
-    {/* <div className="App">
-      <header className="App-header">        
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-        </a>
-        
-        <Button variant="contained" >Aprender React</Button> 
-      </header>
-    </div> */}
-    </Layout>
+    <Switch>
+      <Route exact path="/login">
+        <Login />
+      </Route>
+      <Layout>
+        <AppRoutes></AppRoutes>      
+      </Layout>
+    </Switch>
   );
 } 
 

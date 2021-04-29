@@ -1,30 +1,12 @@
-export const errors = {            
-    min: (value: any) => ({
-        min: {
-            value,
-            message: `Debe contener al menos ${value} caracteres`
-        }                        
-    }),
-    max: (value: any) => ({
-        max: {
-            value,
-            message: `Debe contener como máximo ${value} caracteres`
-        }
-    }),            
-    required: (value: any = true) => ({required: {value, message: 'Es requerido'}}),        
-    // maxLength: () => 'Es muy largo',
-};
+export const required = (value: any) => (value ? undefined : 'Es requerido')
 
-export type errorsType = typeof errors;
+export const mustBeNumber = (value: any) => (isNaN(value) ? 'Debe ser un número' : undefined)
 
-export type validationProps = any[];
+export const minValue = (min: any) => (value: any) =>
+  isNaN(value) || value >= min ? undefined : `Debe ser mayor que ${min}`
 
-
-
-export const validation = (array: validationProps) => {
-    
-    return array.reduce((previous, actual) => {          
-        return {...previous, ...actual}
-    }, {} as any)
-}
+export const maxValue = (max: any) => (value: any) =>
+  isNaN(value) || value <= max ? undefined : `Debe ser menor que ${max}`
   
+export const composeValidators = (...validators: any[]) => (value: any) =>
+  validators.reduce((error, validator) => error || validator(value), undefined)

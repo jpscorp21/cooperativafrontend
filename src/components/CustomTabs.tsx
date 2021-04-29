@@ -1,5 +1,5 @@
 import { Box, Tab, Tabs } from '@material-ui/core'
-import React, { useMemo } from 'react'
+import React from 'react'
 import { a11yProps } from './TabPanel'
 
 type CustomTabsProps = {
