@@ -14,5 +14,5 @@ const ModalidadPago = () => {
     </>
   )
 }
-//  Formulario
+//  Formulario Modalidad Pago, TipoCredito, Tipo Garantia y Tipo Solicitud
 export default ModalidadPago
