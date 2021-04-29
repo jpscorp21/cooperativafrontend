@@ -12,7 +12,7 @@ import { CiudadesAPI } from "../../api/CiudadesAPI";
 import useBackend from "../../shared/hooks/useBackend";
 
 const initialForm = () => ({
-  descripcion: 'haosd',
+  descripcion: '',
   observacion: ''
 }) 
 
