@@ -19,7 +19,9 @@ const TipoCreditoFormModal = ({openModal, handleCloseModal}: TipoCreditoFormModa
               <Grid item xs={12}>
                 <TextField fullWidth label="Descripción" name="descripcion" size="small" autoFocus />
               </Grid>
-              <FormControl fullWidth variant="outlined">
+
+              <Grid item xs={12}>
+              <FormControl fullWidth variant="outlined" >
               <InputLabel>Modalidad Pago</InputLabel>
               <Select
               fullWidth
@@ -31,25 +33,22 @@ const TipoCreditoFormModal = ({openModal, handleCloseModal}: TipoCreditoFormModa
               <MenuItem value={22}>Semanal</MenuItem>
               </Select>
               </FormControl>
+              </Grid>
 
-            <Box sx={{p:2, pt: 0}}>
-                <form>
-                    <Grid container spacing={2}>
-                        <Grid item xs={12} sm={4}>
-                            <TextField fullWidth label="Plazo Min" name="plazo-min" size="small" />
-                        </Grid>
-                        <Grid item xs={12} sm={4}>
-                            <TextField fullWidth  label="Plazo Max" name="plazo-max" size="small"/>
-                        </Grid>
-                        <Grid item xs={12} sm={4}>
-                            <TextField fullWidth  label="Apellido*" name="apellido" size="small"/>
-                        </Grid>
-                    </Grid>
-                </form>
-            </Box>
+              <Grid item xs={12} sm={4}>
+                  <TextField fullWidth label="Plazo Min" name="plazo-min" size="small" />
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                  <TextField fullWidth  label="Plazo Max" name="plazo-max" size="small"/>
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                  <TextField fullWidth  label="Tasa" name="tasa" size="small"/>
+              </Grid>
+      
               <Grid item xs={12}>
                 <TextField fullWidth label="Observación" multiline name="obvervacion" size="small" rows={4}/>
-              </Grid>            
+              </Grid>   
+                       
             </Grid>
             <Box sx={{pt: 4, textAlign: 'center'}}>
               <Button variant="contained" fullWidth color="secondary">Guardar cambios</Button>
