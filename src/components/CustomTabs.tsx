@@ -1,4 +1,4 @@
-import { Box, Tab, Tabs } from '@material-ui/core'
+import { AppBar, Box, Tab, Tabs } from '@material-ui/core'
 import React from 'react'
 import { a11yProps } from './TabPanel'
 
@@ -12,17 +12,19 @@ const CustomTabs = ({value, onChange, children, data}: React.PropsWithChildren<C
 
     return (
         <>
-            <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
-                    <Tabs                    
-                        value={value}
-                        onChange={(_, value) => onChange(value)}
-                        variant="scrollable"
-                        scrollButtons
-                        allowScrollButtonsMobile                    
-                        aria-label="Scrollable auto tabs example"
-                    >       
-                        {data.map((text, index) => <Tab key={text} label={text} {...a11yProps(index)} />)}                                                       
-                    </Tabs>                
+            <Box sx={{borderBottom: 1, borderColor: 'divider', mx: 2}}>                 
+                <Tabs                    
+                    value={value}                    
+                    // sx={{overflow: 'auto'}}
+                    // style={{display: 'inline-block'}}
+                    onChange={(_, value) => onChange(value)}
+                    variant="scrollable"
+                    
+                    scrollButtons="auto"                                        
+                    aria-label="Scrollable auto tabs example"
+                >       
+                    {data.map((text, index) => <Tab style={{minWidth: '0'}}  key={text} label={text} {...a11yProps(index)} />)}                                                       
+                </Tabs>                               
             </Box>
             {children}
         </>

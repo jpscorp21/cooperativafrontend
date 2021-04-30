@@ -4,8 +4,8 @@ import React from 'react'
 const SociosDatosPersonales = () => {
     return (
         <>
-            <Box sx={{p:2, pt: 0}}>
-                <form>
+            <Box sx={{pt: 1}}>
+                <form> 
                     <Grid container spacing={2}>
                         <Grid item xs={12} sm={4}>
                             <TextField fullWidth label="Numero Socio" name="numero-socio" size="small" />
@@ -54,7 +54,7 @@ const SociosDatosPersonales = () => {
                         </Grid>
                     </Grid>
                 </form>
-            </ Box>
+            </Box>
         </>
     )
 }

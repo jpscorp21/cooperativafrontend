@@ -9,13 +9,13 @@ const SociosActividadLaboral = () => {
         <form>
           <Grid container>
             <Grid item xs={12} sx={{mb:2}}>
-              <FormControl component="fieldset">
+              {/* <FormControl component="fieldset">
                 <FormLabel component="legend">Es Empleado</FormLabel>
                   <RadioGroup row aria-label="gender" name="row-radio-buttons-group" defaultValue="si">
                     <FormControlLabel value="si" control={<Radio />} label="Sí" />
                     <FormControlLabel value="no" control={<Radio />} label="No" />
                   </RadioGroup>
-              </FormControl>
+              </FormControl> */}
             </Grid>
 
             <Grid item xs={4} sx={{mb:2, mr: 2}}>
@@ -23,13 +23,13 @@ const SociosActividadLaboral = () => {
             </Grid>
 
             <Grid item xs={12} sx={{mb:2}}>
-              <FormControl component="fieldset">
+              {/* <FormControl component="fieldset">
                 <FormLabel component="legend">Posee Otros Ingresos</FormLabel>
                   <RadioGroup row aria-label="gender" name="row-radio-buttons-group" defaultValue="si">
                     <FormControlLabel value="si" control={<Radio />} label="Sí" />
                     <FormControlLabel value="no" control={<Radio />} label="No" />
                   </RadioGroup>
-              </FormControl>
+              </FormControl> */}
             </Grid>
           </Grid>
         </form>

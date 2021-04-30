@@ -13,7 +13,8 @@ const breakpointDrawer = 'md';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex'
+    display: 'flex',
+    flexWrap: 'wrap'
   },
   appBar: {       
     
@@ -76,14 +77,14 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     maxWidth: '100%',
-    marginLeft: -drawerWidth,
-    flexGrow: 1,   
+    marginLeft: '0',
+    flexShrink: 1,
     [theme.breakpoints.up(breakpointDrawer)]: {
       transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.leavingScreen,
       }),    
-      marginLeft: -drawerWidth,
+      marginLeft: '0',
     },    
   },
   contentShift: {
@@ -91,9 +92,9 @@ const useStyles = makeStyles((theme) => ({
       transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen,
-      }),    
-      marginLeft: 0,
-    }
+      }),                
+      marginLeft: '300px',
+    },
   },
 }));
 

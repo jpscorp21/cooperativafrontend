@@ -32,60 +32,61 @@ const Socios = () => {
   const [indexTab, setIndexTab] = useState(0);
 
   const dataTabs = useArrayMemo([
-    'Datos Personales', 'Datos del Conyugue', 'Actividad Laboral', 'Domicilio Laboral', 'Correspondencia', 'Hijos', 'Ubicación'
+    'Datos Personales', 'Domicilio Particular', 'Datos del Conyugue', 'Actividad Laboral', 'Domicilio Laboral', 'Correspondencia', 'Hijos', 'Ubicación'
   ]) 
 
   return (
     <>
-   
+    
     <TituloContainer>Formulario Socios</TituloContainer>
-      <CustomTabs value={indexTab} onChange={setIndexTab} data={dataTabs}>
-         
-        <TabPanel value={indexTab} index={0}>            
-          <SociosDatosPersonales></SociosDatosPersonales>
-        </TabPanel>
-        <TabPanel value={indexTab} index={1}>            
-          <SociosDatosConyugue></SociosDatosConyugue>
-        </TabPanel>
-        <TabPanel value={indexTab} index={2}>            
-
-          <SociosActividadLaboral></SociosActividadLaboral>
-        </TabPanel>
-        <TabPanel value={indexTab} index={3}>            
-
-      <SociosDomicilioLaboral></SociosDomicilioLaboral>
-        </TabPanel>
-        <TabPanel value={indexTab} index={4}>            
-      
-        <TituloContainer>Formulario Socios - Correspondencia</TituloContainer>
-      <SociosCorrespondencia></SociosCorrespondencia>
-        </TabPanel>
-        <TabPanel value={indexTab} index={5}>            
-      
-          <h1>Hijos</h1>
-        </TabPanel>
-        <TabPanel value={indexTab} index={6}>            
-      
-        <Box px={2} pt={3} pb={3}>
+      <Box px="2">
+        <CustomTabs value={indexTab} onChange={setIndexTab} data={dataTabs}></CustomTabs>
+      </Box>
         
-          </Box>
-
-          <Box sx={{p:2, pt: 0}}>
-          <form>
-          <Grid container spacing={2}>
-            <Grid item xs={4}>
-            <TextField fullWidth label="Latitud" name="latitud" size="small"/>
-            </Grid>
-            <Grid item xs={4}>
-            <TextField fullWidth label="Longitud" name="longitud" size="small"/>
-            </Grid>
-            </Grid>
-          </form>
-          </Box>
-        </TabPanel>
-      </CustomTabs>
+    <TabPanel value={indexTab} index={0}>            
+      <SociosDatosPersonales></SociosDatosPersonales>
+    </TabPanel>
+    <TabPanel value={indexTab} index={1}>            
+      <h1>Deomiciolio Particular</h1>
+    </TabPanel>
+    <TabPanel value={indexTab} index={2}>            
+      <SociosDatosConyugue></SociosDatosConyugue>
+    </TabPanel>
+    <TabPanel value={indexTab} index={3}>            
+      <SociosActividadLaboral></SociosActividadLaboral>
+    </TabPanel>
+    <TabPanel value={indexTab} index={4}>            
+      <SociosDomicilioLaboral></SociosDomicilioLaboral>
+    </TabPanel>
+    <TabPanel value={indexTab} index={5}>            
+    
+      {/* <TituloContainer>Formulario Socios - Correspondencia</TituloContainer> */}
+      <SociosCorrespondencia></SociosCorrespondencia>
+    </TabPanel>
+      <TabPanel value={indexTab} index={6}>            
+    
+        <h1>Hijos</h1>
+      </TabPanel>
+      <TabPanel value={indexTab} index={7}>            
+    
+      <Box px={2} pt={3} pb={3}>
       
- 
+        </Box>
+
+        <Box sx={{p:2, pt: 0}}>
+        
+        <Grid container spacing={2}>
+          <Grid item xs={4}>
+          <TextField fullWidth label="Latitud" name="latitud" size="small"/>
+          </Grid>
+          <Grid item xs={4}>
+          <TextField fullWidth label="Longitud" name="longitud" size="small"/>
+          </Grid>
+          </Grid>
+        
+        </Box>
+      </TabPanel>
+              
     
     {/* <Box sx={{p:2, pt: 0}}>
     <Button variant="contained" sx={{mr:1}}>Guardar</Button>

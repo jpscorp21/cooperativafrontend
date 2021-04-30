@@ -6,5 +6,5 @@
  */
 
 export const cssHelper = {
-  important: (text: string) => `${text} !important`
+  important: (text: string | number) => `${text} !important`
 }
