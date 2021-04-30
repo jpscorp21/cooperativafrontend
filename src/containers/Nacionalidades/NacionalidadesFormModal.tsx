@@ -3,6 +3,9 @@ import { Box, Button, Dialog, Grid, Paper, TextField, Typography } from "@materi
 type NacionalidadesFormModalProps = {
   openModal : boolean;
   handleCloseModal(e: any): void;
+} & {
+  onSubmit: any;
+  formData: any;  
 }
 const NacionalidadesFormModal = ({openModal, handleCloseModal}: NacionalidadesFormModalProps) => {
   return (

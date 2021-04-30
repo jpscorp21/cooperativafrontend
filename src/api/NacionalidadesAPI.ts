@@ -1,7 +1,7 @@
 import api from "."
 import { INacionalidad } from "../models/nacionalidad-model";
 
-export const NacionalidadAPI = {
+export const NacionalidadesAPI = {
 
     key: 'nacionalidad-model',
 
