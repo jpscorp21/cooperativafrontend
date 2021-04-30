@@ -4,8 +4,9 @@ import ButtonActionContainer from "../../components/ButtonActionContainer"
 import TituloContainer from "../../components/TituloContainer"
 import { modalidadpagos } from "../../api/modalidadpagos";
 import AccionesCell from "../../components/AccionesCell";
-import { ColumnCustomTable } from "../../components/CustomTable";
+import CustomTable, { ColumnCustomTable } from "../../components/CustomTable";
 import ModalidadPagoFormModal from "./ModalidadPagoFormModal";
+import { Box, TextField } from "@material-ui/core";
 
 const useModalidadPago = () => {
   const {data: items} = useQuery('modalidadpagos', modalidadpagos.getAll);  
@@ -50,7 +51,18 @@ const ModalidadPago = () => {
   return (
     <>
       <TituloContainer>Modalidad Pago</TituloContainer>
+      
       <ButtonActionContainer onNew={() => setOpenModal(true)} onRefresh={() => console.log('refrescando')} />
+
+      <Box px={2} pb={2}>
+        <TextField sx={{bgcolor: 'white'}} fullWidth placeholder="Buscar" size="small" />
+      </Box>           
+
+      {/* TABLA */}
+      <Box sx={{px: 2}}>
+        <CustomTable columns={columns} data={items} onPageChange={handlePageChange}></CustomTable>
+      </Box>
+
       <ModalidadPagoFormModal openModal={openModal} handleCloseModal={handleCloseModal}></ModalidadPagoFormModal>
 
     </>
