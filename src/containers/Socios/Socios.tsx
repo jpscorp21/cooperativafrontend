@@ -18,6 +18,8 @@ import TabPanel from "../../components/TabPanel";
 import SociosUbicacion from "./SociosUbicacion";
 import SociosDomicilioParticular from "./SociosDomicilioParticular";
 import SociosHijos from "./SociosHijos";
+import { FormApi } from "final-form";
+import { Form } from "react-final-form";
  
 const useSocios = () => {
 
@@ -38,40 +40,69 @@ const Socios = () => {
     'Datos Personales', 'Domicilio Particular', 'Datos del Conyugue', 'Actividad Laboral', 'Domicilio Laboral', 'Correspondencia', 'Hijos', 'Ubicación'
   ]) 
 
+  const onSubmit = async (values: any, form: FormApi) => {   
+    console.log(values) 
+    // if (values.id) {
+    //   update.mutate(({body: values, id: values.id}), {
+    //     onSuccess() {    
+    //       handleCloseModal();     
+    //       queryClient.invalidateQueries(key)   
+    //       form.reset();
+    //     }
+    //   }) 
+    //   return;
+    // }
+
+    // create.mutate(values, {
+    //   onSuccess() {    
+    //     handleCloseModal();     
+    //     queryClient.invalidateQueries(key)   
+    //     form.reset();
+    //   }
+    // })    
+  }    
+
   return (
     <>
     <TituloContainer>Formulario Socios</TituloContainer>
     <Paper sx={{mx: 2}}>
-    
-      <CustomTabs value={indexTab} onChange={setIndexTab} data={dataTabs}></CustomTabs>
-         
-      <Box px={2}>
-        <TabPanel value={indexTab} index={0}>            
-          <SociosDatosPersonales></SociosDatosPersonales>
-          
-        </TabPanel>
-        <TabPanel value={indexTab} index={1}>            
-          <SociosDomicilioParticular />
-        </TabPanel>
-        <TabPanel value={indexTab} index={2}>            
-          <SociosDatosConyugue></SociosDatosConyugue>
-        </TabPanel>
-        <TabPanel value={indexTab} index={3}>            
-          <SociosActividadLaboral></SociosActividadLaboral>
-        </TabPanel>
-        <TabPanel value={indexTab} index={4}>            
-          <SociosDomicilioLaboral></SociosDomicilioLaboral>
-        </TabPanel>
-        <TabPanel value={indexTab} index={5}>                  
-          <SociosCorrespondencia></SociosCorrespondencia>
-        </TabPanel>
-        <TabPanel value={indexTab} index={6}>                
-          <SociosHijos />
-        </TabPanel>
-        <TabPanel value={indexTab} index={7}>            
-          <SociosUbicacion />        
-        </TabPanel>
-      </Box>
+      <Form
+        onSubmit={onSubmit}
+        render={({handleSubmit, values}) => (
+          <form onSubmit={handleSubmit}>
+            {JSON.stringify(values)}
+            <CustomTabs value={indexTab} onChange={setIndexTab} data={dataTabs}></CustomTabs>              
+            <Box px={2}>
+              <TabPanel value={indexTab} index={0}>            
+                <SociosDatosPersonales></SociosDatosPersonales>
+                
+              </TabPanel>
+              <TabPanel value={indexTab} index={1}>            
+                <SociosDomicilioParticular />
+              </TabPanel>
+              <TabPanel value={indexTab} index={2}>            
+                <SociosDatosConyugue></SociosDatosConyugue>
+              </TabPanel>
+              <TabPanel value={indexTab} index={3}>            
+                <SociosActividadLaboral></SociosActividadLaboral>
+              </TabPanel>
+              <TabPanel value={indexTab} index={4}>            
+                <SociosDomicilioLaboral></SociosDomicilioLaboral>
+              </TabPanel>
+              <TabPanel value={indexTab} index={5}>                  
+                <SociosCorrespondencia></SociosCorrespondencia>
+              </TabPanel>
+              <TabPanel value={indexTab} index={6}>                
+                <SociosHijos />
+              </TabPanel>
+              <TabPanel value={indexTab} index={7}>            
+                <SociosUbicacion />        
+              </TabPanel>
+            </Box>
+          </form>
+        )}        
+      >
+      </Form>
     </Paper>
     {/* <Box sx={{p:2, pt: 0}}>
     <Button variant="contained" sx={{mr:1}}>Guardar</Button>
