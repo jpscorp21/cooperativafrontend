@@ -2,7 +2,7 @@ import { Box, Button, FormControl, FormLabel, Grid, Paper, RadioGroup, TextField
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import AddIcon from '@material-ui/icons/Add';
-import { useState } from "react";
+import React, { useState } from "react";
 import { useQuery } from "react-query";
 import TituloContainer from "../../components/TituloContainer";
 import { socios } from "../../api/socios";
@@ -15,6 +15,9 @@ import SociosCorrespondencia from "./SociosCorrespondencia";
 import useArrayMemo from "../../shared/hooks/useArrayMemo";
 import CustomTabs from "../../components/CustomTabs";
 import TabPanel from "../../components/TabPanel";
+import SociosUbicacion from "./SociosUbicacion";
+import SociosDomicilioParticular from "./SociosDomicilioParticular";
+import SociosHijos from "./SociosHijos";
  
 const useSocios = () => {
 
@@ -39,63 +42,37 @@ const Socios = () => {
     <>
     <TituloContainer>Formulario Socios</TituloContainer>
     <Paper sx={{mx: 2}}>
-      {/* <div className="custom-tab">
-        <Grid container>
-          <Grid item xs={12}> */}
- 
-            <CustomTabs value={indexTab} onChange={setIndexTab} data={dataTabs}></CustomTabs>
-          {/* </Grid> */}
-      {/* <Box sx={{maxWidth: '100%', width: '100%', overflow: 'scroll', position: 'static'}}> */}
-      {/* </Box> */}
-        {/* </Grid>
-       </div>  */}
-    <Box px={2}>
-    <TabPanel value={indexTab} index={0}>            
-      <SociosDatosPersonales></SociosDatosPersonales>
-      
-    </TabPanel>
-    <TabPanel value={indexTab} index={1}>            
-      <h1>Deomiciolio Particular</h1>
-    </TabPanel>
-    <TabPanel value={indexTab} index={2}>            
-      <SociosDatosConyugue></SociosDatosConyugue>
-    </TabPanel>
-    <TabPanel value={indexTab} index={3}>            
-      <SociosActividadLaboral></SociosActividadLaboral>
-    </TabPanel>
-    <TabPanel value={indexTab} index={4}>            
-      <SociosDomicilioLaboral></SociosDomicilioLaboral>
-    </TabPanel>
-    <TabPanel value={indexTab} index={5}>            
     
-      {/* <TituloContainer>Formulario Socios - Correspondencia</TituloContainer> */}
-      <SociosCorrespondencia></SociosCorrespondencia>
-    </TabPanel>
-      <TabPanel value={indexTab} index={6}>            
-    
-        <h1>Hijos</h1>
-      </TabPanel>
-      <TabPanel value={indexTab} index={7}>            
-    
-      <Box px={2} pt={3} pb={3}>
-      
-        </Box>
-
-        <Box sx={{p:2, pt: 0}}>
-        
-        <Grid container spacing={2}>
-          <Grid item xs={4}>
-          <TextField fullWidth label="Latitud" name="latitud" size="small"/>
-          </Grid>
-          <Grid item xs={4}>
-          <TextField fullWidth label="Longitud" name="longitud" size="small"/>
-          </Grid>
-          </Grid>
-        
-        </Box>
-      </TabPanel>
+      <CustomTabs value={indexTab} onChange={setIndexTab} data={dataTabs}></CustomTabs>
+         
+      <Box px={2}>
+        <TabPanel value={indexTab} index={0}>            
+          <SociosDatosPersonales></SociosDatosPersonales>
+          
+        </TabPanel>
+        <TabPanel value={indexTab} index={1}>            
+          <SociosDomicilioParticular />
+        </TabPanel>
+        <TabPanel value={indexTab} index={2}>            
+          <SociosDatosConyugue></SociosDatosConyugue>
+        </TabPanel>
+        <TabPanel value={indexTab} index={3}>            
+          <SociosActividadLaboral></SociosActividadLaboral>
+        </TabPanel>
+        <TabPanel value={indexTab} index={4}>            
+          <SociosDomicilioLaboral></SociosDomicilioLaboral>
+        </TabPanel>
+        <TabPanel value={indexTab} index={5}>                  
+          <SociosCorrespondencia></SociosCorrespondencia>
+        </TabPanel>
+        <TabPanel value={indexTab} index={6}>                
+          <SociosHijos />
+        </TabPanel>
+        <TabPanel value={indexTab} index={7}>            
+          <SociosUbicacion />        
+        </TabPanel>
       </Box>
-      </Paper>
+    </Paper>
     {/* <Box sx={{p:2, pt: 0}}>
     <Button variant="contained" sx={{mr:1}}>Guardar</Button>
     <Button variant="outlined" sx={{mr:1}}>Reiniciar</Button>

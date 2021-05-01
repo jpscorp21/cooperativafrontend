@@ -5,17 +5,19 @@ import React from 'react'
 const SociosActividadLaboral = () => {
     return (
     <>
-      <Box sx={{p:2, pt: 0}}>
-        <form>
+      <Box>
+        <FormControl component="fieldset">
+                <FormLabel component="legend" sx={{mb: 2, fontWeight: 'bolder', fontSize: '16px'}}>Datos de la actividad laboral</FormLabel>
+            </FormControl>
           <Grid container>
             <Grid item xs={12} sx={{mb:2}}>
-              {/* <FormControl component="fieldset">
+              <FormControl component="fieldset">
                 <FormLabel component="legend">Es Empleado</FormLabel>
                   <RadioGroup row aria-label="gender" name="row-radio-buttons-group" defaultValue="si">
                     <FormControlLabel value="si" control={<Radio />} label="Sí" />
                     <FormControlLabel value="no" control={<Radio />} label="No" />
                   </RadioGroup>
-              </FormControl> */}
+              </FormControl>
             </Grid>
 
             <Grid item xs={4} sx={{mb:2, mr: 2}}>
@@ -31,8 +33,7 @@ const SociosActividadLaboral = () => {
                   </RadioGroup>
               </FormControl> */}
             </Grid>
-          </Grid>
-        </form>
+          </Grid>        
       </Box>
     </>
     )
