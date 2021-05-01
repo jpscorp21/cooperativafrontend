@@ -13,7 +13,7 @@ const SociosCorrespondencia = () => {
             <Grid item xs={12} sx={{mb:2}}>
               <FormControl component="fieldset">
                 <FormLabel component="legend">Recibo mi correspondencia en mi Domicilio</FormLabel>
-                  <RadioGroup row aria-label="gender" name="row-radio-buttons-group" defaultValue="particular">
+                  <RadioGroup row aria-label="gender" name="correspondencia" defaultValue="particular">
                     <FormControlLabel value="particular" control={<Radio />} label="Particular" />
                     <FormControlLabel value="laboral" control={<Radio />} label="Laboral" />
                   </RadioGroup>
@@ -21,7 +21,7 @@ const SociosCorrespondencia = () => {
             </Grid>
 
             <Grid item xs={6} sx={{mb:2, mr: 2}}>
-              <TextField fullWidth label="Otro (Especificar)" name="otro" size="small"/>
+              <TextField fullWidth label="Otro (Especificar)" name="correspondencia" size="small"/>
             </Grid>
           </Grid>        
       </Box>

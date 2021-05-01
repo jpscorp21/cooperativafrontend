@@ -11,24 +11,24 @@ const SociosDomicilioLaboral = () => {
         </FormControl> 
               
         <Grid container spacing={2}>
-          <Grid item xs={12} sm={8}>
-            <TextField  fullWidth label="Calle y Número" name="calleyNumero" size="small" />
+          <Grid item xs={12} sm={12}>
+            <TextField  fullWidth label="Calle y Número" name="calleYNumero" size="small" />
           </Grid>
 
-          <Grid item xs={12} sm={4}>
-            <TextField fullWidth  label="Ciudad" name="ciudad" size="small"/>
+          <Grid item xs={12} sm={6}>
+            <TextField fullWidth label="Ciudad" name="ciudadId" size="small"/>
           </Grid>
 
-          <Grid item xs={12} sm={4}>
-            <TextField fullWidth   label="Barrio" name="barrio" size="small" />
+          <Grid item xs={12} sm={6}>
+            <TextField fullWidth label="Barrio" name="barrioId" size="small" />
           </Grid>
 
-          <Grid item xs={12} sm={4}>
-            <TextField fullWidth  label="Teléfono" name="telefono" size="small" />
+          <Grid item xs={12} sm={6}>
+            <TextField fullWidth label="Teléfono" name="telefono" size="small" />
           </Grid>
 
-          <Grid item xs={12} sm={4}>
-            <TextField fullWidth  label="Celular" name="celular" size="small"/>
+          <Grid item xs={12} sm={6}>
+            <TextField fullWidth label="Celular" name="celular" size="small"/>
           </Grid>
         </Grid>
         
