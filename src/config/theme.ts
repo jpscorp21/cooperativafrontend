@@ -39,13 +39,7 @@ const theme = createMuiTheme({
     MuiAppBar: {
       defaultProps: {
         elevation: 0
-      },
-      styleOverrides: {
-        root: {
-          
-          boxShadow: 'none !important'
-        }
-      }
+      },      
     },
     MuiTableRow: {
       styleOverrides: {
@@ -101,6 +95,15 @@ const theme = createMuiTheme({
       styleOverrides: {
         root: {
           color: 'black'
+        }
+      }
+    },
+    MuiTab: {
+      styleOverrides: {
+        root: {
+          minWidth: '0px !important',
+          maxWidth: 'none !important',
+          
         }
       }
     }

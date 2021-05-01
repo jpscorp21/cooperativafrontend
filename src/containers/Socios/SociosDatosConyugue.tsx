@@ -5,7 +5,7 @@ import React from 'react'
 const SociosDatosConyugue = () => {
     return (
     <>
-      <Box sx={{p:2, pt: 0}}>
+      <Box>
         <form>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>

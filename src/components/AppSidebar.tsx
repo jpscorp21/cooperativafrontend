@@ -13,8 +13,7 @@ const breakpointDrawer = 'md';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
-    flexWrap: 'wrap'
+    // display: 'flex',    
   },
   appBar: {       
     
@@ -44,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
     ...theme.mixins.toolbar,
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.leavingScreen,
+      duration: theme.transitions.duration.enteringScreen,
     }),
   },
   toolbarShift: {    
@@ -76,15 +75,14 @@ const useStyles = makeStyles((theme) => ({
     display: 'none'
   },
   content: {
-    maxWidth: '100%',
-    marginLeft: '0',
-    flexShrink: 1,
+        
+    // marginLeft: '0px',    
     [theme.breakpoints.up(breakpointDrawer)]: {
       transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.leavingScreen,
       }),    
-      marginLeft: '0',
+      marginLeft: '300px',
     },    
   },
   contentShift: {
@@ -93,8 +91,10 @@ const useStyles = makeStyles((theme) => ({
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen,
       }),                
-      marginLeft: '300px',
+      // marginLeft: '300px',
     },
+    marginLeft: '0px'
+    
   },
 }));
 
@@ -112,6 +112,7 @@ const AppSidebar = ({children}: PropsWithChildren<{}>) => {
   const menuSidebar = useMemo(() => [...menu], []);  
 
   useEffect(() => { 
+    console.log('eres tu')
     if (desktop) {
       setOpen(false);
     } else {
@@ -206,7 +207,7 @@ const AppSidebar = ({children}: PropsWithChildren<{}>) => {
         <Drawer 
           variant="temporary"
           open={open && desktop}
-          onClose={handleDrawerToggle}
+          onClose={handleDrawerToggle} 
           classes={{
             paper: classes.drawerPaper
           }}          
@@ -216,7 +217,7 @@ const AppSidebar = ({children}: PropsWithChildren<{}>) => {
         </Drawer>
       </Hidden>
     </nav>
-    <main className={clsx(classes.content, {[classes.contentShift]: open, [classes.toolbarShift]: !open })}>
+    <main className={clsx(classes.content, {[classes.contentShift]: !open, [classes.toolbarShift]: !open })}>
       <Box sx={{mt: 6}}></Box>
       {children}
     </main>

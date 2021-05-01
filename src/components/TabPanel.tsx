@@ -1,4 +1,4 @@
-import { Box, Container, Typography } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 import React from "react";
 
 type TabPanelProps = {
@@ -20,7 +20,7 @@ function TabPanel(props: React.PropsWithChildren<TabPanelProps>) {
         {...other}
       >
         {value === index && (
-          <Box p={2}>
+          <Box py={2}>
             {children}
           </Box>
         )}

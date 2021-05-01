@@ -4,7 +4,7 @@ import React from 'react'
 const SociosDatosPersonales = () => {
     return (
         <>
-            <Box sx={{pt: 1}}>
+            <Box>
                 <form> 
                     <Grid container spacing={2}>
                         <Grid item xs={12} sm={4}>

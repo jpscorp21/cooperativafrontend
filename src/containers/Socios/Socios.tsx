@@ -1,4 +1,4 @@
-import { Box, Button, FormControl, FormLabel, Grid, RadioGroup, TextField, Typography } from "@material-ui/core"
+import { Box, Button, FormControl, FormLabel, Grid, Paper, RadioGroup, TextField, Typography } from "@material-ui/core"
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import AddIcon from '@material-ui/icons/Add';
@@ -37,14 +37,22 @@ const Socios = () => {
 
   return (
     <>
-    
     <TituloContainer>Formulario Socios</TituloContainer>
-      <Box px="2">
-        <CustomTabs value={indexTab} onChange={setIndexTab} data={dataTabs}></CustomTabs>
-      </Box>
-        
+    <Paper sx={{mx: 2}}>
+      {/* <div className="custom-tab">
+        <Grid container>
+          <Grid item xs={12}> */}
+ 
+            <CustomTabs value={indexTab} onChange={setIndexTab} data={dataTabs}></CustomTabs>
+          {/* </Grid> */}
+      {/* <Box sx={{maxWidth: '100%', width: '100%', overflow: 'scroll', position: 'static'}}> */}
+      {/* </Box> */}
+        {/* </Grid>
+       </div>  */}
+    <Box px={2}>
     <TabPanel value={indexTab} index={0}>            
       <SociosDatosPersonales></SociosDatosPersonales>
+      
     </TabPanel>
     <TabPanel value={indexTab} index={1}>            
       <h1>Deomiciolio Particular</h1>
@@ -86,8 +94,8 @@ const Socios = () => {
         
         </Box>
       </TabPanel>
-              
-    
+      </Box>
+      </Paper>
     {/* <Box sx={{p:2, pt: 0}}>
     <Button variant="contained" sx={{mr:1}}>Guardar</Button>
     <Button variant="outlined" sx={{mr:1}}>Reiniciar</Button>
