@@ -1,5 +1,8 @@
 import { Box, FormControl, FormLabel, Grid, TextField } from '@material-ui/core'
 import React from 'react'
+import { Field } from 'react-final-form'
+import TextFieldAdapter from '../../components/control/TextFieldAdapter'
+import { required } from '../../utils/errorMessages'
 
 const SociosUbicacion = () => {
     return (        
@@ -10,12 +13,22 @@ const SociosUbicacion = () => {
             </FormControl>
             <Grid container spacing={2} sx={{mb: 2}}>
                 <Grid item xs={6}>
-                    <TextField fullWidth label="Latitud" name="latitud" size="small"/>
+                    <Field 
+                        fullWidth                          
+                        component={TextFieldAdapter}  
+                        label="Latitud" 
+                        name="latitud" 
+                    />                    
                 </Grid>
             </Grid>
             <Grid container spacing={2}>
                 <Grid item xs={6}>
-                    <TextField fullWidth label="Longitud" name="longitud" size="small"/>
+                    <Field 
+                        fullWidth                          
+                        component={TextFieldAdapter}  
+                        label="Longitud" 
+                        name="longitud" 
+                    />                
                 </Grid>
             </Grid>
         

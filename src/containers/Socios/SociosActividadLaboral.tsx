@@ -1,6 +1,8 @@
 
 import { Box, FormControl, FormControlLabel, FormLabel, Grid, Radio, RadioGroup, TextField } from '@material-ui/core'
 import React from 'react'
+import { Field } from 'react-final-form'
+import TextFieldAdapter from '../../components/control/TextFieldAdapter'
 
 const SociosActividadLaboral = () => {
     return (
@@ -21,24 +23,53 @@ const SociosActividadLaboral = () => {
             </Grid>
 
             <Grid item xs={12} sm={6}>
-              <TextField fullWidth label="Antiguedad" name="antiguedad" size="small"/>
+              <Field 
+                fullWidth 
+                label="Antiguedad" 
+                name="antiguedad" 
+                component={TextFieldAdapter}
+              />              
             </Grid>
             <Grid item xs={12} sm={6}>
-              <TextField fullWidth label="Nombre empresa" name="nombreEmpresa" size="small"/>
+              <Field 
+                fullWidth 
+                label="Nombre empresa" 
+                name="nombreEmpresa" 
+                component={TextFieldAdapter}
+              />              
             </Grid>
             <Grid item xs={12} sm={6}>
-              <TextField fullWidth label="Profesión" name="profesionId" size="small"/>
+              <Field 
+                fullWidth 
+                label="Profesión" 
+                name="profesionId" 
+                component={TextFieldAdapter}
+              />              
             </Grid>
             <Grid item xs={12} sm={6}>
-              <TextField fullWidth label="Puesto que ocupa" name="puestoLaboralId" size="small"/>
+              <Field 
+                fullWidth 
+                label="Puesto que ocupa" 
+                name="puestoLaboralId" 
+                component={TextFieldAdapter}
+              />              
             </Grid>
             <Grid item xs={12} sm={12}>
-              <TextField fullWidth label="Actividad laboral" name="actividadEmpresa" size="small"/>
+              <Field 
+                fullWidth 
+                label="Actividad laboral" 
+                name="actividadEmpresa" 
+                component={TextFieldAdapter}
+              />                 
             </Grid>
             <Grid item xs={12} sm={12}>
-              <TextField fullWidth label="Ingreso Mensual" name="ingresoMensual" size="small"/>
+              <Field 
+                fullWidth 
+                label="Ingreso mensual" 
+                name="ingresoMensual" 
+                component={TextFieldAdapter}
+              />                 
             </Grid>
-
             <Grid item xs={12} sm={6}>
               <FormControl component="fieldset">
                 <FormLabel component="legend">Posee Otros Ingresos</FormLabel>
@@ -49,10 +80,20 @@ const SociosActividadLaboral = () => {
               </FormControl>
             </Grid>
             <Grid item xs={12} sm={6}>
-              <TextField fullWidth label="Monto" name="otroMonto" size="small"/>
+              <Field 
+                fullWidth 
+                label="Monto" 
+                name="otroMonto" 
+                component={TextFieldAdapter}
+              />                               
             </Grid>
             <Grid item xs={12} sm={6}>
-              <TextField fullWidth label="Concepto" name="otroConcepto" size="small"/>
+              <Field 
+                fullWidth 
+                label="Concepto" 
+                name="otroConcepto" 
+                component={TextFieldAdapter}
+              />              
             </Grid>
           </Grid>        
       </Box>

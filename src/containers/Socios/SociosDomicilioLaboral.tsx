@@ -1,6 +1,8 @@
 
 import { Box, FormControl, FormControlLabel, FormLabel, Grid, Radio, RadioGroup, TextField } from '@material-ui/core'
 import React from 'react'
+import { Field } from 'react-final-form'
+import TextFieldAdapter from '../../components/control/TextFieldAdapter'
 
 const SociosDomicilioLaboral = () => {
     return (
@@ -12,23 +14,48 @@ const SociosDomicilioLaboral = () => {
               
         <Grid container spacing={2}>
           <Grid item xs={12} sm={12}>
-            <TextField  fullWidth label="Calle y Número" name="calleYNumero" size="small" />
+            <Field
+               fullWidth
+               label="Calle y Número"
+               name="domicilioLaboral.calleYNumero"
+               component={TextFieldAdapter}
+            />            
           </Grid>
 
           <Grid item xs={12} sm={6}>
-            <TextField fullWidth label="Ciudad" name="ciudadId" size="small"/>
+            <Field
+               fullWidth
+               label="Ciudad"
+               name="domicilioLaboral.ciudadId"
+               component={TextFieldAdapter}
+            />            
           </Grid>
 
           <Grid item xs={12} sm={6}>
-            <TextField fullWidth label="Barrio" name="barrioId" size="small" />
+            <Field
+               fullWidth
+               label="Barrio"
+               name="domicilioLaboral.barrioId"
+               component={TextFieldAdapter}
+            />            
           </Grid>
 
           <Grid item xs={12} sm={6}>
-            <TextField fullWidth label="Teléfono" name="telefono" size="small" />
+            <Field
+               fullWidth
+               label="Teléfono"
+               name="domicilioLaboral.telefono"
+               component={TextFieldAdapter}
+            />            
           </Grid>
 
           <Grid item xs={12} sm={6}>
-            <TextField fullWidth label="Celular" name="celular" size="small"/>
+            <Field
+               fullWidth
+               label="Celular"
+               name="domicilioLaboral.celular"
+               component={TextFieldAdapter}
+            />            
           </Grid>
         </Grid>
         

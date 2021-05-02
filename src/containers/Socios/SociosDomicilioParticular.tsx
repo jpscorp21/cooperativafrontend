@@ -1,4 +1,6 @@
 import { Box, FormControl, FormLabel, Grid, TextField } from '@material-ui/core'
+import { Field } from 'react-final-form'
+import TextFieldAdapter from '../../components/control/TextFieldAdapter'
 
 const SociosHijos = () => {
     return (
@@ -8,23 +10,53 @@ const SociosHijos = () => {
                 <FormLabel component="legend" sx={{mb: 2, fontWeight: 'bolder', fontSize: '16px'}}>Datos del domicilio particular</FormLabel>
             </FormControl>
             <Grid container spacing={2}>
-                <Grid item xs={12} sm={12}>
-                    <TextField fullWidth label="Calle Y Número*" name="calleYNumero" size="small"/>
+                <Grid item xs={12} sm={12}>                    
+                    <Field 
+                        fullWidth 
+                        label="Calle Y Número" 
+                        name="direccionParticular.calleYNumero" 
+                        component={TextFieldAdapter}
+                    />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <TextField fullWidth label="Ciudad" name="ciudadId" size="small"/>
+                    <Field 
+                        fullWidth 
+                        label="Ciudad" 
+                        name="direccionParticular.ciudadId" 
+                        component={TextFieldAdapter}
+                    />                    
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <TextField fullWidth label="Barrio" name="barrioId" size="small"/>
+                    <Field 
+                        fullWidth 
+                        label="Barrio" 
+                        name="direccionParticular.barrioId" 
+                        component={TextFieldAdapter}
+                    />                    
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <TextField fullWidth label="Teléfono" name="telefono" size="small"/>
+                    <Field 
+                        fullWidth 
+                        label="Teléfono" 
+                        name="direccionParticular.telefono" 
+                        component={TextFieldAdapter}
+                    />                    
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <TextField fullWidth label="Celular" name="celular" size="small"/>
+                    <Field 
+                        fullWidth 
+                        label="Celular" 
+                        name="direccionParticular.celular" 
+                        component={TextFieldAdapter}
+                    />                                        
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                    <TextField fullWidth label="Correo" name="correo" size="small"/>
+                    <Field  
+                        fullWidth 
+                        label="Correo" 
+                        name="direccionParticular.correo" 
+                        component={TextFieldAdapter}
+                    />                                        
                 </Grid>
             </Grid>        
         </Box>

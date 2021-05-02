@@ -1,6 +1,8 @@
 
 import { Box, FormControl, FormLabel, Grid, TextField } from '@material-ui/core'
 import React from 'react'
+import { Field } from 'react-final-form'
+import TextFieldAdapter from '../../components/control/TextFieldAdapter'
 
 const SociosDatosConyugue = () => {
     return (
@@ -12,23 +14,48 @@ const SociosDatosConyugue = () => {
           </FormControl>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
-              <TextField fullWidth label="Nombre" name="nombre" size="small" />
+              <Field 
+                fullWidth 
+                label="Nombre" 
+                name="conyugue.nombre"
+                component={TextFieldAdapter}
+              />                            
             </Grid>
 
             <Grid item xs={12} sm={6}>
-              <TextField fullWidth label="Apellido" name="apellido" size="small"/>
+              <Field 
+                fullWidth 
+                label="Apellido" 
+                name="conyugue.apellido"
+                component={TextFieldAdapter}
+              />              
             </Grid>
 
             <Grid item xs={12} sm={6}>
-              <TextField fullWidth  label="Doc. Identidad" name="cedula" size="small" />
+              <Field 
+                fullWidth 
+                label="Doc. Identidad" 
+                name="conyugue.cedula"
+                component={TextFieldAdapter}
+              />              
             </Grid>
 
             <Grid item xs={12} sm={6}>
-              <TextField fullWidth label="Fecha Nacimiento" name="fechaNacimiento" size="small" />
+              <Field 
+                fullWidth 
+                label="Fecha nacimiento" 
+                name="conyugue.fechaNacimiento"
+                component={TextFieldAdapter}
+              />              
             </Grid>
 
             <Grid item sm={12}>
-              <TextField fullWidth label="Dirección" name="lugar" size="small" />
+            <Field 
+                fullWidth 
+                label="Dirección" 
+                name="conyugue.lugar"
+                component={TextFieldAdapter}
+              />              
             </Grid>
           </Grid>        
       </Box>

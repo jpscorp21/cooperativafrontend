@@ -1,6 +1,7 @@
 
-import { Box, FormControl, FormControlLabel, FormLabel, Grid, Radio, RadioGroup, TextField } from '@material-ui/core'
-import React from 'react'
+import { Box, FormControl, FormControlLabel, FormLabel, Grid, Radio, RadioGroup } from '@material-ui/core'
+import { Field } from 'react-final-form'
+import TextFieldAdapter from '../../components/control/TextFieldAdapter'
 
 const SociosCorrespondencia = () => {
     return (
@@ -21,7 +22,7 @@ const SociosCorrespondencia = () => {
             </Grid>
 
             <Grid item xs={6} sx={{mb:2, mr: 2}}>
-              <TextField fullWidth label="Otro (Especificar)" name="correspondencia" size="small"/>
+              <Field fullWidth label="Otro (Especificar)" name="correspondencia" component={TextFieldAdapter}/>
             </Grid>
           </Grid>        
       </Box>

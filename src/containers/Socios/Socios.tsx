@@ -19,7 +19,7 @@ import SociosUbicacion from "./SociosUbicacion";
 import SociosDomicilioParticular from "./SociosDomicilioParticular";
 import SociosHijos from "./SociosHijos";
 import { FormApi } from "final-form";
-import { Form } from "react-final-form";
+import { Form, FormSpy } from "react-final-form";
  
 const useSocios = () => {
 
@@ -68,9 +68,16 @@ const Socios = () => {
     <Paper sx={{mx: 2}}>
       <Form
         onSubmit={onSubmit}
-        render={({handleSubmit, values}) => (
+        subscription={{}}
+        render={({handleSubmit}) => (
           <form onSubmit={handleSubmit}>
-            {JSON.stringify(values)}
+            <FormSpy subscription={{ values: true }}>
+            {({ values }) => (
+              <pre>
+                {JSON.stringify(values, null, 2)}
+              </pre>
+            )}
+            </FormSpy>
             <CustomTabs value={indexTab} onChange={setIndexTab} data={dataTabs}></CustomTabs>              
             <Box px={2}>
               <TabPanel value={indexTab} index={0}>            
@@ -99,9 +106,12 @@ const Socios = () => {
                 <SociosUbicacion />        
               </TabPanel>
             </Box>
+            
+
           </form>
         )}        
       >
+        
       </Form>
     </Paper>
     {/* <Box sx={{p:2, pt: 0}}>
