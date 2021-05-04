@@ -11,11 +11,7 @@ type EstadoCivilFormModalProps = {
   formData: any;  
 }
 
-const EstadoCivilFormModal = ({openModal, handleCloseModal}: EstadoCivilFormModalProps) => {
-    
-  const onSubmit = async (values:any) => {
-    console.log(values);
-  }
+const EstadoCivilFormModal = ({openModal, handleCloseModal, onSubmit, formData}: EstadoCivilFormModalProps) => {
 
   return (
         <Dialog open={openModal} onClose={handleCloseModal}>
