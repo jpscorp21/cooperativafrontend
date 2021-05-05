@@ -9,7 +9,7 @@ import { FormApi } from "final-form";
 import queryClient from "../../config/queryClient";
 import ConfirmDialog from "../../components/ConfirmDialog";
 import useBackend from "../../shared/hooks/useBackend";
-import { ProfesionesAPI } from "../../api/ProfesionesAPI";
+import { ProfesionesAPI } from "../../api/services/ProfesionesAPI";
 
 
 const initialForm = () => ({

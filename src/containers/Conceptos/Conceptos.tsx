@@ -1,17 +1,24 @@
 import { Box, TextField } from "@material-ui/core"
+import { FormApi } from "final-form"
 import { useState } from "react"
 import ButtonActionContainer from "../../components/ButtonActionContainer"
-import DescripcionFormModal from "../../components/DescripcionFormModal"
+import { descripcionInitialForm } from "../../components/DescripcionFormModal"
 import TituloContainer from "../../components/TituloContainer"
 import ConceptosFormModal from "./ConceptosFormModal"
+
 
 const Conceptos = () => {
 
   const [openModal, setOpenModal] = useState(false);
+  const [formData, setFormData] = useState<any>(descripcionInitialForm());   
 
   const handleCloseModal = (e: any) => {
     setOpenModal(false);
   }
+
+  const onSubmit = async (values: any, form: FormApi) => {   
+    console.log(values);   
+  }  
 
   return (
     <>
@@ -23,7 +30,7 @@ const Conceptos = () => {
         <TextField sx={{bgcolor: 'white'}} fullWidth placeholder="Buscar" size="small" />
       </Box>
 
-      <DescripcionFormModal title="Formulario Concepto" openModal={openModal} handleCloseModal={handleCloseModal} />     
+      <ConceptosFormModal openModal={openModal} handleCloseModal={handleCloseModal} onSubmit={onSubmit} formData={formData} />      
     </>
   )
 }

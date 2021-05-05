@@ -25,7 +25,7 @@ const TipoCreditoFormModal = ({openModal, handleCloseModal, onSubmit, formData}:
             onSubmit={onSubmit}
             render={({handleSubmit, values}) => (
               <form onSubmit={handleSubmit}>
-              {JSON.stringify(values)} 
+              {/* {JSON.stringify(values)} */} 
             <Grid container sx={{mt:2}} spacing={2}>
               <Grid item xs={12}>
                 <Field fullWidth label="Código" name="codigo" disabled component={TextFieldAdapter} />
@@ -50,17 +50,17 @@ const TipoCreditoFormModal = ({openModal, handleCloseModal, onSubmit, formData}:
               </Grid>
 
               <Grid item xs={12} sm={4}>
-                  <Field fullWidth label="Plazo Min" name="plazo-min" size="small" />
+                  <Field fullWidth label="Plazo Min" name="plazo-min" size="small" component={TextFieldAdapter} />
               </Grid>
               <Grid item xs={12} sm={4}>
-                  <Field fullWidth  label="Plazo Max" name="plazo-max" size="small"/>
+                  <Field fullWidth  label="Plazo Max" name="plazo-max" size="small" component={TextFieldAdapter} />
               </Grid>
               <Grid item xs={12} sm={4}>
-                  <Field fullWidth  label="Tasa" name="tasa" size="small"/>
+                  <Field fullWidth  label="Tasa" name="tasa" size="small" component={TextFieldAdapter} />
               </Grid>
       
               <Grid item xs={12}>
-                <Field fullWidth label="Observación" multiline name="observacion" size="small" rows={4}/>
+                <Field fullWidth label="Observación" multiline name="observacion" size="small" rows={4} component={TextFieldAdapter}/>
               </Grid>   
                        
             </Grid>

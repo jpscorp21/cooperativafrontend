@@ -1,4 +1,4 @@
-import { Box, TextField } from "@material-ui/core"
+import { Box, TableCell, TextField } from "@material-ui/core"
 import { useState, useMemo } from "react";
 import AccionesCell from "../../components/AccionesCell";
 import CustomTable, { ColumnCustomTable } from "../../components/CustomTable";

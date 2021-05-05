@@ -1,7 +1,7 @@
 import { Alert, Button, Container, Grid, makeStyles, Paper, TextField, Typography } from "@material-ui/core";
 import { useEffect, useRef, useState } from "react";
 import { useHistory } from "react-router";
-import { AuthAPI } from "../../api/AuthAPI";
+import { AuthAPI } from "../../api/services/AuthAPI";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
