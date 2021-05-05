@@ -20,7 +20,6 @@ const EstadoCivilFormModal = ({openModal, handleCloseModal, onSubmit, formData}:
           <Typography variant="h5" component="h5" sx={{pb: 2}}>
             Formulario Estado Civil
           </Typography> 
-
           <Form
             initialValues={{}} 
             onSubmit={onSubmit}

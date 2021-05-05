@@ -35,7 +35,7 @@ const ProfesionesFormModal = ({openModal, handleCloseModal, onSubmit, formData}:
               <Field fullWidth label="Descripción" validate={required} name="descripcion" autoFocus component={TextFieldAdapter} />
             </Grid>
             <Grid item xs={12}>
-              <Field fullWidth label="Observación" multiline name="obvervacion" rows={4} component={TextFieldAdapter}/>
+              <Field fullWidth label="Observación" multiline name="observacion" rows={4} component={TextFieldAdapter}/>
             </Grid>            
           </Grid>
 
