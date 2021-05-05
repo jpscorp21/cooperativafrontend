@@ -8,7 +8,7 @@ import NacionalidadesFormModal from "./NacionalidadesFormModal";
 import { FormApi } from "final-form";
 import queryClient from "../../config/queryClient";
 import ConfirmDialog from "../../components/ConfirmDialog";
-import { NacionalidadesAPI } from "../../api/NacionalidadesAPI";
+import { NacionalidadesAPI } from "../../api/services/NacionalidadesAPI";
 import useBackend from "../../shared/hooks/useBackend";
 const initialForm = () => ({
   descripcion: '',

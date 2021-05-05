@@ -8,7 +8,7 @@ import CiudadesFormModal from "./CiudadesFormModal";
 import { FormApi } from "final-form";
 import queryClient from "../../config/queryClient";
 import ConfirmDialog from "../../components/ConfirmDialog";
-import { CiudadesAPI } from "../../api/CiudadesAPI";
+import { CiudadesAPI } from "../../api/services/CiudadesAPI";
 import useBackend from "../../shared/hooks/useBackend";
 
 const initialForm = () => ({

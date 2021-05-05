@@ -9,7 +9,7 @@ import ButtonActionContainer from "../../components/ButtonActionContainer";
 import BarriosFormModal from "./BarriosFormModal";
 import { FormApi } from "final-form";
 import useBackend from "../../shared/hooks/useBackend";
-import { CiudadesAPI } from "../../api/CiudadesAPI";
+import { CiudadesAPI } from "../../api/services/CiudadesAPI";
 
 const initialForm = () => ({
   descripcion: '',

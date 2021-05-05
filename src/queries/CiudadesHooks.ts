@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "react-query";
-import { CiudadesAPI } from "../api/CiudadesAPI";
+import { CiudadesAPI } from "../api/services/CiudadesAPI";
 
 const CiudadesHooks = {
     useCiudades: (params: any) => {

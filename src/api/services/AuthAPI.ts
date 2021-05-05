@@ -1,6 +1,6 @@
-import { TokenResponse } from "../models/auth-model"
-import { IUsuarioLogin } from "../models/usuario-model"
-import api from "./"
+import { TokenResponse } from "../../models/auth-model"
+import { IUsuarioLogin } from "../../models/usuario-model"
+import api from ".."
 
 export const AuthAPI = {
     async login(usuario: IUsuarioLogin) {
