@@ -1,36 +1,76 @@
-import { Box, Button, TextField } from "@material-ui/core"
+import { Box, TextField } from "@material-ui/core"
 import { useState, useMemo } from "react";
 import AccionesCell from "../../components/AccionesCell";
-import { useQuery } from "react-query";
 import CustomTable, { ColumnCustomTable } from "../../components/CustomTable";
-import { tipocreditos } from "../../api/tipocreditos";
 import TituloContainer from "../../components/TituloContainer";
 import ButtonActionContainer from "../../components/ButtonActionContainer";
 import TipoCreditoFormModal from "./TipoCreditoFormModal";
+import { FormApi } from "final-form";
+import queryClient from "../../config/queryClient";
+import ConfirmDialog from "../../components/ConfirmDialog";
+import useBackend from "../../shared/hooks/useBackend";
+import { TipoCreditosAPI } from "../../api/TipoCreditosAPI";
 
-const useTipoCredito = () => {
-  const {data: items} = useQuery('tipocreditos', tipocreditos.getAll);  
-
-  return items;
-}
+const initialForm = () => ({ 
+  descripcion: ''
+})
 
 const TipoCredito = () => {
+  const {data, create, remove, update, setParams, key} = useBackend(TipoCreditosAPI);
 
-  const items = useTipoCredito(); 
-
-  const [openModal, setOpenModal] = useState(false);
-  
-  const handlePageChange = (page: number) => {
-    console.log(page);
+  const [openModal, setOpenModal] = useState(false)
+  const [openConfirmModal, setOpenConfirmModal] = useState(false) 
+  const [formData, setFormData] = useState<any>(initialForm()); 
+  const handleNew = () => {
+    setFormData(initialForm());
+    setOpenModal(true);
   }
 
-  const handleCloseModal = (e: any) => {
-    setOpenModal(false);
-  }
-  
   const handleEditar = (item: any) => {
-    console.log({item});
+    setFormData({...item});
+    setOpenModal(true);
   }
+
+  const handleOpenConfirmEliminar = (item: any) => {
+    setFormData({...item});
+    setOpenConfirmModal(true);
+  }
+
+  const handleEliminar = () => {
+    remove.mutate(formData.id, {
+      onSuccess() {      
+        setOpenConfirmModal(false);      
+        queryClient.invalidateQueries(key)           
+      }
+    }) 
+  }
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  }  
+
+  const onSubmit = async (values: any, form: FormApi) => {   
+        
+    if (values.id) {
+      update.mutate(({body: values, id: values.id}), {
+        onSuccess() {    
+          handleCloseModal();     
+          queryClient.invalidateQueries(key)   
+          form.reset();
+        }
+      }) 
+      return;
+    }
+
+    create.mutate(values, {
+      onSuccess() {    
+        handleCloseModal();     
+        queryClient.invalidateQueries(key)   
+        form.reset();
+      }
+    })    
+  }    
+
   const columns = useMemo(() => [
     {
       key: 'codigo',
@@ -39,12 +79,17 @@ const TipoCredito = () => {
     {
       key: 'descripcion',
       label: 'Descripcion',            
-    },    
+      render: (item: any) => (
+        <TableCell>
+          <span style={{cursor: 'pointer', paddingTop: '8px'}} onClick={() => handleEditar(item)}>{item.descripcion}</span>
+        </TableCell>
+      )
+    },             
     {
       key: 'acciones',
       label: 'Acciones',
       align: 'right',
-      render: (item: any) => <AccionesCell item={item} onEditar={handleEditar} />
+      render: (item: any) => <AccionesCell item={item} onEditar={handleEditar} onEliminar={handleOpenConfirmEliminar} />
     },
   ] as ColumnCustomTable[], [])
 
@@ -54,16 +99,31 @@ const TipoCredito = () => {
 
       <ButtonActionContainer onNew={() => setOpenModal(true)} onRefresh={() => console.log('refrescando')} />
 
-      <Box px={2} pb={2}>
-        <TextField sx={{bgcolor: 'white'}} fullWidth placeholder="Buscar" size="small" />
-      </Box>           
-
-      {/* TABLA */}
+      <Box px={2} pb={2}> 
+        <TextField sx={{bgcolor: 'white'}} onChange={(event) => setParams(event.target.value, 'searchQuery')} fullWidth placeholder="Buscar un Tipo de Crédito" size="small" />
+      </Box>                
       <Box sx={{px: 2}}>
-        <CustomTable columns={columns} data={items} onPageChange={handlePageChange}></CustomTable>
+        <CustomTable 
+          page={data?.currentPage}  
+          count={data?.totalPages} 
+          columns={columns} 
+          data={data?.items ? data?.items : []} 
+          onPageChange={(value) => setParams(value, 'pageNumber')}
+        />  
       </Box> 
-      <TipoCreditoFormModal openModal={openModal} handleCloseModal={handleCloseModal}></TipoCreditoFormModal>
-
+      <TipoCreditoFormModal
+         openModal={openModal}
+         handleCloseModal={handleCloseModal}
+         onSubmit={onSubmit}
+         formData={formData}
+         />
+    
+      <ConfirmDialog 
+        openModal={openConfirmModal}
+        onAceptar={handleEliminar}
+        message="Estás seguro de eliminar este Tipo de Crédito?"
+        handleCloseModal={() => setOpenConfirmModal(false)}
+      />
     </>
   )
 }

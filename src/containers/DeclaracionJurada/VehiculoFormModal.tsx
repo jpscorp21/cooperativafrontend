@@ -35,7 +35,7 @@ const VehiculoFormModal = ({openModal, handleCloseModal}: FormModalProps) => {
                     <TextField fullWidth label="Saldo" name="saldo" size="small"  />
                 </Grid>                
                 <Grid item xs={12}>
-                    <TextField fullWidth label="Observación" multiline name="obvervacion" size="small" rows={4}/>
+                    <TextField fullWidth label="Observación" multiline name="observacion" size="small" rows={4}/>
                 </Grid>            
                 </Grid>
 

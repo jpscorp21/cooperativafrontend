@@ -1,9 +1,9 @@
 import { Box, TextField } from "@material-ui/core"
 import { useMemo, useState } from "react";
-import { useQuery } from "react-query";
-import { tipocuentas } from "../../api/tipocuentas";
 import AccionesCell from "../../components/AccionesCell";
+import { useQuery } from "react-query";
 import CustomTable, { ColumnCustomTable } from "../../components/CustomTable";
+import { tipocuentas } from "../../api/tipocuentas";
 import TituloContainer from "../../components/TituloContainer";
 import ButtonActionContainer from "../../components/ButtonActionContainer";
 import TipoCuentaFormModal from "./TipoCuentaFormModal";
@@ -70,5 +70,5 @@ const TipoCuenta = () => {
 </>
   )
 }
- 
+ //tipo cuenta y modaliddad pago
 export default TipoCuenta

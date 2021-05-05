@@ -58,27 +58,27 @@ const SolicitudCreditoForm = () => {
                     </Grid>
                     <Grid sx={{mt: 2}}>
                         <Grid item xs={12} sx={{mb:2}}>
-                        <TextField fullWidth label="Observación" multiline name="obvervacion" size="small" rows={4}/>
+                        <TextField fullWidth label="Observación" multiline name="observacion" size="small" rows={4}/>
                         </Grid> 
                     </Grid>
                     <Grid sx={{mt: 2}}>
                         <Grid item xs={12} sx={{mb:2}}>
-                            <TextField fullWidth label="Total Capital" name="obvervacion" size="small" rows={4} disabled/>
+                            <TextField fullWidth label="Total Capital" name="observacion" size="small" rows={4} disabled/>
                         </Grid> 
                     </Grid>
                     <Grid sx={{mt: 2}}>
                         <Grid item xs={12} sx={{mb:2}}>
-                            <TextField fullWidth label="Total Interes" name="obvervacion" size="small" rows={4} disabled/>
+                            <TextField fullWidth label="Total Interes" name="observacion" size="small" rows={4} disabled/>
                         </Grid> 
                     </Grid>
                     <Grid sx={{mt: 2}}>
                         <Grid item xs={12} sx={{mb:2}}>
-                            <TextField fullWidth label="Total Gastos" name="obvervacion" size="small" rows={4} disabled/>
+                            <TextField fullWidth label="Total Gastos" name="observacion" size="small" rows={4} disabled/>
                         </Grid> 
                     </Grid>
                     <Grid sx={{mt: 2}}>
                         <Grid item xs={12} sx={{mb:2}}>
-                            <TextField fullWidth label="Total" name="obvervacion" size="small" rows={4} disabled/>
+                            <TextField fullWidth label="Total" name="observacion" size="small" rows={4} disabled/>
                         </Grid> 
                     </Grid>
                 </form>
