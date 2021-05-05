@@ -1,33 +1,16 @@
-import { Dialog, Paper, Typography, Grid, TextField, Box, Button } from '@material-ui/core'
-import React, { useState } from 'react'
+import { Dialog, Paper, Typography, Grid, Box, Button } from '@material-ui/core'
+import { Field, Form } from 'react-final-form';
+import TextFieldAdapter from '../../components/control/TextFieldAdapter';
 import CustomDatePicker from '../../components/CustomDatePicker';
+import { FormModalProps } from '../../types';
+import { required } from '../../utils/errorMessages';
 
-type TimbradosFormModalProps = {
-    openModal: boolean;
-    handleCloseModal(e: any): void;
+type TimbradosFormModalProps = FormModalProps & {
+    onSubmit: any;
+    formData: any;  
 }
 
-const initialForm = () => ({
-    descripcion: '',
-    fechaInicio: new Date().toISOString(),
-    fechaFin: new Date().toISOString(),
-    observacion: ''
-});
-
-const TimbradosFormModal = ({openModal, handleCloseModal}: TimbradosFormModalProps) => {
-
-    const [form, setForm] = useState(initialForm());
-
-    const handleChange = (event: any) => {
-        setForm({
-            ...form,
-            [event.target.name]: event.target.value
-        })
-    }
-
-    const handleChangeDate = (value: string, name: string) => {
-        handleChange({target: {value, name}})
-    }
+const TimbradosFormModal = ({openModal, handleCloseModal, onSubmit, formData}: TimbradosFormModalProps) => {    
 
     return (
         <Dialog open={openModal} onClose={handleCloseModal}>
@@ -35,32 +18,64 @@ const TimbradosFormModal = ({openModal, handleCloseModal}: TimbradosFormModalPro
             
             <Typography variant="h5" component="h5">
                 Formulario Timbrado
-            </Typography>          
-            <form>
-                <Grid container sx={{mt:2}} spacing={2}>
-                    <Grid item xs={12}>
-                        <TextField fullWidth label="Nro. Timbrado*" name="descripcion" size="small" autoFocus />
-                    </Grid>
-                    <Grid item sm={6} xs={12}>
-                        <CustomDatePicker 
-                            label="Fecha Inicio" 
-                            name="fechaInicio" 
-                            value={form.fechaInicio} 
-                            onChange={handleChangeDate} />
-                    </Grid>            
-                    <Grid item sm={6} xs={12}>
-                        <CustomDatePicker label="Fecha Fin" name="fechaFin" value={form.fechaFin} onChange={handleChangeDate} />
-                    </Grid>            
-                    <Grid item xs={12}>
-                        <TextField fullWidth label="Observación" multiline name="obvervacion" size="small" rows={4}/>
-                    </Grid>            
-                </Grid>
+            </Typography>  
+            <Form 
+                onSubmit={onSubmit}
+                initialValues={{...formData}}                         
+                render={({handleSubmit, form, values}) => (          
+                    <>
 
-                <Box sx={{pt: 4, textAlign: 'center'}}>
-                <Button variant="contained" fullWidth color="secondary">Guardar cambios</Button>
+                        <form onSubmit={handleSubmit}>                            
+                            <Grid container sx={{mt:2}} spacing={2}>
+                                <Grid item xs={12}>                                    
+                                    <Field 
+                                        name="nroTimbrado"           
+                                        fullWidth                   
+                                        component={TextFieldAdapter}                       
+                                        autoFocus                                        
+                                        label="Nro. Timbrado*"         
+                                    /> 
+                                </Grid>
+                                <Grid item sm={6} xs={12}>
+                                    <Field 
+                                        name="fechaInicio"           
+                                        fullWidth 
+                                        validate={required}                                                                                                    
+                                        render={({input}) => (
+                                            <CustomDatePicker {...input} label="Fecha inicio*" />
+                                        )}
+                                    />
+                                </Grid>            
+                                <Grid item sm={6} xs={12}>
+                                    <Field 
+                                        name="fechaFin"           
+                                        fullWidth 
+                                        validate={required}                                                                                                
+                                        render={({input}) => (
+                                            <CustomDatePicker {...input } label="Fecha fin*"  />
+                                        )}
+                                    />                                    
+                                </Grid>            
+                                <Grid item xs={12}>
+                                    <Field 
+                                        name="observacion"           
+                                        fullWidth                   
+                                        component={TextFieldAdapter}                       
+                                        multiline                        
+                                        rows={4}
+                                        label="Observación"                             
+                                    /> 
+                                </Grid>            
+                            </Grid>
 
-                </Box>
-            </form>
+                            <Box sx={{pt: 4, textAlign: 'center'}}>
+                            <Button type="submit" variant="contained" fullWidth color="secondary">Guardar cambios</Button>
+
+                            </Box>
+                        </form>
+                    </>
+                )} 
+            />
 
             </Paper>
         </Dialog>

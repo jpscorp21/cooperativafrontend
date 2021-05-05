@@ -5,8 +5,7 @@ type DescripcionFormModalProps = FormModalProps & {
     title: string;
 }
 
-export const descripcionInitialForm = () => ({
-    id: '',
+export const descripcionInitialForm = () => ({    
     descripcion: '',
     observacion: ''
 })

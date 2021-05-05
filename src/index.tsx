@@ -9,8 +9,7 @@ import theme from './config/theme';
 import { QueryClientProvider } from 'react-query';
 import queryClient from './config/queryClient';
 
-ReactDOM.render(
-  <React.StrictMode>
+ReactDOM.render(  
     <QueryClientProvider client={queryClient}>
     <ThemeProvider theme={theme}>
       <Router>        
@@ -18,7 +17,7 @@ ReactDOM.render(
       </Router>
     </ThemeProvider>
     </QueryClientProvider>
-  </React.StrictMode>,
+  ,
   document.getElementById('root')
 );
 
