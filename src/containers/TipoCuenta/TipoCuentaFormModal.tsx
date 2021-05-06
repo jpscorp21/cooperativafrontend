@@ -25,7 +25,7 @@ const TipoCuentaFormModal = ({openModal, handleCloseModal, onSubmit, formData}: 
           onSubmit={onSubmit}
           render={({handleSubmit, values}) => (
             <form onSubmit={handleSubmit}>
-            {JSON.stringify(values)} 
+            {/* {JSON.stringify(values)} */} 
             <Grid container sx={{mt:2}} spacing={2}>
               <Grid item xs={12}>
                 <Field fullWidth label="Código" name="codigo" disabled component={TextFieldAdapter} />

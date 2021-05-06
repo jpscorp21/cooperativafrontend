@@ -99,6 +99,7 @@ const TipoCuenta = () => {
       render: (item: any) => <AccionesCell item={item} onEditar={handleEditar} onEliminar={handleOpenConfirmEliminar} />
     },
   ] as ColumnCustomTable[], [])
+  
   return (
     <>
     {/* TITULO */}
@@ -136,5 +137,4 @@ const TipoCuenta = () => {
 </>
   )
 }
- //tipo cuenta y modaliddad pago
 export default TipoCuenta
