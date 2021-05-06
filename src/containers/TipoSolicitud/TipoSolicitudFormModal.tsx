@@ -2,7 +2,7 @@ import { Box, Button, Dialog, Grid, Paper, TextField, Typography } from "@materi
 import { Field, Form } from "react-final-form";
 import { required } from "../../utils/errorMessages";
 import TextFieldAdapter from "../../components/control/TextFieldAdapter";
-
+ 
 type TipoSolicitudFormModalProps = {
   openModal : boolean;
   handleCloseModal(e: any): void;
