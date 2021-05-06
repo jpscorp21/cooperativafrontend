@@ -106,7 +106,7 @@ const PuestoLaboral = () => {
         handleCloseModal={handleCloseModal}
         onSubmit={onSubmit}
         formData={formData}
-        profesiones={profesiones}
+        profesiones={profesiones.items || []}
       />
     
   </>

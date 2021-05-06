@@ -4,7 +4,7 @@ import TituloContainer from "../../components/TituloContainer"
 
 const Funcionarios = () => {
 
-  const [openModal, setOpenModal] = useState(false);
+  const [, setOpenModal] = useState(false);
 
   return (
     <>

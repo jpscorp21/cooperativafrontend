@@ -10,6 +10,7 @@ import queryClient from "../../config/queryClient";
 import ConfirmDialog from "../../components/ConfirmDialog";
 import { NacionalidadesAPI } from "../../api/services/NacionalidadesAPI";
 import useBackend from "../../shared/hooks/useBackend";
+
 const initialForm = () => ({
   descripcion: '',
   observacion: ''

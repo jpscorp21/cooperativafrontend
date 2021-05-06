@@ -7,6 +7,9 @@ import CustomTable, { ColumnCustomTable } from "../../components/CustomTable";
 import TituloContainer from "../../components/TituloContainer";
 import ButtonActionContainer from "../../components/ButtonActionContainer";
 import CuentasFormModal from "./CuentasFormModal";
+import { FormApi } from "final-form";
+import useBackend from "../../shared/hooks/useBackend";
+import { TiposCuentasAPI } from "../../api/services/TiposCuentasAPI";
 
 
 const useCuentas = () => {
@@ -15,11 +18,19 @@ const useCuentas = () => {
   return items;
 }
 
+const initialForm = () => ({
+  descripcion: '',
+  tipoCuentaId: '',
+  observacion: ''
+})
 
 const Cuentas = () => {
   const items = useCuentas(); 
 
+  const {data: tiposCuentas} = useBackend(TiposCuentasAPI);
+
   const [openModal, setOpenModal] = useState(false)  
+  const [formData, setFormData] = useState(initialForm())
 
   const handlePageChange = (page: number) => {
     console.log(page);
@@ -32,6 +43,29 @@ const Cuentas = () => {
   const handleCloseModal = (e: any) => {
     setOpenModal(false);
   }
+
+  const onSubmit = async (values: any, form: FormApi) => {   
+     console.log(values);
+     console.log(form);   
+    // if (values.id) {
+    //   update.mutate(({body: values, id: values.id}), {
+    //     onSuccess() {    
+    //       handleCloseModal();     
+    //       queryClient.invalidateQueries(key)   
+    //       form.reset();
+    //     }
+    //   }) 
+    //   return;
+    // }
+
+    // create.mutate(values, {
+    //   onSuccess() {    
+    //     handleCloseModal();     
+    //     queryClient.invalidateQueries(key)   
+    //     form.reset();
+    //   }
+    // })    
+  }    
 
   const columns = useMemo(() => [
     {
@@ -67,7 +101,13 @@ const Cuentas = () => {
       <CustomTable columns={columns} data={items} onPageChange={handlePageChange}></CustomTable>
     </Box> 
 
-    <CuentasFormModal openModal={openModal} handleCloseModal={handleCloseModal}></CuentasFormModal>
+    <CuentasFormModal 
+      openModal={openModal} 
+      handleCloseModal={handleCloseModal}
+      formData={formData}
+      onSubmit={onSubmit}
+      tiposCuentas={tiposCuentas.items || []}
+    />
   
   
 </>

@@ -1,4 +1,4 @@
-import { Box, Button, Dialog, Grid, Paper, TextField, Typography } from "@material-ui/core"
+import { Box, Button, Dialog, Grid, Paper, Typography } from "@material-ui/core"
 import { Field, Form } from "react-final-form";
 import { required } from "../../utils/errorMessages";
 import TextFieldAdapter from "../../components/control/TextFieldAdapter";
@@ -21,27 +21,26 @@ const TipoGarantiaFormModal = ({openModal, handleCloseModal, onSubmit, formData}
           </Typography>
 
           <Form
-            initialValues={{}}
+            initialValues={{...formData}}
             onSubmit={onSubmit}
-            render={({handleSubmit, values}) => (
-              <form onSubmit={handleSubmit}>
-              {/* {JSON.stringify(values)} */} 
-            <Grid container sx={{mt:2}} spacing={2}>
-              <Grid item xs={12}>
-                <Field fullWidth label="Código" name="codigo" disabled component={TextFieldAdapter} />
+            render={({handleSubmit}) => (
+            <form onSubmit={handleSubmit}>              
+              <Grid container sx={{mt:2}} spacing={2}>
+                <Grid item xs={12}>
+                  <Field fullWidth label="Código" name="codigo" disabled component={TextFieldAdapter} />
+                </Grid>
+                <Grid item xs={12}>
+                  <Field fullWidth label="Descripción" name="descripcion" validate={required} autoFocus component={TextFieldAdapter} />
+                </Grid>
+                
+                <Grid item xs={12}>
+                  <Field fullWidth label="Observación" multiline name="observacion" rows={4} component={TextFieldAdapter} />
+                </Grid>            
               </Grid>
-              <Grid item xs={12}>
-                <Field fullWidth label="Descripción" name="descripcion" validate={required} autoFocus component={TextFieldAdapter} />
-              </Grid>
-              
-              <Grid item xs={12}>
-                <Field fullWidth label="Observación" multiline name="observacion" rows={4} component={TextFieldAdapter} />
-              </Grid>            
-            </Grid>
-            <Box sx={{pt: 4, textAlign: 'center'}}>
-              <Button type="submit" variant="contained" fullWidth color="secondary">Guardar cambios</Button>
-            </Box>
-          </form>
+              <Box sx={{pt: 4, textAlign: 'center'}}>
+                <Button type="submit" variant="contained" fullWidth color="secondary">Guardar cambios</Button>
+              </Box>
+            </form>
         )}
       />
     </Paper>

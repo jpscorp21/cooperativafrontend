@@ -9,8 +9,7 @@ import { FormApi } from "final-form";
 import queryClient from "../../config/queryClient";
 import ConfirmDialog from "../../components/ConfirmDialog";
 import useBackend from "../../shared/hooks/useBackend";
-import { tipogarantias } from "../../api/tipogarantias";
-import { TipoGarantiasAPI } from "../../api/TipoGarantiasAPI";
+import { TipoGarantiaAPI } from "../../api/services/TipoGarantiaAPI";
 
 const initialForm = () => ({ 
   descripcion: '',
@@ -19,11 +18,12 @@ const initialForm = () => ({
 
 const TipoGarantia = () => {
 
-  const {data, create, remove, update, setParams, key} = useBackend(TipoGarantiasAPI);
+  const {data, create, remove, update, setParams, key} = useBackend(TipoGarantiaAPI);
 
   const [openModal, setOpenModal] = useState(false)
   const [openConfirmModal, setOpenConfirmModal] = useState(false) 
   const [formData, setFormData] = useState<any>(initialForm()); 
+
   const handleNew = () => {
     setFormData(initialForm());
     setOpenModal(true);
@@ -105,7 +105,7 @@ const TipoGarantia = () => {
     <>
       <TituloContainer>Tipo Garantía</TituloContainer>  
 
-      <ButtonActionContainer onNew={() => setOpenModal(true)} onRefresh={() => console.log('refrescando')} />            
+      <ButtonActionContainer onNew={handleNew} onRefresh={() => console.log('refrescando')} />            
 
       <Box px={2} pb={2}> 
         <TextField sx={{bgcolor: 'white'}} onChange={(event) => setParams(event.target.value, 'searchQuery')} fullWidth placeholder="Buscar un Tipo de Garantia" size="small" />
