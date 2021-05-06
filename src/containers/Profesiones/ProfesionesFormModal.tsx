@@ -23,7 +23,7 @@ const ProfesionesFormModal = ({openModal, handleCloseModal, onSubmit, formData}:
         <Form 
           initialValues={{}}
           onSubmit={onSubmit}
-          render={({handleSubmit, values}) => (
+          render={({handleSubmit}) => (
             <form onSubmit={handleSubmit}>
             {/* {JSON.stringify(values)}  */}
           <Grid container sx={{mt:2}} spacing={2}>

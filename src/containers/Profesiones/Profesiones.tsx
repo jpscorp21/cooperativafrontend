@@ -101,7 +101,7 @@ const Profesiones = () => {
 
   return (
     <>
-    {/* TITULO */}
+      {/* TITULO */}
     
       <TituloContainer>Profesiones</TituloContainer>
 

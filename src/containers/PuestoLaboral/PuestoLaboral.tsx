@@ -7,7 +7,16 @@ import CustomTable, { ColumnCustomTable } from "../../components/CustomTable";
 import TituloContainer from "../../components/TituloContainer";
 import ButtonActionContainer from "../../components/ButtonActionContainer";
 import PuestoLaboralFormModal from "./PuestoLaboralFormModal";
+import { FormApi } from "final-form";
+import { ProfesionesAPI } from "../../api/services/ProfesionesAPI";
+import useBackend from "../../shared/hooks/useBackend";
 
+
+const initialForm = () => ({
+  descripcion: '',
+  profesionId: '',
+  observacion: ''
+})
 
 const usePuestosLaborales = () => {
   const {data: items} = useQuery('puestoslaborales', puestoslaborales.getAll);  
@@ -18,7 +27,10 @@ const usePuestosLaborales = () => {
 const PuestoLaboral = () => {
   const items = usePuestosLaborales(); 
 
+  const {data: profesiones} = useBackend(ProfesionesAPI);
+
   const [openModal, setOpenModal] = useState(false)  
+  const [formData, setFormData] = useState(initialForm());
 
   const handlePageChange = (page: number) => {
     console.log(page);
@@ -31,6 +43,28 @@ const PuestoLaboral = () => {
   const handleCloseModal = (e: any) => {
     setOpenModal(false);
   }
+
+  const onSubmit = async (values: any, form: FormApi) => {   
+    console.log(values) 
+    // if (values.id) {
+    //   update.mutate(({body: values, id: values.id}), {
+    //     onSuccess() {    
+    //       handleCloseModal();     
+    //       queryClient.invalidateQueries(key)   
+    //       form.reset();
+    //     }
+    //   }) 
+    //   return;
+    // }
+
+    // create.mutate(values, {
+    //   onSuccess() {    
+    //     handleCloseModal();     
+    //     queryClient.invalidateQueries(key)   
+    //     form.reset();
+    //   }
+    // })    
+  }    
 
   const columns = useMemo(() => [
     {
@@ -52,10 +86,10 @@ const PuestoLaboral = () => {
     <>
       {/* TITULO */}
       
-        <TituloContainer>Puestos Laborales</TituloContainer>
+      <TituloContainer>Puestos Laborales</TituloContainer>
       
 
-        <ButtonActionContainer onNew={() => setOpenModal(true)} onRefresh={() => console.log('refrescando')} />                
+      <ButtonActionContainer onNew={() => setOpenModal(true)} onRefresh={() => console.log('refrescando')} />                
 
       <Box px={2} pb={2}>
         <TextField sx={{bgcolor: 'white'}} fullWidth placeholder="Buscar" size="small" />
@@ -66,8 +100,14 @@ const PuestoLaboral = () => {
         <CustomTable columns={columns} data={items} onPageChange={handlePageChange}></CustomTable>
       </Box> 
 
-       {/* MODAL  */}
-       <PuestoLaboralFormModal openModal={openModal} handleCloseModal={handleCloseModal}></PuestoLaboralFormModal>
+      {/* MODAL  */}
+      <PuestoLaboralFormModal 
+        openModal={openModal} 
+        handleCloseModal={handleCloseModal}
+        onSubmit={onSubmit}
+        formData={formData}
+        profesiones={profesiones}
+      />
     
   </>
   )
