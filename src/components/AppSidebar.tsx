@@ -173,6 +173,7 @@ const AppSidebar = ({children}: PropsWithChildren<{}>) => {
     
     <AppBar 
       position="fixed"
+      
       className={clsx(classes.appBar)}
     >
       <Toolbar variant="dense" className={clsx(classes.toolbar, {

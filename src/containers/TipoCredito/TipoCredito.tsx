@@ -9,18 +9,22 @@ import { FormApi } from "final-form";
 import queryClient from "../../config/queryClient";
 import ConfirmDialog from "../../components/ConfirmDialog";
 import useBackend from "../../shared/hooks/useBackend";
-import { TipoCreditosAPI } from "../../api/TipoCreditosAPI";
+import { ModalidadPagoAPI } from "../../api/services/ModalidadPagoAPI";
+import { TipoCreditoAPI } from "../../api/services/TipoCreditoAPI";
 
 const initialForm = () => ({ 
   descripcion: ''
 })
 
 const TipoCredito = () => {
-  const {data, create, remove, update, setParams, key} = useBackend(TipoCreditosAPI);
+  const {data, create, remove, update, setParams, key} = useBackend(TipoCreditoAPI);
+
+  const {data: modalidadPago} = useBackend(ModalidadPagoAPI);
 
   const [openModal, setOpenModal] = useState(false)
   const [openConfirmModal, setOpenConfirmModal] = useState(false) 
   const [formData, setFormData] = useState<any>(initialForm()); 
+
   const handleNew = () => {
     setFormData(initialForm());
     setOpenModal(true);
@@ -97,7 +101,7 @@ const TipoCredito = () => {
     <>
       <TituloContainer>Tipo Crédito</TituloContainer>
 
-      <ButtonActionContainer onNew={() => setOpenModal(true)} onRefresh={() => console.log('refrescando')} />
+      <ButtonActionContainer onNew={handleNew} onRefresh={() => console.log('refrescando')} />
 
       <Box px={2} pb={2}> 
         <TextField sx={{bgcolor: 'white'}} onChange={(event) => setParams(event.target.value, 'searchQuery')} fullWidth placeholder="Buscar un Tipo de Crédito" size="small" />
@@ -115,6 +119,7 @@ const TipoCredito = () => {
          openModal={openModal}
          handleCloseModal={handleCloseModal}
          onSubmit={onSubmit}
+         modalidadPago={modalidadPago?.items || []}
          formData={formData}
          />
     

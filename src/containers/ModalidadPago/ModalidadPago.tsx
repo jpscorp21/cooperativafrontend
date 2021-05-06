@@ -5,7 +5,6 @@ import CustomTable, { ColumnCustomTable } from "../../components/CustomTable";
 import TituloContainer from "../../components/TituloContainer"
 import ButtonActionContainer from "../../components/ButtonActionContainer"
 import ModalidadPagoFormModal from "./ModalidadPagoFormModal";
-import { modalidadpagos } from "../../api/modalidadpagos";
 import { FormApi } from "final-form";
 import queryClient from "../../config/queryClient";
 import ConfirmDialog from "../../components/ConfirmDialog";
@@ -24,6 +23,7 @@ const ModalidadPago = () => {
   const [openModal, setOpenModal] = useState(false)
   const [openConfirmModal, setOpenConfirmModal] = useState(false) 
   const [formData, setFormData] = useState<any>(initialForm()); 
+
   const handleNew = () => {
     setFormData(initialForm());
     setOpenModal(true);
@@ -103,7 +103,7 @@ const ModalidadPago = () => {
     <>
       <TituloContainer>Modalidad Pago</TituloContainer>
       
-      <ButtonActionContainer onNew={() => setOpenModal(true)} onRefresh={() => console.log('refrescando')} />
+      <ButtonActionContainer onNew={handleNew} />
 
       <Box px={2} pb={2}> 
         <TextField sx={{bgcolor: 'white'}} onChange={(event) => setParams(event.target.value, 'searchQuery')} fullWidth placeholder="Buscar una Modalidad de Pago" size="small" />
