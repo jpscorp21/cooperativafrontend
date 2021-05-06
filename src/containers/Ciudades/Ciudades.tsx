@@ -134,8 +134,6 @@ const Ciudades = () => {
         handleCloseModal={() => setOpenConfirmModal(false)}
       />
     </>                                                                                      
-      
-    
   )
 }
  

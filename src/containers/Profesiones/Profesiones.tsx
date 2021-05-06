@@ -23,6 +23,7 @@ const Profesiones = () => {
   const [openModal, setOpenModal] = useState(false)
   const [openConfirmModal, setOpenConfirmModal] = useState(false) 
   const [formData, setFormData] = useState<any>(initialForm()); 
+
   const handleNew = () => {
     setFormData(initialForm());
     setOpenModal(true);
@@ -104,7 +105,7 @@ const Profesiones = () => {
       {/* TITULO */}    
       <TituloContainer>Profesiones</TituloContainer>
 
-      <ButtonActionContainer onNew={() => setOpenModal(true)} onRefresh={() => console.log('refrescando')} />                
+      <ButtonActionContainer onNew={handleNew} />                
 
       <Box px={2} pb={2}> 
         <TextField sx={{bgcolor: 'white'}} onChange={(event) => setParams(event.target.value, 'searchQuery')} fullWidth placeholder="Buscar una Profesión" size="small" />

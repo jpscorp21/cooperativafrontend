@@ -10,6 +10,8 @@ import PuestoLaboralFormModal from "./PuestoLaboralFormModal";
 import { FormApi } from "final-form";
 import { ProfesionesAPI } from "../../api/services/ProfesionesAPI";
 import useBackend from "../../shared/hooks/useBackend";
+import queryClient from "../../config/queryClient";
+import ConfirmDialog from "../../components/ConfirmDialog";
 
 
 const initialForm = () => ({
@@ -18,52 +20,63 @@ const initialForm = () => ({
   observacion: ''
 })
 
-const usePuestosLaborales = () => {
-  const {data: items} = useQuery('puestoslaborales', puestoslaborales.getAll);  
-
-  return items;
-}
-
 const PuestoLaboral = () => {
-  const items = usePuestosLaborales(); 
 
+  const {data, create, update, remove, setParams, key} = useBackend(ProfesionesAPI);
   const {data: profesiones} = useBackend(ProfesionesAPI);
 
-  const [openModal, setOpenModal] = useState(false)  
-  const [formData, setFormData] = useState(initialForm());
+  const [openModal, setOpenModal] = useState(false) 
+  const [openConfirmModal, setOpenConfirmModal] = useState(false) 
 
-  const handlePageChange = (page: number) => {
-    console.log(page);
+  const [formData, setFormData] = useState<any>(initialForm());
+
+  const handleNew = () => {
+    setFormData(initialForm());
+    setOpenModal(true);
   }
 
   const handleEditar = (item: any) => {
-    console.log({item});
+    setFormData({...item});
+    setOpenModal(true);
   }
 
-  const handleCloseModal = (e: any) => {
+  const handleOpenConfirmEliminar = (item: any) => {
+    setFormData({...item});
+    setOpenConfirmModal(true);
+  }
+
+  const handleEliminar = () => {
+    remove.mutate(formData.id, {
+      onSuccess() {      
+        setOpenConfirmModal(false);      
+        queryClient.invalidateQueries(key)           
+      }
+    }) 
+  }
+
+  const handleCloseModal = () => {
     setOpenModal(false);
-  }
+  }  
 
-  const onSubmit = async (values: any, form: FormApi) => {   
-    console.log(values) 
-    // if (values.id) {
-    //   update.mutate(({body: values, id: values.id}), {
-    //     onSuccess() {    
-    //       handleCloseModal();     
-    //       queryClient.invalidateQueries(key)   
-    //       form.reset();
-    //     }
-    //   }) 
-    //   return;
-    // }
+  const onSubmit = async (values: any, form: FormApi) => {       
+    if (values.id) {
+      update.mutate(({body: values, id: values.id}), {
+        onSuccess() {    
+          handleCloseModal();     
+          queryClient.invalidateQueries(key)   
+          form.reset();
+        }
+      }) 
+      return;
+    }
 
-    // create.mutate(values, {
-    //   onSuccess() {    
-    //     handleCloseModal();     
-    //     queryClient.invalidateQueries(key)   
-    //     form.reset();
-    //   }
-    // })    
+    create.mutate(values, {
+      onSuccess() {    
+        handleCloseModal();     
+        queryClient.invalidateQueries(key)   
+        form.reset();
+      }
+    })    
   }    
 
   const columns = useMemo(() => [
@@ -92,12 +105,18 @@ const PuestoLaboral = () => {
       <ButtonActionContainer onNew={() => setOpenModal(true)} onRefresh={() => console.log('refrescando')} />                
 
       <Box px={2} pb={2}>
-        <TextField sx={{bgcolor: 'white'}} fullWidth placeholder="Buscar" size="small" />
+        <TextField 
+        sx={{bgcolor: 'white'}} fullWidth placeholder="Buscar" size="small" />
       </Box>           
 
-      {/* TABLA */}
       <Box sx={{px: 2}}>
-        <CustomTable columns={columns} data={items} onPageChange={handlePageChange}></CustomTable>
+        <CustomTable 
+          page={data?.currentPage}  
+          count={data?.totalPages} 
+          columns={columns} 
+          data={data?.items ? data?.items : []} 
+          onPageChange={(value) => setParams(value, 'pageNumber')}
+        />  
       </Box> 
 
       {/* MODAL  */}
@@ -106,7 +125,14 @@ const PuestoLaboral = () => {
         handleCloseModal={handleCloseModal}
         onSubmit={onSubmit}
         formData={formData}
-        profesiones={profesiones.items || []}
+        profesiones={profesiones?.items || []}
+      />
+
+      <ConfirmDialog 
+        openModal={openConfirmModal}
+        onAceptar={handleEliminar}
+        message="Estás seguro de eliminar este puesto laboral?"
+        handleCloseModal={() => setOpenConfirmModal(false)}
       />
     
   </>
