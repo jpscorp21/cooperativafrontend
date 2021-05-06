@@ -23,7 +23,7 @@ const BarriosFormModal = ({openModal, handleCloseModal, onSubmit, formData, ciud
           <Form
             onSubmit={onSubmit}
             initialValues={{...formData}}
-            render={({handleSubmit, values}) => (
+            render={({handleSubmit}) => (
               <form onSubmit={handleSubmit}>                
                 <Grid container sx={{mt:2}} spacing={2}>
                   <Grid item xs={12}>
@@ -64,7 +64,7 @@ const BarriosFormModal = ({openModal, handleCloseModal, onSubmit, formData, ciud
                   </Grid>            
                 </Grid>
                 <Box sx={{pt: 4, textAlign: 'center'}}>
-                  <Button variant="contained" fullWidth color="secondary">Guardar cambios</Button>
+                  <Button type="submit" variant="contained" fullWidth color="secondary">Guardar cambios</Button>
                 </Box>
               </form>
             )} 

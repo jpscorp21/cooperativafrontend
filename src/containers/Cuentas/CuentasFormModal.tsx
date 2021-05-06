@@ -51,7 +51,7 @@ const CuentasFormModal = ({openModal, handleCloseModal, onSubmit, formData, tipo
               </Grid>
 
               <Box sx={{pt: 4, textAlign: 'center'}}>
-                <Button variant="contained" fullWidth color="secondary">Guardar cambios</Button>
+                <Button type="submit" variant="contained" fullWidth color="secondary">Guardar cambios</Button>
 
               </Box>
             </form>

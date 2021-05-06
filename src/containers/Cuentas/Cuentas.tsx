@@ -1,7 +1,5 @@
 import { Box, TextField } from "@material-ui/core"
 import { useMemo, useState } from "react";
-import { useQuery } from "react-query";
-import { cuentas } from "../../api/cuentas";
 import AccionesCell from "../../components/AccionesCell";
 import CustomTable, { ColumnCustomTable } from "../../components/CustomTable";
 import TituloContainer from "../../components/TituloContainer";
@@ -10,13 +8,9 @@ import CuentasFormModal from "./CuentasFormModal";
 import { FormApi } from "final-form";
 import useBackend from "../../shared/hooks/useBackend";
 import { TiposCuentasAPI } from "../../api/services/TiposCuentasAPI";
-
-
-const useCuentas = () => {
-  const {data: items} = useQuery('cuentas', cuentas.getAll);  
-
-  return items;
-}
+import { CuentasAPI } from "../../api/services/CuentasAPI";
+import queryClient from "../../config/queryClient";
+import ConfirmDialog from "../../components/ConfirmDialog";
 
 const initialForm = () => ({
   descripcion: '',
@@ -25,46 +19,62 @@ const initialForm = () => ({
 })
 
 const Cuentas = () => {
-  const items = useCuentas(); 
 
+  const {data, create, remove, update, setParams, key} = useBackend(CuentasAPI);
   const {data: tiposCuentas} = useBackend(TiposCuentasAPI);
 
   const [openModal, setOpenModal] = useState(false)  
-  const [formData, setFormData] = useState(initialForm())
+  const [openConfirmModal, setOpenConfirmModal] = useState(false) 
+  const [formData, setFormData] = useState<any>(initialForm())
 
-  const handlePageChange = (page: number) => {
-    console.log(page);
+  const handleNew = () => {
+    setFormData(initialForm());
+    setOpenModal(true);
   }
 
   const handleEditar = (item: any) => {
-    console.log({item});
+    setFormData({...item});
+    setOpenModal(true);
   }
 
-  const handleCloseModal = (e: any) => {
-    setOpenModal(false);
+  const handleOpenConfirmEliminar = (item: any) => {
+    setFormData({...item});
+    setOpenConfirmModal(true);
   }
+
+  const handleEliminar = () => {
+    remove.mutate(formData.id, {
+      onSuccess() {      
+        setOpenConfirmModal(false);      
+        queryClient.invalidateQueries(key)           
+      }
+    }) 
+  }
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  }  
 
   const onSubmit = async (values: any, form: FormApi) => {   
-     console.log(values);
-     console.log(form);   
-    // if (values.id) {
-    //   update.mutate(({body: values, id: values.id}), {
-    //     onSuccess() {    
-    //       handleCloseModal();     
-    //       queryClient.invalidateQueries(key)   
-    //       form.reset();
-    //     }
-    //   }) 
-    //   return;
-    // }
+        
+    if (values.id) {
+      update.mutate(({body: values, id: values.id}), {
+        onSuccess() {    
+          handleCloseModal();     
+          queryClient.invalidateQueries(key)   
+          form.reset();
+        }
+      }) 
+      return;
+    }
 
-    // create.mutate(values, {
-    //   onSuccess() {    
-    //     handleCloseModal();     
-    //     queryClient.invalidateQueries(key)   
-    //     form.reset();
-    //   }
-    // })    
+    create.mutate(values, {
+      onSuccess() {    
+        handleCloseModal();     
+        queryClient.invalidateQueries(key)   
+        form.reset();
+      }
+    })    
   }    
 
   const columns = useMemo(() => [
@@ -80,37 +90,47 @@ const Cuentas = () => {
       key: 'acciones',
       label: 'Acciones',
       align: 'right',
-      render: (item: any) => <AccionesCell item={item} onEditar={handleEditar} />
+      render: (item: any) => <AccionesCell item={item} onEditar={handleEditar} onEliminar={handleOpenConfirmEliminar} />
     },
   ] as ColumnCustomTable[], [])
   return (
-    <>
-    {/* TITULO */}
-    
+    <>    
+      
       <TituloContainer>Cuentas</TituloContainer>
-    
+      
+      <ButtonActionContainer onNew={handleNew} onRefresh={() => console.log('refrescando')} />                
 
-      <ButtonActionContainer onNew={() => setOpenModal(true)} onRefresh={() => console.log('refrescando')} />                
+      <Box px={2} pb={2}>
+        <TextField sx={{bgcolor: 'white'}} fullWidth placeholder="Buscar" size="small" />
+      </Box>     
 
-    <Box px={2} pb={2}>
-      <TextField sx={{bgcolor: 'white'}} fullWidth placeholder="Buscar" size="small" />
-    </Box>     
+      {/* TABLA */}
+      <Box sx={{px: 2}}>
+        <CustomTable 
+          page={data?.currentPage}  
+          count={data?.totalPages} 
+          columns={columns} 
+          data={data?.items ? data?.items : []} 
+          onPageChange={(value) => setParams(value, 'pageNumber')}
+        />  
+      </Box> 
 
-    {/* TABLA */}
-    <Box sx={{px: 2}}>
-      <CustomTable columns={columns} data={items} onPageChange={handlePageChange}></CustomTable>
-    </Box> 
-
-    <CuentasFormModal 
-      openModal={openModal} 
-      handleCloseModal={handleCloseModal}
-      formData={formData}
-      onSubmit={onSubmit}
-      tiposCuentas={tiposCuentas.items || []}
-    />
+      <CuentasFormModal 
+        openModal={openModal} 
+        handleCloseModal={handleCloseModal}
+        formData={formData}
+        onSubmit={onSubmit}
+        tiposCuentas={tiposCuentas?.items || []}
+      />
   
+      <ConfirmDialog 
+        openModal={openConfirmModal}
+        onAceptar={handleEliminar}
+        message="Estás seguro de eliminar esta cuenta?"
+        handleCloseModal={() => setOpenConfirmModal(false)}
+      />
   
-</>
+    </>
   )
 }
  

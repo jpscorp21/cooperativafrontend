@@ -1,6 +1,4 @@
 import { Box, Grid, Paper, TextField } from '@material-ui/core'
-import React from 'react'
-import { useForm } from 'react-hook-form';
 import TituloContainer from '../../components/TituloContainer'
 
 const SolicitudCreditoForm = () => {    

@@ -105,7 +105,7 @@ const Nacionalidades = () => {
       
       <TituloContainer>Nacionalidades</TituloContainer>
 
-      <ButtonActionContainer onNew={() => setOpenModal(true)} onRefresh={() => console.log('refrescando')} />                
+      <ButtonActionContainer onNew={handleNew} />                
 
       <Box px={2} pb={2}> 
         <TextField sx={{bgcolor: 'white'}} onChange={(event) => setParams(event.target.value, 'searchQuery')} fullWidth placeholder="Buscar una ciudad" size="small" />
@@ -124,13 +124,13 @@ const Nacionalidades = () => {
         openModal={openModal}
         handleCloseModal={handleCloseModal}
         onSubmit={onSubmit}
-        formData={formData}
+        formData={formData} 
       />
 
       <ConfirmDialog 
         openModal={openConfirmModal}
         onAceptar={handleEliminar}
-        message="Estás seguro de eliminar está ciudad?"
+        message="Estás seguro de eliminar está nacionalidad?"
         handleCloseModal={() => setOpenConfirmModal(false)}
       />
 

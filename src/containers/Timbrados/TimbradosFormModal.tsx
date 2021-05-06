@@ -22,7 +22,7 @@ const TimbradosFormModal = ({openModal, handleCloseModal, onSubmit, formData}: T
             <Form 
                 onSubmit={onSubmit}
                 initialValues={{...formData}}                         
-                render={({handleSubmit, form, values}) => (          
+                render={({handleSubmit}) => (          
                     <>
 
                         <form onSubmit={handleSubmit}>                            

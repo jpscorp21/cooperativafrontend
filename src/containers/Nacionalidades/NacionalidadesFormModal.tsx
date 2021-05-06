@@ -1,4 +1,4 @@
-import { Box, Button, Dialog, Grid, Paper, TextField, Typography } from "@material-ui/core"
+import { Box, Button, Dialog, Grid, Paper, Typography } from "@material-ui/core"
 import { Field, Form } from "react-final-form";
 import TextFieldAdapter from "../../components/control/TextFieldAdapter";
 import { required } from "../../utils/errorMessages";
@@ -10,11 +10,7 @@ type NacionalidadesFormModalProps = {
   onSubmit: any;
   formData: any;  
 }
-const NacionalidadesFormModal = ({openModal, handleCloseModal}: NacionalidadesFormModalProps) => {
-
-  const onSubmit = async (values:any) => {
-    console.log(values);
-  }
+const NacionalidadesFormModal = ({openModal, handleCloseModal, onSubmit, formData}: NacionalidadesFormModalProps) => {
 
   return (
     <Dialog open={openModal} onClose={handleCloseModal}>
@@ -25,12 +21,11 @@ const NacionalidadesFormModal = ({openModal, handleCloseModal}: NacionalidadesFo
       </Typography>
 
       <Form 
-        initialValues={{}} 
+        initialValues={{...formData}} 
         onSubmit={onSubmit}
-        render={({handleSubmit, values}) => (
-          <form onSubmit={handleSubmit}>
-            {/*  {JSON.stringify(values)} */} 
-            <Grid container sx={{mt:2}} spacing={2}>
+        render={({handleSubmit}) => (
+          <form onSubmit={handleSubmit}>            
+            <Grid container spacing={2}>
               <Grid item xs={12}>
                 <Field fullWidth label="Código" name="codigo" component={TextFieldAdapter} />
               </Grid>

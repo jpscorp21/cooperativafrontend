@@ -82,17 +82,21 @@ const Timbrados = () => {
       label: 'Codigo',          
     },
     {
-      key: 'descripcion',
-      label: 'Descripcion',            
+      key: 'nroTimbrado',
+      label: 'Nro. Timbrado',            
       render: (item: any) => (
         <TableCell>
-          <span style={{cursor: 'pointer', paddingTop: '8px'}} onClick={() => handleEditar(item)}>{item.descripcion}</span>
+          <span style={{cursor: 'pointer', paddingTop: '8px'}} onClick={() => handleEditar(item)}>{item.nroTimbrado}</span>
         </TableCell>
       )
     },        
     {
-      key: 'observacion',
-      label: 'Observación',                  
+      key: 'fechaInicio',
+      label: 'Fecha inicio',                        
+    },        
+    {
+      key: 'fechaFin',
+      label: 'Fecha fin',                        
     },        
     {
       key: 'acciones',
@@ -106,7 +110,7 @@ const Timbrados = () => {
     <>
       <TituloContainer>Timbrados</TituloContainer>
 
-      <ButtonActionContainer onNew={() => setOpenModal(true)} onRefresh={() => console.log('refrescando')} />              
+      <ButtonActionContainer onNew={handleNew} onRefresh={() => console.log('refrescando')} />              
 
       <Box px={2} pb={2}>
         <TextField sx={{bgcolor: 'white'}} fullWidth placeholder="Buscar" size="small" />
@@ -132,7 +136,7 @@ const Timbrados = () => {
       <ConfirmDialog 
         openModal={openConfirmModal}
         onAceptar={handleEliminar}
-        message="Estás seguro de eliminar está ciudad?"
+        message="Estás seguro de eliminar este timbrado?"
         handleCloseModal={() => setOpenConfirmModal(false)}
       />
     </>

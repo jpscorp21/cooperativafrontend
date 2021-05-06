@@ -1,6 +1,6 @@
-import { Box, Button, Dialog, Grid, Paper, TextField, Typography } from '@material-ui/core'
-import React from 'react'
+import { Box, Button, Dialog, Grid, Paper, Typography } from '@material-ui/core'
 import { Field, Form } from 'react-final-form';
+import SelectAdapter from '../../components/control/SelectAdapter';
 import TextFieldAdapter from '../../components/control/TextFieldAdapter';
 import { FormModalProps } from '../../types';
 import { required } from '../../utils/errorMessages';
@@ -8,9 +8,10 @@ import { required } from '../../utils/errorMessages';
 type FacturasFormModalProps = FormModalProps & {
     onSubmit: any;
     formData: any;
+    timbrados: any[];
 }
 
-const FacturasFormModal = ({openModal, handleCloseModal, onSubmit, formData}: FacturasFormModalProps) => {
+const FacturasFormModal = ({openModal, handleCloseModal, onSubmit, formData, timbrados}: FacturasFormModalProps) => {
     return (
         <Dialog open={openModal} onClose={handleCloseModal}>
             <Paper elevation={6} sx={{p: 2}}>
@@ -21,7 +22,7 @@ const FacturasFormModal = ({openModal, handleCloseModal, onSubmit, formData}: Fa
             <Form
                 onSubmit={onSubmit}
                 initialValues={{...formData}}
-                render={({handleSubmit, values}) => (
+                render={({handleSubmit}) => (
                     <form onSubmit={handleSubmit}>                        
                         <Grid container sx={{mt:2}} spacing={2}>
                             <Grid item xs={12}>
@@ -29,7 +30,10 @@ const FacturasFormModal = ({openModal, handleCloseModal, onSubmit, formData}: Fa
                                     name="timbradoId"           
                                     fullWidth 
                                     validate={required}
-                                    component={TextFieldAdapter}                       
+                                    component={SelectAdapter}
+                                    options={timbrados}
+                                    optionlabel="nroTimbrado"
+                                    optionvalue="id"                       
                                     label="Timbrado*"                             
                                 />                                   
                             </Grid>
@@ -87,7 +91,7 @@ const FacturasFormModal = ({openModal, handleCloseModal, onSubmit, formData}: Fa
                         </Grid>
 
                         <Box sx={{pt: 4, textAlign: 'center'}}>
-                        <Button variant="contained" fullWidth color="secondary">Guardar cambios</Button>
+                        <Button type="submit" variant="contained" fullWidth color="secondary">Guardar cambios</Button>
 
                         </Box>
                     </form>
