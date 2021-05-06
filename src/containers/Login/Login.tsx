@@ -1,4 +1,4 @@
-import { Alert, Button, Container, Grid, makeStyles, Paper, TextField, Typography } from "@material-ui/core";
+import { Alert, Button, Container, makeStyles, Paper, TextField, Typography } from "@material-ui/core";
 import { useEffect, useRef, useState } from "react";
 import { useHistory } from "react-router";
 import { AuthAPI } from "../../api/services/AuthAPI";

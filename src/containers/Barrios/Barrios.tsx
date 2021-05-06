@@ -32,6 +32,11 @@ const Barrios = () => {
   const [openModal, setOpenModal] = useState(false)
   const [formData, setFormData] = useState(initialForm());
 
+  const handleNew = () => {
+    setFormData(initialForm());
+    setOpenModal(true);
+  }
+
   const handlePageChange = (page: number) => {
     console.log(page);
   }
@@ -87,7 +92,7 @@ const Barrios = () => {
     <>
       <TituloContainer>Barrios</TituloContainer>
 
-      <ButtonActionContainer onNew={() => setOpenModal(true)} onRefresh={() => console.log('refrescando')}>
+      <ButtonActionContainer onNew={handleNew}>
         <Button variant="outlined" size="small" color="secondary" sx={{mb: 2, ml: 1}}  >Ciudad</Button>
       </ButtonActionContainer>      
 

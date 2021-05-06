@@ -5,7 +5,7 @@ import TituloContainer from "../../components/TituloContainer"
 
 const Aportes = () => {
 
-  const [openModal, setOpenModal] = useState(false);
+  const [, setOpenModal] = useState(false);
 
   return (
     <>

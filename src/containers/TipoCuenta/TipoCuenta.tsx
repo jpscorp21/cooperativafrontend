@@ -1,12 +1,10 @@
 import { Box, TableCell, TextField } from "@material-ui/core"
 import { useMemo, useState } from "react";
 import AccionesCell from "../../components/AccionesCell";
-import { useQuery } from "react-query";
 import CustomTable, { ColumnCustomTable } from "../../components/CustomTable";
 import TituloContainer from "../../components/TituloContainer";
 import ButtonActionContainer from "../../components/ButtonActionContainer";
 import TipoCuentaFormModal from "./TipoCuentaFormModal";
-import { tipocuentas } from "../../api/tipocuentas";
 import { FormApi } from "final-form";
 import queryClient from "../../config/queryClient";
 import ConfirmDialog from "../../components/ConfirmDialog";
@@ -24,6 +22,7 @@ const TipoCuenta = () => {
   const [openModal, setOpenModal] = useState(false)
   const [openConfirmModal, setOpenConfirmModal] = useState(false) 
   const [formData, setFormData] = useState<any>(initialForm()); 
+
   const handleNew = () => {
     setFormData(initialForm());
     setOpenModal(true);
@@ -107,7 +106,7 @@ const TipoCuenta = () => {
     <TituloContainer>Tipo Cuenta</TituloContainer>
         
 
-    <ButtonActionContainer onNew={() => setOpenModal(true)} onRefresh={() => console.log('refrescando')} />                
+    <ButtonActionContainer onNew={handleNew} />                
 
     <Box px={2} pb={2}> 
         <TextField sx={{bgcolor: 'white'}} onChange={(event) => setParams(event.target.value, 'searchQuery')} fullWidth placeholder="Buscar un Tipo de Cuenta" size="small" />

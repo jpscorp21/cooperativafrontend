@@ -23,6 +23,7 @@ const EstadoCivil = () => {
   const [openModal, setOpenModal] = useState(false)
   const [openConfirmModal, setOpenConfirmModal] = useState(false) 
   const [formData, setFormData] = useState<any>(initialForm()); 
+
   const handleNew = () => {
     setFormData(initialForm());
     setOpenModal(true);
@@ -106,7 +107,7 @@ const EstadoCivil = () => {
       <TituloContainer>Estados Civiles</TituloContainer>      
       
 
-      <ButtonActionContainer onNew={() => setOpenModal(true)} onRefresh={() => console.log('refrescando')} />        
+      <ButtonActionContainer onNew={handleNew} />        
       
       <Box px={2} pb={2}> 
         <TextField sx={{bgcolor: 'white'}} onChange={(event) => setParams(event.target.value, 'searchQuery')} fullWidth placeholder="Buscar un Estado Civil" size="small" />
