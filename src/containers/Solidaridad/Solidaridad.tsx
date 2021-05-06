@@ -5,7 +5,7 @@ import TituloContainer from "../../components/TituloContainer"
 
 const Solidaridad = () => {
 
-  const [openModal, setOpenModal] = useState(false);
+  const [, setOpenModal] = useState(false);
 
   return (
     <>
