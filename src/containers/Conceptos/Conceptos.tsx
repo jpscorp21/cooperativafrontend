@@ -100,7 +100,7 @@ const Conceptos = () => {
     <>
       <TituloContainer>Conceptos</TituloContainer>      
 
-      <ButtonActionContainer onNew={() => setOpenModal(true)} onRefresh={() => console.log('refrescando')} />              
+      <ButtonActionContainer onNew={handleNew} />              
 
       <Box px={2} pb={2}>
         <TextField sx={{bgcolor: 'white'}} fullWidth placeholder="Buscar" size="small" />

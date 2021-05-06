@@ -2,12 +2,12 @@ import { useState } from "react";
 
 const Usuarios = () => {
 
-  const [openModal, setOpenModal] = useState(false);
+  const [openModal, ] = useState(false);
 
 
   return (
     <div>
-      Usuarios
+      {openModal}
     </div>
   )
 }
