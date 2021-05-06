@@ -9,8 +9,7 @@ import { FormApi } from "final-form";
 import queryClient from "../../config/queryClient";
 import ConfirmDialog from "../../components/ConfirmDialog";
 import useBackend from "../../shared/hooks/useBackend";
-import { tiposolicitudes } from "../../api/tiposolicitudes";
-import { TipoSolicitudesAPI } from "../../api/TipoSolicitudesAPI";
+import { TipoSolicitudAPI } from "../../api/services/TipoSolicitudAPI";
 
 const initialForm = () => ({
   descripcion: '',
@@ -19,11 +18,12 @@ const initialForm = () => ({
 
 const TipoSolicitud = () => {
 
-  const {data, create, remove, update, setParams, key} = useBackend(TipoSolicitudesAPI);
+  const {data, create, remove, update, setParams, key} = useBackend(TipoSolicitudAPI);
 
   const [openModal, setOpenModal] = useState(false)
   const [openConfirmModal, setOpenConfirmModal] = useState(false) 
   const [formData, setFormData] = useState<any>(initialForm()); 
+
   const handleNew = () => {
     setFormData(initialForm());
     setOpenModal(true);
@@ -104,11 +104,12 @@ const TipoSolicitud = () => {
     <>
       <TituloContainer>Tipo Solicitud</TituloContainer>  
         
-      <ButtonActionContainer onNew={() => setOpenModal(true)} onRefresh={() => console.log('refrescando')} />        
+      <ButtonActionContainer onNew={handleNew} onRefresh={() => console.log('refrescando')} />        
     
       <Box px={2} pb={2}> 
         <TextField sx={{bgcolor: 'white'}} onChange={(event) => setParams(event.target.value, 'searchQuery')} fullWidth placeholder="Buscar un Tipo de Solicitud" size="small" />
-      </Box>                
+      </Box>        
+
       <Box sx={{px: 2}}>
         <CustomTable 
           page={data?.currentPage}  
@@ -123,7 +124,7 @@ const TipoSolicitud = () => {
          handleCloseModal={handleCloseModal}
          onSubmit={onSubmit}
          formData={formData}
-         />
+      />
     
       <ConfirmDialog 
         openModal={openConfirmModal}

@@ -101,8 +101,7 @@ const Profesiones = () => {
 
   return (
     <>
-      {/* TITULO */}
-    
+      {/* TITULO */}    
       <TituloContainer>Profesiones</TituloContainer>
 
       <ButtonActionContainer onNew={() => setOpenModal(true)} onRefresh={() => console.log('refrescando')} />                
@@ -132,7 +131,7 @@ const Profesiones = () => {
         message="Estás seguro de eliminar esta Profesión?"
         handleCloseModal={() => setOpenConfirmModal(false)}
       />
-</>
+    </>
   )
 }
  
