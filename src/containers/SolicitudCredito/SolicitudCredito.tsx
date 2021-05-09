@@ -8,7 +8,7 @@ const SolicitudCredito = () => {
 
   const history = useHistory();
 
-  const [openModal, setOpenModal] = useState(false);
+  // const [openModal, setOpenModal] = useState(false);
   const [estadoSelected, setEstadoSelected] = useState('pendiente')
 
   const handleChangeEstadoSelect = (e: ChangeEvent<{value: string}>) => {

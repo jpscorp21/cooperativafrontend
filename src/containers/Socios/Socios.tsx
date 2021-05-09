@@ -1,13 +1,7 @@
-import { Box, Button, FormControl, FormLabel, Grid, Paper, RadioGroup, TextField, Typography } from "@material-ui/core"
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Radio from '@material-ui/core/Radio';
-import AddIcon from '@material-ui/icons/Add';
-import React, { useState } from "react";
-import { useQuery } from "react-query";
+import { Box, Paper } from "@material-ui/core"
+import { useState } from "react";
 import TituloContainer from "../../components/TituloContainer";
-import { socios } from "../../api/socios";
 import SociosDatosPersonales from "./SociosDatosPersonales";
-import ButtonActionContainer from "../../components/ButtonActionContainer";
 import SociosDatosConyugue from "./SociosDatosConyugue";
 import SociosActividadLaboral from "./SociosActividadLaboral";
 import SociosDomicilioLaboral from "./SociosDomicilioLaboral";
@@ -20,20 +14,9 @@ import SociosDomicilioParticular from "./SociosDomicilioParticular";
 import SociosHijos from "./SociosHijos";
 import { FormApi } from "final-form";
 import { Form, FormSpy } from "react-final-form";
+import arrayMutators from 'final-form-arrays'
 
- 
-const useSocios = () => {
-
-
-  
-  const {data: items} = useQuery('socios', socios.getAll);
-
-
-  return items;
-}
-
-const Socios = () => {
-  const items = useSocios();
+const Socios = () => {  
 
   const [indexTab, setIndexTab] = useState(0);
 
@@ -70,6 +53,9 @@ const Socios = () => {
       <Form
         onSubmit={onSubmit}
         subscription={{}}
+        mutators={{          
+          ...arrayMutators
+        }}
         render={({handleSubmit}) => (
           <form onSubmit={handleSubmit}>
             <FormSpy subscription={{ values: true }}>

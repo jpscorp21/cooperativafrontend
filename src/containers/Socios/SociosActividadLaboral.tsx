@@ -1,6 +1,5 @@
 
-import { Box, FormControl, FormControlLabel, FormLabel, Grid, Radio, RadioGroup, TextField } from '@material-ui/core'
-import React from 'react'
+import { Box, FormControl, FormControlLabel, FormLabel, Grid, Radio, RadioGroup } from '@material-ui/core'
 import { Field } from 'react-final-form'
 import TextFieldAdapter from '../../components/control/TextFieldAdapter'
 

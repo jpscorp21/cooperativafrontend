@@ -1,9 +1,7 @@
 import { Box, Button, TableCell, TextField } from "@material-ui/core"
 import { useState, useMemo } from "react";
 import AccionesCell from "../../components/AccionesCell";
-import { useQuery } from "react-query";
 import CustomTable, { ColumnCustomTable } from "../../components/CustomTable";
-import { barrios } from "../../api/barrios";
 import TituloContainer from "../../components/TituloContainer";
 import ButtonActionContainer from "../../components/ButtonActionContainer";
 import BarriosFormModal from "./BarriosFormModal";

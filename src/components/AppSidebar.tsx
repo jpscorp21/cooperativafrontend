@@ -111,8 +111,7 @@ const AppSidebar = ({children}: PropsWithChildren<{}>) => {
 
   const menuSidebar = useMemo(() => [...menu], []);  
 
-  useEffect(() => { 
-    console.log('eres tu')
+  useEffect(() => {     
     if (desktop) {
       setOpen(false);
     } else {

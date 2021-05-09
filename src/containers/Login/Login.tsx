@@ -87,7 +87,7 @@ const Login = () => {
     <Container maxWidth="xs">
       <Paper elevation={10} sx={{p: 2}}>        
         <div style={{textAlign: 'center'}}>
-          <img src="/assets/estrellaltda.png" style={{width: '60%'}}></img>
+          <img src="/assets/estrellaltda.png" alt="estrellaltda" style={{width: '60%'}}></img>
         </div>
         <Typography component="h1" variant="h5">
           Iniciar Sesión

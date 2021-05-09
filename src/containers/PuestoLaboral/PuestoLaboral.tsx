@@ -1,7 +1,5 @@
 import { Box, TextField } from "@material-ui/core";
-import { useQuery } from "react-query";
 import { useMemo, useState } from "react";
-import { puestoslaborales } from "../../api/puestoslaborales";
 import AccionesCell from "../../components/AccionesCell";
 import CustomTable, { ColumnCustomTable } from "../../components/CustomTable";
 import TituloContainer from "../../components/TituloContainer";
@@ -92,7 +90,7 @@ const PuestoLaboral = () => {
       key: 'acciones',
       label: 'Acciones',
       align: 'right',
-      render: (item: any) => <AccionesCell item={item} onEditar={handleEditar} />
+      render: (item: any) => <AccionesCell item={item} onEditar={handleEditar} onEliminar={handleOpenConfirmEliminar} />
     },
   ] as ColumnCustomTable[], [])
   return (
@@ -102,7 +100,7 @@ const PuestoLaboral = () => {
       <TituloContainer>Puestos Laborales</TituloContainer>
       
 
-      <ButtonActionContainer onNew={() => setOpenModal(true)} onRefresh={() => console.log('refrescando')} />                
+      <ButtonActionContainer onNew={handleNew} onRefresh={() => console.log('refrescando')} />                
 
       <Box px={2} pb={2}>
         <TextField 
