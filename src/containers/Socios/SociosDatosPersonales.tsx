@@ -1,5 +1,6 @@
 import { Box, FormControl, FormControlLabel, FormLabel, Grid, Radio, RadioGroup } from '@material-ui/core'
 import { Field } from 'react-final-form'
+import DatePickerAdapter from '../../components/control/DatePickerAdapter'
 import SelectAdapter from '../../components/control/SelectAdapter'
 import TextFieldAdapter from '../../components/control/TextFieldAdapter'
 import { required } from '../../utils/errorMessages'
@@ -65,7 +66,7 @@ const SociosDatosPersonales = ({estadosCiviles, nacionalidades}: SociosDatosPers
                             <Field 
                                 fullWidth 
                                 validate={required} 
-                                component={TextFieldAdapter}  
+                                component={DatePickerAdapter}  
                                 label="Fecha Nacimiento*" 
                                 name="fechaNacimiento"
                             />

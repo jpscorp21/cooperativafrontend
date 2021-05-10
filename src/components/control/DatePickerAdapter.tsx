@@ -3,27 +3,30 @@ import LocalizationProvider from '@material-ui/lab/LocalizationProvider';
 import DesktopDatePicker from '@material-ui/lab/DesktopDatePicker'; 
 import { TextField } from '@material-ui/core';
 
-type CustomDatePickerProps = {
-    value: string;
-    name?: string;
-    onChange: any;
-    label?: string;
-} 
+// type DatePickerAdapterProps = {
+//     value: string;
+//     name?: string;
+//     onChange: any;
+//     label?: string;
+// } 
 
-const CustomDatePicker = ({value, onChange, name = "", label=""}: CustomDatePickerProps) => {
+const DatePickerAdapter = ({input, meta, ...rest}: any) => {
     return (
         <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DesktopDatePicker
                 inputFormat="MM/dd/yyyy"
-                label={label}
-                value={value} 
-                onChange={(value) => onChange(value, name)}
+                label={input.label}
+                value={input.value} 
+                onChange={(value) => input.onChange(value)}
                 renderInput={(params) => (
                     <TextField
                         size="small"
+                        {...input}
+                        {...rest}
                         {...params}
                         fullWidth
-                        helperText=""
+                        error={meta.error && meta.touched}
+                        helperText={meta.error && meta.touched ? meta.error : ''}
                     />
                 )}
                 OpenPickerButtonProps={{
@@ -34,4 +37,4 @@ const CustomDatePicker = ({value, onChange, name = "", label=""}: CustomDatePick
     )
 }
 
-export default CustomDatePicker
+export default DatePickerAdapter;
