@@ -1,6 +1,6 @@
 import { EntityWithDescripcion } from './entity-model';
 
 /**
- * Profesion
+ * Tipo Cuenta
  */
 export interface ITipoCuenta extends EntityWithDescripcion {}

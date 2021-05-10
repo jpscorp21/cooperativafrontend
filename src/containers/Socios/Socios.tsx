@@ -1,4 +1,4 @@
-import { Box, Paper } from "@material-ui/core"
+import { Box, Button, Paper } from "@material-ui/core"
 import { useState } from "react";
 import TituloContainer from "../../components/TituloContainer";
 import SociosDatosPersonales from "./SociosDatosPersonales";
@@ -15,6 +15,8 @@ import SociosHijos from "./SociosHijos";
 import { FormApi } from "final-form";
 import { Form, FormSpy } from "react-final-form";
 import arrayMutators from 'final-form-arrays'
+import SaveIcon from '@material-ui/icons/Save';
+
 
 const Socios = () => {  
 
@@ -49,7 +51,7 @@ const Socios = () => {
   return (
     <>
     <TituloContainer>Formulario Socios</TituloContainer>
-    <Paper sx={{mx: 2}}>
+    
       <Form
         onSubmit={onSubmit}
         subscription={{}}
@@ -57,14 +59,16 @@ const Socios = () => {
           ...arrayMutators
         }}
         render={({handleSubmit}) => (
+
           <form onSubmit={handleSubmit}>
-            <FormSpy subscription={{ values: true }}>
+            <Paper sx={{mx: 2}}>
+            {/* <FormSpy subscription={{ values: true }}>
             {({ values }) => (
               <pre>
                 {JSON.stringify(values, null, 2)}
               </pre>
             )}
-            </FormSpy>
+            </FormSpy> */}
             <CustomTabs value={indexTab} onChange={setIndexTab} data={dataTabs}></CustomTabs>              
             <Box px={2}>
               <TabPanel value={indexTab} index={0}>            
@@ -95,12 +99,24 @@ const Socios = () => {
             </Box>
             
 
+          </Paper>
+          <Box p={2} textAlign="right">
+            <Button 
+                type="submit"
+                variant="contained" 
+                size="small" 
+                color="secondary" 
+                startIcon={<SaveIcon />}                                
+            >
+                Guardar
+            </Button>            
+          </Box> 
           </form>
+
         )}        
       >
         
       </Form>
-    </Paper>
     {/* <Box sx={{p:2, pt: 0}}>
     <Button variant="contained" sx={{mr:1}}>Guardar</Button>
     <Button variant="outlined" sx={{mr:1}}>Reiniciar</Button>
