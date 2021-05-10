@@ -1,4 +1,4 @@
-import { FormControl, InputLabel, MenuItem, Select } from "@material-ui/core";
+import { FormControl, FormHelperText, InputLabel, MenuItem, Select } from "@material-ui/core";
 
 const SelectAdapter = ({input, meta, ...rest}: any) => {    
   
@@ -8,7 +8,7 @@ const SelectAdapter = ({input, meta, ...rest}: any) => {
 
     return (
         
-        <FormControl fullWidth={rest.fullWidth} variant="outlined" size="small">
+        <FormControl error={meta.error && meta.touched} fullWidth={rest.fullWidth} variant="outlined" size="small">
             <InputLabel id="demo-simple-select-label">{rest.label}</InputLabel>
             <Select
                 labelId="demo-simple-select-label"
@@ -16,9 +16,11 @@ const SelectAdapter = ({input, meta, ...rest}: any) => {
                 {...input}
                 {...rest}
                 size="small"
+                error={meta.error && meta.touched}                 
             >                
                 {menuItems}
             </Select>
+            <FormHelperText>{meta.error && meta.touched ? meta.error : ''}</FormHelperText>
         </FormControl>                      
     )
 }

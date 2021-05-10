@@ -53,7 +53,7 @@ const SociosDatosPersonales = ({estadosCiviles, nacionalidades}: SociosDatosPers
                             <Field 
                                 fullWidth                         
                                 name="estadoCivilId"             
-                                label="Estado civil"                                             
+                                label="Estado civil*"                                             
                                 validate={required}  
                                 options={estadosCiviles}                        
                                 optionlabel="descripcion"
@@ -82,12 +82,12 @@ const SociosDatosPersonales = ({estadosCiviles, nacionalidades}: SociosDatosPers
                         
                         <Grid item xs={12} sm={12}>
                             <FormControl component="fieldset">
-                            <FormLabel component="legend">Género*</FormLabel>
-                            <RadioGroup row aria-label="gender" name="genero" defaultValue="masculino">
-                            <FormControlLabel value="masculino" control={<Radio />} label="Masculino" />
-                            <FormControlLabel value="femenino" control={<Radio />} label="Femenino" />
-                            <FormControlLabel value="otros" control={<Radio />} label="Otros" />
-                            </RadioGroup>
+                                <FormLabel component="legend">Género*</FormLabel>
+                                <RadioGroup row aria-label="gender" name="genero" defaultValue="masculino">
+                                    <FormControlLabel value="masculino" control={<Radio />} label="Masculino" />
+                                    <FormControlLabel value="femenino" control={<Radio />} label="Femenino" />
+                                    <FormControlLabel value="otros" control={<Radio />} label="Otros" />
+                                </RadioGroup>
                             </FormControl>
                         </Grid>
 
