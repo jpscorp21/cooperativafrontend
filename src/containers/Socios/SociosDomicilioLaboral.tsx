@@ -1,9 +1,15 @@
 
 import { Box, FormControl, FormLabel, Grid } from '@material-ui/core'
 import { Field } from 'react-final-form'
+import SelectAdapter from '../../components/control/SelectAdapter'
 import TextFieldAdapter from '../../components/control/TextFieldAdapter'
 
-const SociosDomicilioLaboral = () => {
+type SociosDomicilioLaboralProps = {
+  ciudades: any[];
+  barrios: any[];
+}
+
+const SociosDomicilioLaboral = ({ciudades, barrios}: SociosDomicilioLaboralProps) => {
     return (
     <>
       <Box>
@@ -22,21 +28,28 @@ const SociosDomicilioLaboral = () => {
           </Grid>
 
           <Grid item xs={12} sm={6}>
-            <Field
-               fullWidth
-               label="Ciudad"
-               name="domicilioLaboral.ciudadId"
-               component={TextFieldAdapter}
-            />            
+            
+            <Field 
+              fullWidth                         
+              name="direccionParticular.ciudadId"             
+              label="Ciudad"                                                                     
+              options={ciudades}                        
+              optionlabel="descripcion"
+              optionvalue="id"
+              component={SelectAdapter}
+            />          
           </Grid>
 
           <Grid item xs={12} sm={6}>
-            <Field
-               fullWidth
-               label="Barrio"
-               name="domicilioLaboral.barrioId"
-               component={TextFieldAdapter}
-            />            
+            <Field 
+              fullWidth 
+              label="Barrio" 
+              name="direccionParticular.barrioId" 
+              options={barrios}  
+              optionlabel="descripcion"
+              optionvalue="id"
+              component={SelectAdapter}
+            />                        
           </Grid>
 
           <Grid item xs={12} sm={6}>

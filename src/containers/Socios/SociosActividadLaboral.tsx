@@ -1,9 +1,16 @@
 
 import { Box, FormControl, FormControlLabel, FormLabel, Grid, Radio, RadioGroup } from '@material-ui/core'
 import { Field } from 'react-final-form'
+import SelectAdapter from '../../components/control/SelectAdapter'
 import TextFieldAdapter from '../../components/control/TextFieldAdapter'
+import { required } from '../../utils/errorMessages'
 
-const SociosActividadLaboral = () => {
+type SociosActividadLaboralProps = {
+  profesiones: any[];
+  puestosLaborales: any[];
+}
+
+const SociosActividadLaboral = ({profesiones, puestosLaborales}: SociosActividadLaboralProps) => {
     return (
     <>
       <Box>
@@ -38,20 +45,34 @@ const SociosActividadLaboral = () => {
               />              
             </Grid>
             <Grid item xs={12} sm={6}>
-              <Field 
+              {/* <Field 
                 fullWidth 
                 label="Profesión" 
                 name="profesionId" 
                 component={TextFieldAdapter}
-              />              
-            </Grid>
-            <Grid item xs={12} sm={6}>
+              />              */}
               <Field 
-                fullWidth 
-                label="Puesto que ocupa" 
-                name="puestoLaboralId" 
-                component={TextFieldAdapter}
-              />              
+                fullWidth                         
+                name="profesionId"             
+                label="Profesion"                                             
+                validate={required}  
+                options={profesiones}                        
+                optionlabel="descripcion"
+                optionvalue="id"
+                component={SelectAdapter}
+              />                 
+            </Grid>
+            <Grid item xs={12} sm={6}>              
+              <Field 
+                fullWidth                         
+                name="puestoLaboralId"             
+                label="Puesto que ocupa"                                             
+                validate={required}  
+                options={puestosLaborales}                        
+                optionlabel="descripcion"
+                optionvalue="id"
+                component={SelectAdapter}
+              />                       
             </Grid>
             <Grid item xs={12} sm={12}>
               <Field 

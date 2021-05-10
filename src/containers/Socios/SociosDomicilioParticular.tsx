@@ -1,8 +1,14 @@
 import { Box, FormControl, FormLabel, Grid } from '@material-ui/core'
 import { Field } from 'react-final-form'
+import SelectAdapter from '../../components/control/SelectAdapter'
 import TextFieldAdapter from '../../components/control/TextFieldAdapter'
 
-const SociosHijos = () => {
+type SociosDomicilioParticularProps = {
+    ciudades: any[];
+    barrios: any[];
+}
+
+const SociosDomicilioParticular = ({ciudades, barrios}: SociosDomicilioParticularProps) => {
     return (
     <>
         <Box>        
@@ -18,21 +24,27 @@ const SociosHijos = () => {
                         component={TextFieldAdapter}
                     />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} sm={6}>                  
                     <Field 
-                        fullWidth 
-                        label="Ciudad" 
-                        name="direccionParticular.ciudadId" 
-                        component={TextFieldAdapter}
-                    />                    
+                        fullWidth                         
+                        name="direccionParticular.ciudadId"             
+                        label="Ciudad"                                                                     
+                        options={ciudades}                        
+                        optionlabel="descripcion"
+                        optionvalue="id"
+                        component={SelectAdapter}
+                    />          
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <Field 
                         fullWidth 
                         label="Barrio" 
                         name="direccionParticular.barrioId" 
-                        component={TextFieldAdapter}
-                    />                    
+                        options={barrios}  
+                        optionlabel="descripcion"
+                        optionvalue="id"
+                        component={SelectAdapter}
+                    />                                       
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <Field 
@@ -64,4 +76,4 @@ const SociosHijos = () => {
     )
 }
 
-export default SociosHijos
+export default SociosDomicilioParticular

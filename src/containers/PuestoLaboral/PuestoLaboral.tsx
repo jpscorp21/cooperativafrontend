@@ -10,6 +10,7 @@ import { ProfesionesAPI } from "../../api/services/ProfesionesAPI";
 import useBackend from "../../shared/hooks/useBackend";
 import queryClient from "../../config/queryClient";
 import ConfirmDialog from "../../components/ConfirmDialog";
+import { PuestosLaboralesAPI } from "../../api/services/PuestosLaboralesAPI";
 
 
 const initialForm = () => ({
@@ -20,7 +21,7 @@ const initialForm = () => ({
 
 const PuestoLaboral = () => {
 
-  const {data, create, update, remove, setParams, key} = useBackend(ProfesionesAPI);
+  const {data, create, update, remove, setParams, key} = useBackend(PuestosLaboralesAPI);
   const {data: profesiones} = useBackend(ProfesionesAPI);
 
   const [openModal, setOpenModal] = useState(false) 

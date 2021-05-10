@@ -1,9 +1,15 @@
 import { Box, FormControl, FormControlLabel, FormLabel, Grid, Radio, RadioGroup } from '@material-ui/core'
 import { Field } from 'react-final-form'
+import SelectAdapter from '../../components/control/SelectAdapter'
 import TextFieldAdapter from '../../components/control/TextFieldAdapter'
 import { required } from '../../utils/errorMessages'
 
-const SociosDatosPersonales = () => {
+type SociosDatosPersonalesProps = {
+    estadosCiviles: any[];
+    nacionalidades: any[];
+}
+
+const SociosDatosPersonales = ({estadosCiviles, nacionalidades}: SociosDatosPersonalesProps) => {
     return (
         <>
             <Box>
@@ -36,7 +42,7 @@ const SociosDatosPersonales = () => {
                                 fullWidth  
                                 validate={required}
                                 component={TextFieldAdapter}
-                                label="Doc.Cédula*" 
+                                label="Doc. cédula*" 
                                 name="cedula"
                             />
                         </Grid>
@@ -45,12 +51,15 @@ const SociosDatosPersonales = () => {
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <Field 
-                                validate={required} 
-                                component={TextFieldAdapter} 
-                                fullWidth  
-                                label="Estado Civil*" 
-                                name="estadoCivilId"
-                            />
+                                fullWidth                         
+                                name="estadoCivilId"             
+                                label="Estado civil"                                             
+                                validate={required}  
+                                options={estadosCiviles}                        
+                                optionlabel="descripcion"
+                                optionvalue="id"
+                                component={SelectAdapter}
+                            />                            
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <Field 
@@ -84,12 +93,15 @@ const SociosDatosPersonales = () => {
 
                         <Grid item xs={12} sm={6}>
                             <Field 
-                                fullWidth  
-                                validate={required} 
-                                component={TextFieldAdapter}  
-                                label="Nacionalidad*" 
-                                name="nacionalidadId" 
-                            />
+                                fullWidth                         
+                                name="nacionalidadId"             
+                                label="Nacionalidad*"                                             
+                                validate={required}  
+                                options={nacionalidades}                        
+                                optionlabel="descripcion"
+                                optionvalue="id"
+                                component={SelectAdapter}
+                            />                            
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <Field 
