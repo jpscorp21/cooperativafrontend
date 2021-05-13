@@ -1,5 +1,6 @@
 import { Dialog, Paper, Typography, Grid, Box, Button } from '@material-ui/core'
 import { Field, Form } from 'react-final-form';
+import DatePickerAdapter from '../../components/control/DatePickerAdapter';
 import TextFieldAdapter from '../../components/control/TextFieldAdapter';
 import CustomDatePicker from '../../components/CustomDatePicker';
 import { FormModalProps } from '../../types';
@@ -41,9 +42,7 @@ const TimbradosFormModal = ({openModal, handleCloseModal, onSubmit, formData}: T
                                         name="fechaInicio"           
                                         fullWidth 
                                         validate={required}                                                                                                    
-                                        render={({input}) => (
-                                            <CustomDatePicker {...input} label="Fecha inicio*" />
-                                        )}
+                                        component={DatePickerAdapter}
                                     />
                                 </Grid>            
                                 <Grid item sm={6} xs={12}>
@@ -51,9 +50,7 @@ const TimbradosFormModal = ({openModal, handleCloseModal, onSubmit, formData}: T
                                         name="fechaFin"           
                                         fullWidth 
                                         validate={required}                                                                                                
-                                        render={({input}) => (
-                                            <CustomDatePicker {...input } label="Fecha fin*"  />
-                                        )}
+                                        component={DatePickerAdapter}
                                     />                                    
                                 </Grid>            
                                 <Grid item xs={12}>

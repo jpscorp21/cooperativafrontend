@@ -5,7 +5,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import SubjectIcon from '@material-ui/icons/Subject';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import ArchiveIcon from '@material-ui/icons/Archive';
+import ArchiveIcon from '@material-ui/icons/Business';
 import React from 'react';
 import { ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 

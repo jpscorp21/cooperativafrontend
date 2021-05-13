@@ -1,6 +1,8 @@
 import { Box, FormControl, FormControlLabel, FormLabel, Grid, Radio, RadioGroup } from '@material-ui/core'
+import { useMemo } from 'react'
 import { Field } from 'react-final-form'
 import DatePickerAdapter from '../../components/control/DatePickerAdapter'
+import RadioGroupAdapter from '../../components/control/RadioGroupAdapter'
 import SelectAdapter from '../../components/control/SelectAdapter'
 import TextFieldAdapter from '../../components/control/TextFieldAdapter'
 import { required } from '../../utils/errorMessages'
@@ -11,6 +13,13 @@ type SociosDatosPersonalesProps = {
 }
 
 const SociosDatosPersonales = ({estadosCiviles, nacionalidades}: SociosDatosPersonalesProps) => {
+
+    const generos = useMemo(() => [ 
+        {id: 'M', descripcion: 'Masculino'}, 
+        {id: 'F', descripcion: 'Femenino'}, 
+        {id: 'O', descripcion: 'Otros'}
+    ], []);
+
     return (
         <>
             <Box>
@@ -82,14 +91,30 @@ const SociosDatosPersonales = ({estadosCiviles, nacionalidades}: SociosDatosPers
                         </Grid>
                         
                         <Grid item xs={12} sm={12}>
-                            <FormControl component="fieldset">
-                                <FormLabel component="legend">Género*</FormLabel>
-                                <RadioGroup row aria-label="gender" name="genero" defaultValue="masculino">
-                                    <FormControlLabel value="masculino" control={<Radio />} label="Masculino" />
-                                    <FormControlLabel value="femenino" control={<Radio />} label="Femenino" />
-                                    <FormControlLabel value="otros" control={<Radio />} label="Otros" />
-                                </RadioGroup>
-                            </FormControl>
+                            <Field 
+                                fullWidth 
+                                label="Género*" 
+                                name="genero" 
+                                validate={required} 
+                                component={RadioGroupAdapter}
+                                optionvalue="id"
+                                optionlabel="descripcion"
+                                defaultValue="F"
+                                options={generos}
+                                // render={({input}) => (
+                                //     <FormControl component="fieldset">
+                                //         <FormLabel component="legend">Género*</FormLabel>
+                                //         <RadioGroup row aria-label="gender" onChange={input.onChange} name="genero" defaultValue="masculino">
+                                //             <FormControlLabel value="M" checked={input.value === 'M'} control={<Radio />} label="Masculino" />
+                                //             <FormControlLabel value="F" checked={input.value === 'F'} control={<Radio />} label="Femenino" />
+                                //             <FormControlLabel value="O" checked={input.value === 'O'} control={<Radio />} label="Otros" />
+                                //             <FormControlLabel value="O" checked={input.value === 'O'} control={<Radio />} label="Otros" />
+                                //             <FormControlLabel value="O" checked={input.value === 'O'} control={<Radio />} label="Otros" />
+                                //             <FormControlLabel value="O" checked={input.value === 'O'} control={<Radio />} label="Otros" />
+                                //         </RadioGroup>
+                                //     </FormControl>
+                                // )}  
+                            />
                         </Grid>
 
                         <Grid item xs={12} sm={6}>

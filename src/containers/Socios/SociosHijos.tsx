@@ -2,6 +2,7 @@ import { Box, Button, FormControl, FormLabel, Grid } from '@material-ui/core'
 import React from 'react'
 import { Field } from 'react-final-form'
 import { FieldArray } from 'react-final-form-arrays'
+import DatePickerAdapter from '../../components/control/DatePickerAdapter'
 import TextFieldAdapter from '../../components/control/TextFieldAdapter'
 
 
@@ -24,16 +25,35 @@ const SociosHijos = () => {
                                 </Box>
                             </Grid>  
                             <Grid item xs={6} md={3}>
-                                <Field fullWidth label="Nombre" name={`${name}.nombre`} component={TextFieldAdapter} />
+                                <Field 
+                                    fullWidth label="Nombre" 
+                                    name={`${name}.nombre`} 
+                                    component={TextFieldAdapter} 
+                                />
                             </Grid>
                             <Grid item xs={6} md={3}>
-                                <Field fullWidth label="Apellido" name={`${name}.apellido`} component={TextFieldAdapter} />
+                                <Field 
+                                    fullWidth 
+                                    label="Apellido" 
+                                    name={`${name}.apellido`} 
+                                    component={TextFieldAdapter} 
+                                />
                             </Grid>
                             <Grid item xs={6} md={3}>
-                                <Field fullWidth label="Cedula" name={`${name}.cedula`} component={TextFieldAdapter} />
+                                <Field 
+                                    fullWidth 
+                                    label="Cedula" 
+                                    name={`${name}.cedula`} 
+                                    component={TextFieldAdapter} 
+                                />
                             </Grid>
                             <Grid item xs={6} md={3}>
-                                <Field fullWidth label="Fecha nacimiento" name={`${name}.fechaNacimiento`} component={TextFieldAdapter} />
+                                <Field 
+                                    fullWidth 
+                                    label="Fecha nacimiento" 
+                                    name={`${name}.fechaNacimiento`} 
+                                    component={DatePickerAdapter} 
+                                />
                             </Grid>                                                        
                         </React.Fragment>                        
                     ))}

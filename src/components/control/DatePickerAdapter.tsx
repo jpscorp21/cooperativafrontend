@@ -3,13 +3,6 @@ import LocalizationProvider from '@material-ui/lab/LocalizationProvider';
 import DesktopDatePicker from '@material-ui/lab/DesktopDatePicker'; 
 import { TextField } from '@material-ui/core';
 
-// type DatePickerAdapterProps = {
-//     value: string;
-//     name?: string;
-//     onChange: any;
-//     label?: string;
-// } 
-
 const DatePickerAdapter = ({input, meta, ...rest}: any) => {
     return (
         <LocalizationProvider dateAdapter={AdapterDateFns}>

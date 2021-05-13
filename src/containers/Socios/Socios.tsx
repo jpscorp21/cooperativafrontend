@@ -13,7 +13,7 @@ import SociosUbicacion from "./SociosUbicacion";
 import SociosDomicilioParticular from "./SociosDomicilioParticular";
 import SociosHijos from "./SociosHijos";
 import { FormApi } from "final-form";
-import { Form } from "react-final-form";
+import { Form, FormSpy } from "react-final-form";
 import arrayMutators from 'final-form-arrays'
 import SaveIcon from '@material-ui/icons/Save';
 import useBackend from "../../shared/hooks/useBackend";
@@ -61,7 +61,7 @@ const Socios = () => {
     //   }
     // })    
   }    
-
+ 
   return (
     <>
     <TituloContainer>Formulario Socios</TituloContainer>
@@ -69,6 +69,7 @@ const Socios = () => {
       <Form
         onSubmit={onSubmit}
         subscription={{}}
+        initialValues={{genero: 'F'}}
         mutators={{          
           ...arrayMutators
         }}
@@ -76,13 +77,13 @@ const Socios = () => {
 
           <form onSubmit={handleSubmit}>
             <Paper sx={{mx: 2}}>
-            {/* <FormSpy subscription={{ values: true }}>
+            <FormSpy subscription={{ values: true }}>
             {({ values }) => (
               <pre>
                 {JSON.stringify(values, null, 2)}
               </pre>
             )}
-            </FormSpy> */}
+            </FormSpy>
             <CustomTabs value={indexTab} onChange={setIndexTab} data={dataTabs}></CustomTabs>              
             <Box px={2}>
               <TabPanel value={indexTab} index={0}>            
@@ -109,8 +110,8 @@ const Socios = () => {
               </TabPanel>
               <TabPanel value={indexTab} index={4}>            
                 <SociosDomicilioLaboral 
-                  ciudades={ciudades} 
-                  barrios={barrios} 
+                  ciudades={ciudades?.items || []}
+                  barrios={barrios?.items || []}
                 />
               </TabPanel>
               <TabPanel value={indexTab} index={5}>                  
@@ -140,14 +141,8 @@ const Socios = () => {
           </form>
 
         )}        
-      >
-        
+      >              
       </Form>
-    {/* <Box sx={{p:2, pt: 0}}>
-    <Button variant="contained" sx={{mr:1}}>Guardar</Button>
-    <Button variant="outlined" sx={{mr:1}}>Reiniciar</Button>
-    <Button variant="outlined" sx={{mr:1}}>Volver</Button>
-    </ Box> */}
     </>
   )
 }

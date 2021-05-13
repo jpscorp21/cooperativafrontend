@@ -63,7 +63,6 @@ const Login = () => {
     const body = {
       usuario: usuarioRef.current.value,
       password: passwordRef.current.value,
-
     }
 
     AuthAPI.login(body)
