@@ -4,6 +4,7 @@ const RadioGroupAdapter = ({input, meta, ...rest}: any) => {
 
     const menuItems = rest.options ? rest.options.map((item: any, index: number) => (
         <FormControlLabel 
+            key={item.id}
             value={item[rest.optionvalue]} 
             checked={input.value === item[rest.optionvalue]} 
             control={<Radio />} 
@@ -12,9 +13,13 @@ const RadioGroupAdapter = ({input, meta, ...rest}: any) => {
     )) : null    
   
     return (
-        <FormControl error={meta.error && meta.touched} component="fieldset" fullWidth={rest.fullWidth}>
+        <FormControl 
+            error={meta.error && meta.touched} 
+            component="fieldset" 
+            fullWidth={rest.fullWidth}
+        >
             <FormLabel component="legend">{rest.label}</FormLabel>
-            <RadioGroup row aria-label="gender" onChange={input.onChange} name={input.name}>
+            <RadioGroup row aria-label="correspondencia" onChange={input.onChange} name={input.name}>
                 {menuItems}
             </RadioGroup>
         </FormControl>

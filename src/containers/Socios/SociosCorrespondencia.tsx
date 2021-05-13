@@ -1,9 +1,16 @@
 
 import { Box, FormControl, FormControlLabel, FormLabel, Grid, Radio, RadioGroup } from '@material-ui/core'
+import { useMemo } from 'react';
 import { Field } from 'react-final-form'
+import RadioGroupAdapter from '../../components/control/RadioGroupAdapter';
 import TextFieldAdapter from '../../components/control/TextFieldAdapter'
 
 const SociosCorrespondencia = () => {
+
+    const correpondencias = useMemo(() => [ 
+      {id: 'particular', descripcion: 'Particular'}, 
+      {id: 'laboral', descripcion: 'Laboral'},       
+    ], []);
 
     return (
       <>
@@ -13,18 +20,14 @@ const SociosCorrespondencia = () => {
           </FormControl>
           <Grid container>
             <Grid item xs={12} sx={{mb:2}}>
-              <Field
-                type="radio"
+              <Field                
                 name="correspondencia"
-                render={({input, meta}) => (
-                  <FormControl component="fieldset">
-                    <FormLabel component="legend">Recibo mi correspondencia en mi Domicilio</FormLabel>
-                      <RadioGroup row aria-label="correspondencia" {...input}>
-                        <FormControlLabel value="particular" control={<Radio />} label="Particular" />
-                        <FormControlLabel value="laboral" control={<Radio />} label="Laboral" />
-                      </RadioGroup>
-                  </FormControl>
-                )} 
+                label="Correspondencia"
+                fullWidth                                 
+                optionvalue="id"
+                optionlabel="descripcion"                
+                options={correpondencias}                
+                component={RadioGroupAdapter}
               />                            
             </Grid>
 

@@ -23,6 +23,7 @@ import { ProfesionesAPI } from "../../api/services/ProfesionesAPI";
 import { PuestosLaboralesAPI } from "../../api/services/PuestosLaboralesAPI";
 import { CiudadesAPI } from "../../api/services/CiudadesAPI";
 import { BarriosAPI } from "../../api/services/BarriosAPI";
+import { sociosInitialForm } from "./socios-data";
 
 
 const Socios = () => {  
@@ -33,8 +34,9 @@ const Socios = () => {
   const {data: puestosLaborales} = useBackend(PuestosLaboralesAPI);
   const {data: ciudades} = useBackend(CiudadesAPI);
   const {data: barrios} = useBackend(BarriosAPI);
-
+  
   const [indexTab, setIndexTab] = useState(0);
+  const [formData, setFormData] = useState(sociosInitialForm());
 
   const dataTabs = useArrayMemo([
     'Datos Personales', 'Domicilio Particular', 'Datos del Conyugue', 'Actividad Laboral', 'Domicilio Laboral', 'Correspondencia', 'Hijos', 'Ubicación'
@@ -69,21 +71,22 @@ const Socios = () => {
       <Form
         onSubmit={onSubmit}
         subscription={{}}
-        initialValues={{genero: 'F'}}
+        initialValues={{...formData}}
         mutators={{          
           ...arrayMutators
         }}
-        render={({handleSubmit}) => (
+        render={({handleSubmit, values}) => (
 
           <form onSubmit={handleSubmit}>
+            {JSON.stringify(values)}
             <Paper sx={{mx: 2}}>
-            <FormSpy subscription={{ values: true }}>
+            {/* <FormSpy subscription={{ values: true }}>
             {({ values }) => (
               <pre>
                 {JSON.stringify(values, null, 2)}
               </pre>
             )}
-            </FormSpy>
+            </FormSpy> */}
             <CustomTabs value={indexTab} onChange={setIndexTab} data={dataTabs}></CustomTabs>              
             <Box px={2}>
               <TabPanel value={indexTab} index={0}>            
@@ -105,7 +108,7 @@ const Socios = () => {
               <TabPanel value={indexTab} index={3}>            
                 <SociosActividadLaboral
                   profesiones={profesiones?.items || []}
-                  puestosLaborales={puestosLaborales?.items || []}
+                  puestosLaborales={puestosLaborales?.items || []}                  
                 />
               </TabPanel>
               <TabPanel value={indexTab} index={4}>            
