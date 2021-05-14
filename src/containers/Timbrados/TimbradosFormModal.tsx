@@ -2,7 +2,6 @@ import { Dialog, Paper, Typography, Grid, Box, Button } from '@material-ui/core'
 import { Field, Form } from 'react-final-form';
 import DatePickerAdapter from '../../components/control/DatePickerAdapter';
 import TextFieldAdapter from '../../components/control/TextFieldAdapter';
-import CustomDatePicker from '../../components/CustomDatePicker';
 import { FormModalProps } from '../../types';
 import { required } from '../../utils/errorMessages';
 

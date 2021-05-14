@@ -1,14 +1,20 @@
 import { Box, FormControl, FormLabel, Grid } from '@material-ui/core'
-import { Field } from 'react-final-form'
+import { Field, useForm, useFormState } from 'react-final-form'
 import SelectAdapter from '../../components/control/SelectAdapter'
 import TextFieldAdapter from '../../components/control/TextFieldAdapter'
 
 type SociosDomicilioParticularProps = {
     ciudades: any[];
     barrios: any[];
+    changeCiudad(id: string): void;
 }
 
-const SociosDomicilioParticular = ({ciudades, barrios}: SociosDomicilioParticularProps) => {
+const SociosDomicilioParticular = ({ciudades, barrios, changeCiudad}: SociosDomicilioParticularProps) => {
+
+    const {values, } = useFormState();
+    const {change} = useForm();
+    
+
     return (
     <>
         <Box>        
@@ -32,10 +38,16 @@ const SociosDomicilioParticular = ({ciudades, barrios}: SociosDomicilioParticula
                         options={ciudades}                        
                         optionlabel="descripcion"
                         optionvalue="id"
+                        onChange={(event: any) => {
+                            
+                            changeCiudad(event.target.value);                            
+                            change('direccionParticular.ciudadId', event.target.value)
+                            change('direccionParticular.barrioId', null)
+                        }}
                         component={SelectAdapter}
                     />          
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} sm={6}>                    
                     <Field 
                         fullWidth 
                         label="Barrio" 
@@ -43,6 +55,7 @@ const SociosDomicilioParticular = ({ciudades, barrios}: SociosDomicilioParticula
                         options={barrios}  
                         optionlabel="descripcion"
                         optionvalue="id"
+                        disabled={!values?.direccionParticular?.ciudadId}
                         component={SelectAdapter}
                     />                                       
                 </Grid>

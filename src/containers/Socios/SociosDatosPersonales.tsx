@@ -1,4 +1,4 @@
-import { Box, FormControl, FormControlLabel, FormLabel, Grid, Radio, RadioGroup } from '@material-ui/core'
+import { Box, FormControl, FormLabel, Grid } from '@material-ui/core'
 import { useMemo } from 'react'
 import { Field } from 'react-final-form'
 import DatePickerAdapter from '../../components/control/DatePickerAdapter'
@@ -74,10 +74,10 @@ const SociosDatosPersonales = ({estadosCiviles, nacionalidades}: SociosDatosPers
                         <Grid item xs={12} sm={6}>
                             <Field 
                                 fullWidth 
-                                validate={required} 
-                                component={DatePickerAdapter}  
-                                label="Fecha Nacimiento*" 
+                                validate={required}  
+                                component={DatePickerAdapter}                                  
                                 name="fechaNacimiento"
+                                label="hola"
                             />
                         </Grid>
                         <Grid item xs={12} sm={12}>
@@ -92,6 +92,7 @@ const SociosDatosPersonales = ({estadosCiviles, nacionalidades}: SociosDatosPers
                         
                         <Grid item xs={12} sm={12}>
                             <Field 
+                                type="text"
                                 fullWidth 
                                 label="Género*" 
                                 name="genero" 

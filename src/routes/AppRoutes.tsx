@@ -20,6 +20,7 @@ import Nacionalidades from '../containers/Nacionalidades/Nacionalidades';
 import Profesiones from '../containers/Profesiones/Profesiones';
 import PuestoLaboral from '../containers/PuestoLaboral/PuestoLaboral';
 import Socios from '../containers/Socios/Socios';
+import SociosForm from '../containers/Socios/SociosForm';
 import SolicitudCredito from '../containers/SolicitudCredito/SolicitudCredito';
 import SolicitudCreditoForm from '../containers/SolicitudCredito/SolicitudCreditoForm';
 import Solidaridad from '../containers/Solidaridad/Solidaridad';
@@ -93,8 +94,11 @@ export const AppRoutes = () => {
       <Route path="/puestolaboral">        
         <PuestoLaboral />
       </Route>
-      <Route path="/socios">        
+      <Route exact path="/socios">        
         <Socios />
+      </Route>
+      <Route path="/socios/form">        
+        <SociosForm />
       </Route>
       <Route exact path="/solicitudcredito">        
         <SolicitudCredito />

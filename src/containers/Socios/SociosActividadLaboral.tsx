@@ -1,7 +1,7 @@
 
 import { Box, FormControl, FormLabel, Grid } from '@material-ui/core'
 import { useMemo } from 'react'
-import { Field, useFormState } from 'react-final-form'
+import { Field, useForm, useFormState } from 'react-final-form'
 import RadioGroupAdapter from '../../components/control/RadioGroupAdapter'
 import SelectAdapter from '../../components/control/SelectAdapter'
 import TextFieldAdapter from '../../components/control/TextFieldAdapter'
@@ -10,9 +10,10 @@ import { required } from '../../utils/errorMessages'
 type SociosActividadLaboralProps = {
   profesiones: any[];
   puestosLaborales: any[];
+  changeProfesion(id: any): void;
 }
 
-const SociosActividadLaboral = ({profesiones, puestosLaborales}: SociosActividadLaboralProps) => {
+const SociosActividadLaboral = ({profesiones, puestosLaborales, changeProfesion}: SociosActividadLaboralProps) => {
 
     const esEmpleados = useMemo(() => [
       {id: "true", descripcion: 'Si'},
@@ -20,7 +21,7 @@ const SociosActividadLaboral = ({profesiones, puestosLaborales}: SociosActividad
     ], [])
 
     const {values} = useFormState();
-
+    const {change} = useForm();
     
 
     return (
@@ -32,6 +33,7 @@ const SociosActividadLaboral = ({profesiones, puestosLaborales}: SociosActividad
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <Field 
+                type="text"
                 fullWidth 
                 label="Es empleado" 
                 name="esEmpleado" 
@@ -71,6 +73,11 @@ const SociosActividadLaboral = ({profesiones, puestosLaborales}: SociosActividad
                       optionlabel="descripcion"
                       optionvalue="id"
                       component={SelectAdapter}
+                      onChange={(event: any) => {
+                        changeProfesion(event.target.value);
+                        change('profesionId', event.target.value);
+                        change('puestoLaboralId', null);
+                      }}
                     />                 
                   </Grid>
                   <Grid item xs={12} sm={6}>              
@@ -107,6 +114,7 @@ const SociosActividadLaboral = ({profesiones, puestosLaborales}: SociosActividad
             }
             <Grid item xs={12} sm={12}>
               <Field 
+                type="text"
                 fullWidth
                 name="otroIngreso"
                 label="Posee otros ingresos"

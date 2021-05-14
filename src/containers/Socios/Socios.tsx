@@ -1,153 +1,100 @@
-import { Box, Button, Paper } from "@material-ui/core"
-import { useState } from "react";
-import TituloContainer from "../../components/TituloContainer";
-import SociosDatosPersonales from "./SociosDatosPersonales";
-import SociosDatosConyugue from "./SociosDatosConyugue";
-import SociosActividadLaboral from "./SociosActividadLaboral";
-import SociosDomicilioLaboral from "./SociosDomicilioLaboral";
-import SociosCorrespondencia from "./SociosCorrespondencia";
-import useArrayMemo from "../../shared/hooks/useArrayMemo";
-import CustomTabs from "../../components/CustomTabs";
-import TabPanel from "../../components/TabPanel";
-import SociosUbicacion from "./SociosUbicacion";
-import SociosDomicilioParticular from "./SociosDomicilioParticular";
-import SociosHijos from "./SociosHijos";
-import { FormApi } from "final-form";
-import { Form, FormSpy } from "react-final-form";
-import arrayMutators from 'final-form-arrays'
-import SaveIcon from '@material-ui/icons/Save';
-import useBackend from "../../shared/hooks/useBackend";
-import { EstadosCivilesAPI } from "../../api/services/EstadosCivilesAPI";
-import { NacionalidadesAPI } from "../../api/services/NacionalidadesAPI";
-import { ProfesionesAPI } from "../../api/services/ProfesionesAPI";
-import { PuestosLaboralesAPI } from "../../api/services/PuestosLaboralesAPI";
-import { CiudadesAPI } from "../../api/services/CiudadesAPI";
-import { BarriosAPI } from "../../api/services/BarriosAPI";
-import { sociosInitialForm } from "./socios-data";
+import { Box, TableCell, TextField } from '@material-ui/core';
+import React, { useMemo, useState } from 'react'
+import { useHistory } from 'react-router';
+import { SociosAPI } from '../../api/services/SociosAPI';
+import AccionesCell from '../../components/AccionesCell';
+import ButtonActionContainer from '../../components/ButtonActionContainer';
+import ConfirmDialog from '../../components/ConfirmDialog';
+import CustomTable, { ColumnCustomTable } from '../../components/CustomTable';
+import TituloContainer from '../../components/TituloContainer'
+import queryClient from '../../config/queryClient';
+import useBackend from '../../shared/hooks/useBackend';
 
+const Socios = () => {
 
-const Socios = () => {  
+    const history = useHistory();
 
-  const {data: estadosCiviles} = useBackend(EstadosCivilesAPI);
-  const {data: nacionalidades} = useBackend(NacionalidadesAPI);
-  const {data: profesiones} = useBackend(ProfesionesAPI);
-  const {data: puestosLaborales} = useBackend(PuestosLaboralesAPI);
-  const {data: ciudades} = useBackend(CiudadesAPI);
-  const {data: barrios} = useBackend(BarriosAPI);
-  
-  const [indexTab, setIndexTab] = useState(0);
-  const [formData, setFormData] = useState(sociosInitialForm());
-
-  const dataTabs = useArrayMemo([
-    'Datos Personales', 'Domicilio Particular', 'Datos del Conyugue', 'Actividad Laboral', 'Domicilio Laboral', 'Correspondencia', 'Hijos', 'Ubicación'
-  ]) 
-
-  const onSubmit = async (values: any, form: FormApi) => {   
-    console.log(values) 
-    // if (values.id) {
-    //   update.mutate(({body: values, id: values.id}), {
-    //     onSuccess() {    
-    //       handleCloseModal();     
-    //       queryClient.invalidateQueries(key)   
-    //       form.reset();
-    //     }
-    //   }) 
-    //   return;
-    // }
-
-    // create.mutate(values, {
-    //   onSuccess() {    
-    //     handleCloseModal();     
-    //     queryClient.invalidateQueries(key)   
-    //     form.reset();
-    //   }
-    // })    
-  }    
- 
-  return (
-    <>
-    <TituloContainer>Formulario Socios</TituloContainer>
+    const {data, create, remove, update, setParams, key} = useBackend(SociosAPI);
     
-      <Form
-        onSubmit={onSubmit}
-        subscription={{}}
-        initialValues={{...formData}}
-        mutators={{          
-          ...arrayMutators
-        }}
-        render={({handleSubmit, values}) => (
+    const [openConfirmModal, setOpenConfirmModal] = useState(false) 
+    const [dataSelected, setDataSelected] = useState<any>(null);
 
-          <form onSubmit={handleSubmit}>
-            {JSON.stringify(values)}
-            <Paper sx={{mx: 2}}>
-            {/* <FormSpy subscription={{ values: true }}>
-            {({ values }) => (
-              <pre>
-                {JSON.stringify(values, null, 2)}
-              </pre>
-            )}
-            </FormSpy> */}
-            <CustomTabs value={indexTab} onChange={setIndexTab} data={dataTabs}></CustomTabs>              
-            <Box px={2}>
-              <TabPanel value={indexTab} index={0}>            
-                <SociosDatosPersonales 
-                  estadosCiviles={estadosCiviles?.items || []} 
-                  nacionalidades={nacionalidades?.items || []}
-                />
-                
-              </TabPanel>
-              <TabPanel value={indexTab} index={1}>            
-                <SociosDomicilioParticular 
-                  ciudades={ciudades?.items || []}
-                  barrios={barrios?.items || []}
-                />
-              </TabPanel>
-              <TabPanel value={indexTab} index={2}>            
-                <SociosDatosConyugue></SociosDatosConyugue>
-              </TabPanel>
-              <TabPanel value={indexTab} index={3}>            
-                <SociosActividadLaboral
-                  profesiones={profesiones?.items || []}
-                  puestosLaborales={puestosLaborales?.items || []}                  
-                />
-              </TabPanel>
-              <TabPanel value={indexTab} index={4}>            
-                <SociosDomicilioLaboral 
-                  ciudades={ciudades?.items || []}
-                  barrios={barrios?.items || []}
-                />
-              </TabPanel>
-              <TabPanel value={indexTab} index={5}>                  
-                <SociosCorrespondencia></SociosCorrespondencia>
-              </TabPanel>
-              <TabPanel value={indexTab} index={6}>                
-                <SociosHijos />
-              </TabPanel>
-              <TabPanel value={indexTab} index={7}>            
-                <SociosUbicacion />        
-              </TabPanel>
-            </Box>
-            
+    const handleNew = () => {
+        history.push('/socios/form');
+    }
 
-          </Paper>
-          <Box p={2} textAlign="right">
-            <Button 
-                type="submit"
-                variant="contained" 
-                size="small" 
-                color="secondary" 
-                startIcon={<SaveIcon />}                                
-            >
-                Guardar
-            </Button>            
-          </Box> 
-          </form>
+    const handleEditar = (item: any) => {
+        setDataSelected({...item});        
+    }
 
-        )}        
-      >              
-      </Form>
-    </>
-  )
+    const handleOpenConfirmEliminar = (item: any) => {
+        setDataSelected({...item});
+        setOpenConfirmModal(true);
+      }
+    
+    const handleEliminar = () => {
+        remove.mutate(dataSelected.id, {
+            onSuccess() {      
+            setOpenConfirmModal(false);      
+            queryClient.invalidateQueries(key)           
+            }
+        }) 
+    }
+
+    const columns = useMemo(() => [
+        {
+          key: 'codigo',
+          label: 'Codigo',          
+        },
+        {
+          key: 'descripcion',
+          label: 'Descripcion',            
+          render: (item: any) => (
+            <TableCell>
+              <span style={{cursor: 'pointer', paddingTop: '8px'}} onClick={() => handleEditar(item)}>{item.descripcion}</span>
+            </TableCell>
+          )
+        },        
+        {
+          key: 'observacion',
+          label: 'Observación',                  
+        },        
+        {
+          key: 'acciones',
+          label: 'Acciones',
+          align: 'right',
+          render: (item: any) => <AccionesCell item={item} onEditar={handleEditar} onEliminar={handleOpenConfirmEliminar} />
+        },
+    ] as ColumnCustomTable[], [])  
+
+    return (
+        <>
+            <TituloContainer>Socios</TituloContainer>
+
+            <ButtonActionContainer onNew={() => handleNew()}/>
+
+            <Box px={2} pb={2}> 
+                <TextField sx={{bgcolor: 'white'}} onChange={(event) => setParams(event.target.value, 'searchQuery')} fullWidth placeholder="Buscar una ciudad" size="small" />
+            </Box>       
+
+            <Box sx={{px: 2}}>
+                <CustomTable 
+                    page={data?.currentPage}  
+                    count={data?.totalPages} 
+                    columns={columns} 
+                    data={data?.items ? data?.items : []} 
+                    onPageChange={(value) => setParams(value, 'pageNumber')}
+                />  
+            </Box>      
+
+            <ConfirmDialog 
+                openModal={openConfirmModal}
+                onAceptar={handleEliminar}
+                message="Estás seguro de eliminar esté socio?"
+                handleCloseModal={() => setOpenConfirmModal(false)}
+            />
+        </>
+    )
 }
- 
+
 export default Socios

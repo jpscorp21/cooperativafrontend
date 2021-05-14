@@ -1,16 +1,21 @@
 
 import { Box, FormControl, FormLabel, Grid } from '@material-ui/core'
-import { Field } from 'react-final-form'
+import { Field, useForm, useFormState } from 'react-final-form'
 import SelectAdapter from '../../components/control/SelectAdapter'
 import TextFieldAdapter from '../../components/control/TextFieldAdapter'
 
 type SociosDomicilioLaboralProps = {
   ciudades: any[];
   barrios: any[];
+  changeCiudad(id: any): void;
 }
 
-const SociosDomicilioLaboral = ({ciudades, barrios}: SociosDomicilioLaboralProps) => {
-    return (
+const SociosDomicilioLaboral = ({ciudades, barrios, changeCiudad}: SociosDomicilioLaboralProps) => {
+
+  const {values} = useFormState();
+  const {change} = useForm();
+
+  return (
     <>
       <Box>
         <FormControl component="fieldset">
@@ -31,12 +36,17 @@ const SociosDomicilioLaboral = ({ciudades, barrios}: SociosDomicilioLaboralProps
             
             <Field 
               fullWidth                         
-              name="direccionParticular.ciudadId"             
+              name="domicilioLaboral.ciudadId"             
               label="Ciudad"                                                                     
               options={ciudades}                        
               optionlabel="descripcion"
               optionvalue="id"
               component={SelectAdapter}
+              onChange={(event: any) => {                            
+                changeCiudad(event.target.value);                            
+                change('domicilioLaboral.ciudadId', event.target.value)
+                change('domicilioLaboral.barrioId', null)
+            }}
             />          
           </Grid>
 
@@ -44,11 +54,12 @@ const SociosDomicilioLaboral = ({ciudades, barrios}: SociosDomicilioLaboralProps
             <Field 
               fullWidth 
               label="Barrio" 
-              name="direccionParticular.barrioId" 
+              name="domicilioLaboral.barrioId" 
               options={barrios}  
               optionlabel="descripcion"
               optionvalue="id"
               component={SelectAdapter}
+              disabled={!values?.domicilioLaboral?.ciudadId}
             />                        
           </Grid>
 

@@ -1,5 +1,5 @@
 
-import { Box, FormControl, FormControlLabel, FormLabel, Grid, Radio, RadioGroup } from '@material-ui/core'
+import { Box, FormControl, FormLabel, Grid } from '@material-ui/core'
 import { useMemo } from 'react';
 import { Field } from 'react-final-form'
 import RadioGroupAdapter from '../../components/control/RadioGroupAdapter';
@@ -20,7 +20,8 @@ const SociosCorrespondencia = () => {
           </FormControl>
           <Grid container>
             <Grid item xs={12} sx={{mb:2}}>
-              <Field                
+              <Field          
+                type="text"      
                 name="correspondencia"
                 label="Correspondencia"
                 fullWidth                                 
