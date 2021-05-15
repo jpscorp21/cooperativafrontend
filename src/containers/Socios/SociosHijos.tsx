@@ -61,7 +61,7 @@ const SociosHijos = () => {
                         <Button 
                             variant="contained"
                             fullWidth
-                            onClick={() => fields.push({nombre: 'Jean', apellido: 'Saucedo', cedula: 'Cedula', fechaNacimiento: 'Fecha'})}>
+                            onClick={() => fields.push({nombre: '', apellido: '', cedula: '', fechaNacimiento: new Date().toISOString()})}>
                                 Nuevo Hijo
                         </Button>
                     </Grid>

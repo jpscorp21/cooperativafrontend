@@ -2,6 +2,7 @@
 import { Box, FormControl, FormLabel, Grid } from '@material-ui/core'
 import React from 'react'
 import { Field } from 'react-final-form'
+import DatePickerAdapter from '../../components/control/DatePickerAdapter'
 import TextFieldAdapter from '../../components/control/TextFieldAdapter'
 
 const SociosDatosConyugue = () => {
@@ -45,8 +46,8 @@ const SociosDatosConyugue = () => {
                 fullWidth 
                 label="Fecha nacimiento" 
                 name="conyugue.fechaNacimiento"
-                component={TextFieldAdapter}
-              />              
+                component={DatePickerAdapter}                                  
+              />                      
             </Grid>
 
             <Grid item sm={12}>

@@ -13,7 +13,12 @@ export const BaseAPI = {
 
     
     async getById<T>(key: string, id: any) {
-        const { data } = await api.get<T>(key, {params: {id}});
+
+        if (!id) {
+            return;
+        }
+
+        const { data } = await api.get<T>(`${key}/${id}`);
         return data;        
     },
 

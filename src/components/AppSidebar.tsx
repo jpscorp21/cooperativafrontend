@@ -188,7 +188,12 @@ const AppSidebar = ({children}: PropsWithChildren<{}>) => {
         >
           <MenuIcon fontSize="medium" sx={{color: 'white'}} />
         </IconButton>
-        <Typography sx={{color: 'white', fontWeight: "500"}} variant="h5" noWrap component="div">
+        <Typography 
+          onClick={() => history.push('/')} 
+          sx={{color: 'white', fontWeight: "500", cursor: 'pointer'}} 
+          variant="h5" 
+          noWrap 
+          component="div">
               Estrella Ltda
         </Typography>
       </Toolbar>

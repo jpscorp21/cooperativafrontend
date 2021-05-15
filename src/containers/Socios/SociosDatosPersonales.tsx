@@ -76,8 +76,7 @@ const SociosDatosPersonales = ({estadosCiviles, nacionalidades}: SociosDatosPers
                                 fullWidth 
                                 validate={required}  
                                 component={DatePickerAdapter}                                  
-                                name="fechaNacimiento"
-                                label="hola"
+                                name="fechaNacimiento"                                
                             />
                         </Grid>
                         <Grid item xs={12} sm={12}>
@@ -95,7 +94,7 @@ const SociosDatosPersonales = ({estadosCiviles, nacionalidades}: SociosDatosPers
                                 type="text"
                                 fullWidth 
                                 label="Género*" 
-                                name="genero" 
+                                name="sexo" 
                                 validate={required} 
                                 component={RadioGroupAdapter}
                                 optionvalue="id"

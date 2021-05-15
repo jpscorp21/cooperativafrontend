@@ -1,3 +1,5 @@
+import { ISocio } from "../../models/socio-model";
+
 export const sociosInitialForm = () => ({
     nombre: '',
     apellido: '',
@@ -5,7 +7,7 @@ export const sociosInitialForm = () => ({
     estadoCivilId: null,
     fechaNacimiento: new Date().toISOString(),
     lugar: '',
-    genero: 'M',
+    sexo: 'M',
     nacionalidadId: null,
     gradoAcademico: '',
     motivo: '',
@@ -43,3 +45,9 @@ export const sociosInitialForm = () => ({
     latitud: '',
     longitud: '',
 });
+
+export const sociosMap = (socio: ISocio) => ({
+    ...socio,
+    esEmpleado: socio.esEmpleado ? 'true' : 'false',
+    otroIngreso:  socio.otroIngreso ? 'true' : 'false'
+})

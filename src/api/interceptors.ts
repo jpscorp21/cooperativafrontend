@@ -90,7 +90,12 @@ export const errorInterceptor = (error: AxiosError) => {
 export const responseInterceptor: any = (response: IApiResponse<any>) => {
 
   // ver el tema de response
-  console.log({response});
+  console.log({
+    data: response.data,
+    url: response.config.url,
+    status: response.status,    
+    headers: response.headers,
+  });
 
   switch (response.status) {
     case 200:

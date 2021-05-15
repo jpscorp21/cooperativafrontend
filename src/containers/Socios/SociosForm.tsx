@@ -1,5 +1,5 @@
 import { Box, Button, Paper } from "@material-ui/core"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TituloContainer from "../../components/TituloContainer";
 import SociosDatosPersonales from "./SociosDatosPersonales";
 import SociosDatosConyugue from "./SociosDatosConyugue";
@@ -21,18 +21,23 @@ import { EstadosCivilesAPI } from "../../api/services/EstadosCivilesAPI";
 import { NacionalidadesAPI } from "../../api/services/NacionalidadesAPI";
 import { ProfesionesAPI } from "../../api/services/ProfesionesAPI";
 import { CiudadesAPI } from "../../api/services/CiudadesAPI";
-import { sociosInitialForm } from "./socios-data";
+import { sociosInitialForm, sociosMap } from "./socios-data";
 import { useQuery } from "react-query";
 import { SociosAPI } from "../../api/services/SociosAPI";
 import queryClient from "../../config/queryClient";
+import { useHistory, useParams } from "react-router";
+
 
 
 const SociosForm = () => {  
 
-  const {create, update, key} = useBackend(SociosAPI);
+  const history = useHistory();
+  const params = useParams<{id: string}>();
+
+  const {create, update, key} = useBackend(SociosAPI);  
 
   const [indexTab, setIndexTab] = useState(0);
-  const [formData, setFormData] = useState(sociosInitialForm());
+  const [formData, setFormData] = useState<any>(sociosInitialForm());
   const [ciudadParticularId, setCiudadParticularId] = useState<string | null>(null)
   const [ciudadDomicilioId, setCiudadDomicilioId] = useState<string | null>(null)
   const [profesionId, setProfesionId] = useState<string | null>(null)
@@ -46,18 +51,48 @@ const SociosForm = () => {
   const {data: puestosLaborales} = useQuery(['puestoslaborales', profesionId], () => ProfesionesAPI.getPuestosByProfesionId(profesionId))
   const {data: barriosParticular} = useQuery(['barriosParticular', ciudadParticularId], () => CiudadesAPI.getBarriosByCiudadId(ciudadParticularId))
   const {data: barriosLaboral} = useQuery(['barriosLaboral', ciudadDomicilioId], () => CiudadesAPI.getBarriosByCiudadId(ciudadDomicilioId))
-  
+  const {data: socio} = useQuery(['socio', params.id], () => SociosAPI.getById(params.id))
+
+  useEffect(() => {
+    // console.log('socio', socio);
+    if (socio) {
+
+      const socioFormat = sociosMap(socio);
+
+      setFormData({...socioFormat});
+
+
+      if (socioFormat.direccionParticular && socioFormat.direccionParticular.ciudadId) {
+        setCiudadParticularId(socioFormat.direccionParticular.ciudadId);
+      }
+
+      if (socioFormat.domicilioLaboral && socioFormat.domicilioLaboral.ciudadId) {
+        setCiudadDomicilioId(socioFormat.domicilioLaboral.ciudadId);
+      }
+
+      if (socioFormat.profesionId) {
+        setProfesionId(socioFormat.profesionId);
+      }
+
+    }
+  }, [socio]);
 
   const dataTabs = useArrayMemo([
     'Datos Personales', 'Domicilio Particular', 'Datos del Conyugue', 'Actividad Laboral', 'Domicilio Laboral', 'Correspondencia', 'Hijos', 'Ubicación'
   ]) 
+
+  // useEffect(() => {
+  //   console.log('socio', socio);
+  // }, [params.id]);
 
   const onSubmit = async (values: any, form: FormApi) => {           
     if (values.id) {
       update.mutate(({body: values, id: values.id}), {
         onSuccess() {              
           queryClient.invalidateQueries(key)   
-          form.reset();
+          queryClient.invalidateQueries(['socio', params.id])   
+          form.restart();
+          history.replace('/socios');
         }
       }) 
       return;
@@ -66,7 +101,8 @@ const SociosForm = () => {
     create.mutate(values, {
       onSuccess() {            
         queryClient.invalidateQueries(key)   
-        form.reset();
+        form.restart();
+        history.replace('/socios');
       }
     })    
   }    
@@ -83,18 +119,17 @@ const SociosForm = () => {
         mutators={{          
           ...arrayMutators
         }}
-        render={({handleSubmit, values}) => (
-
-          <form onSubmit={handleSubmit}>
-            {JSON.stringify(values)}
+        render={({handleSubmit}) => (
+          
+          <form onSubmit={handleSubmit}>                        
             <Paper sx={{mx: 2}}>
-            <FormSpy subscription={{ values: true }}>
+            {/* <FormSpy subscription={{ values: true }}>
             {({ values }) => (
               <pre>
                 {JSON.stringify(values, null, 2)}
               </pre>
             )}
-            </FormSpy>
+            </FormSpy> */}
             <CustomTabs value={indexTab} onChange={setIndexTab} data={dataTabs}></CustomTabs>              
             <Box px={2}>
               <TabPanel value={indexTab} index={0}>            

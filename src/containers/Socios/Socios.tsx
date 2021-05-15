@@ -1,5 +1,5 @@
 import { Box, TableCell, TextField } from '@material-ui/core';
-import React, { useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useHistory } from 'react-router';
 import { SociosAPI } from '../../api/services/SociosAPI';
 import AccionesCell from '../../components/AccionesCell';
@@ -24,7 +24,8 @@ const Socios = () => {
     }
 
     const handleEditar = (item: any) => {
-        setDataSelected({...item});        
+        setDataSelected({...item});      
+        history.push(`/socios/form/${item.id}`);  
     }
 
     const handleOpenConfirmEliminar = (item: any) => {
@@ -44,21 +45,25 @@ const Socios = () => {
     const columns = useMemo(() => [
         {
           key: 'codigo',
-          label: 'Codigo',          
+          label: 'N°',          
         },
         {
-          key: 'descripcion',
-          label: 'Descripcion',            
+          key: 'nombre',
+          label: 'Socio',            
           render: (item: any) => (
             <TableCell>
-              <span style={{cursor: 'pointer', paddingTop: '8px'}} onClick={() => handleEditar(item)}>{item.descripcion}</span>
+              <span style={{cursor: 'pointer', paddingTop: '8px'}} onClick={() => handleEditar(item)}>{item.nombre + ' ' + item.apellido}</span>
             </TableCell>
           )
-        },        
+        },                  
         {
-          key: 'observacion',
-          label: 'Observación',                  
-        },        
+          key: 'cedula',
+          label: 'Documento',                      
+        },                  
+        {
+          key: 'lugar',
+          label: 'Dirección',                      
+        },                          
         {
           key: 'acciones',
           label: 'Acciones',
@@ -74,7 +79,7 @@ const Socios = () => {
             <ButtonActionContainer onNew={() => handleNew()}/>
 
             <Box px={2} pb={2}> 
-                <TextField sx={{bgcolor: 'white'}} onChange={(event) => setParams(event.target.value, 'searchQuery')} fullWidth placeholder="Buscar una ciudad" size="small" />
+                <TextField sx={{bgcolor: 'white'}} onChange={(event) => setParams(event.target.value, 'searchQuery')} fullWidth placeholder="Buscar un socio" size="small" />
             </Box>       
 
             <Box sx={{px: 2}}>

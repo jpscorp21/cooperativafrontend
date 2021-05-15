@@ -59,7 +59,7 @@ const Ciudades = () => {
         onSuccess() {    
           handleCloseModal();     
           queryClient.invalidateQueries(key)   
-          form.reset();
+          form.restart();
         }
       }) 
       return;
@@ -69,7 +69,7 @@ const Ciudades = () => {
       onSuccess() {    
         handleCloseModal();     
         queryClient.invalidateQueries(key)   
-        form.reset();
+        form.restart();
       }
     })    
   }    

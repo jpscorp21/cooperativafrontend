@@ -1,4 +1,4 @@
-import { Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import AcercaDe from '../containers/AcercaDe/AcercaDe';
 import Aportes from '../containers/Aportes/Aportes';
 import Barrios from '../containers/Barrios/Barrios';
@@ -97,7 +97,10 @@ export const AppRoutes = () => {
       <Route exact path="/socios">        
         <Socios />
       </Route>
-      <Route path="/socios/form">        
+      <Route exact path="/socios/form">        
+        <SociosForm />
+      </Route>
+      <Route path="/socios/form/:id">        
         <SociosForm />
       </Route>
       <Route exact path="/solicitudcredito">        

@@ -19,7 +19,7 @@ const BackendAPI = <T, W = unknown>(key: string, options?: {requests?: W}) => ({
         return await BaseAPI.remove<T>(key, id);
     },
 
-    async getById(id: any) {
+    async getById(id: any) {        
         return await BaseAPI.getById<T>(key, id);       
     },
 
