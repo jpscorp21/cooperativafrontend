@@ -35,6 +35,9 @@ export const CajaAhorroVistaAPI = {
 
     async getCajaAhorroVistaBySocio(id: any) {
         try {
+            if (!id) {
+                return;
+            }
             const { data } = await api.get(`${this.key}/socios/${id}`);
             return data;
         } catch (e) {
@@ -45,6 +48,11 @@ export const CajaAhorroVistaAPI = {
 
     async getDetallesByCajaAhorroId(id: any) {
         try {
+
+            if (!id) {
+                return;
+            }
+
             const { data } = await api.get(`${this.key}/detalles/${id}`);
             return data;
         } catch (e) {

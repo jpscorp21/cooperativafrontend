@@ -10,7 +10,8 @@ import { IPuestoLaboral } from './puesto-laboral-model';
  */
 export interface ISocio {
   id?: string;
-  nombre: string;
+  codigo?: any;
+  nombre: string;  
   apellido: string;
   fecha: Date;
   fechaNacimiento: Date;

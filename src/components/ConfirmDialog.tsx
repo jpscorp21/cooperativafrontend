@@ -1,5 +1,4 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core'
-import React from 'react'
 import { FormModalProps } from '../types'
 
 type ConfirmDialogProps = FormModalProps & {

@@ -1,6 +1,7 @@
 import { ISocio } from './socio-model';
 
 export interface ICajaAhorroVista {
+  id?: string;
   socio?: ISocio;
   socioId: string;
   saldo: number;

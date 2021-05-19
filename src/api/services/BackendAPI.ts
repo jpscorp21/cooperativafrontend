@@ -3,7 +3,7 @@ import { BaseAPI } from "./BaseAPI";
 const BackendAPI = <T, W = unknown>(key: string, options?: {requests?: W}) => ({
     key,
 
-    async getAll(params: any) {
+    async getAll(params: {searchQuery?: string, pageNumber?: number, pageSize?: number}) {
         return await BaseAPI.getAll<T>(key, params);
     },
 

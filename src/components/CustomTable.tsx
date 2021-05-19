@@ -4,7 +4,7 @@ import React from "react";
 export interface ColumnCustomTable {
     key: string;
     label: string;
-    align?: 'left' | 'right';
+    align?: any;
     minWidth?: string;
     format?: (item: any) => React.ReactElement;
     render?: (item: any) => React.ReactElement;
@@ -16,9 +16,11 @@ interface CustomTableProps {
     onPageChange?: (page: number) => void;
     count?: number;
     page?: number;
+    hover?: boolean;
+    onClickRow?(item: any): void;
 }
 
-const CustomTable = ({columns, data, onPageChange, count = 100, page = 1}: CustomTableProps) => {    
+const CustomTable = ({columns, data, onPageChange, count = 100, page = 1, hover = false, onClickRow}: CustomTableProps) => {    
 
     return (
     <>
@@ -41,7 +43,16 @@ const CustomTable = ({columns, data, onPageChange, count = 100, page = 1}: Custo
                 <TableBody>
                     {data && Array.isArray(data) && data.map((item, index) => {
                         return (
-                            <TableRow key={index}>
+                            <TableRow 
+                                hover={hover} 
+                                key={index}
+                                onClick={() => {
+                                    if (onClickRow) {
+                                        onClickRow(item);
+                                    }
+                                }} 
+                                sx={{cursor: hover ? 'pointer' : 'default'}}
+                            >
                                 {columns.map((column, columnIndex) => {
 
                                     let cell = <TableCell align={column.align || 'left'}>
