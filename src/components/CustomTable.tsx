@@ -6,7 +6,7 @@ export interface ColumnCustomTable {
     label: string;
     align?: any;
     minWidth?: string;
-    format?: (item: any) => React.ReactElement;
+    format?: (item: any) => any;
     render?: (item: any) => React.ReactElement;
 }
 
@@ -18,9 +18,10 @@ interface CustomTableProps {
     page?: number;
     hover?: boolean;
     onClickRow?(item: any): void;
+    paginate?: boolean;
 }
 
-const CustomTable = ({columns, data, onPageChange, count = 100, page = 1, hover = false, onClickRow}: CustomTableProps) => {    
+const CustomTable = ({columns, data, onPageChange, count = 100, page = 1, hover = false, onClickRow, paginate = true}: CustomTableProps) => {    
 
     return (
     <>
@@ -79,14 +80,19 @@ const CustomTable = ({columns, data, onPageChange, count = 100, page = 1, hover 
             </Table>
         </TableContainer>
       </Paper>
-        <Stack alignItems="center" pt={2} >
-            <Pagination
-                page={page} 
-                count={count} 
-                color="primary" 
-                onChange={(e, page) => onPageChange && onPageChange(page)} 
-            />
-        </Stack>
+        {
+            paginate
+            ? (
+                <Stack alignItems="center" pt={2} >
+                    <Pagination
+                        page={page} 
+                        count={count} 
+                        color="primary" 
+                        onChange={(e, page) => onPageChange && onPageChange(page)} 
+                    />
+                </Stack>
+            ) : null
+        }                    
       </>
     )
 }

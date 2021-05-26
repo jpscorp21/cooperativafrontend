@@ -8,31 +8,34 @@ interface SociosRequests {
 }
 
 export const SociosAPI = BackendAPI<ISocio, SociosRequests>('socios', {
-    requests: {
-        
-        async count() {
-            try {
-              const { data } = await api.get(`socios/count`);      
-        
-              return data;
-            } catch (e) {
-              console.log(e);
-              throw new Error("Error en el servidor");
-            }
-        },
-        async existsNumeroSocio(numeroSocio: any) {
-            try {
-              const { data } = await api.get(`socios`, {
-                params: {
-                  numeroSocio
-                }
-              });
-        
-              return data;
-            } catch (e) {
-              console.log(e);
-              throw new Error("Error en el servidor");
-            }
+  mapAll(data) {
+    return data.map((item: any) => ({...item, nombre_completo: item.nombre + ' ' + item.apellido}));
+  },
+  requests: {
+      
+    async count() {
+      try {
+        const { data } = await api.get(`socios/count`);      
+  
+        return data;
+      } catch (e) {
+        console.log(e);
+        throw new Error("Error en el servidor");
+      }
+    },
+    async existsNumeroSocio(numeroSocio: any) {
+      try {
+        const { data } = await api.get(`socios`, {
+          params: {
+            numeroSocio
           }
+        });
+  
+        return data;
+      } catch (e) {
+        console.log(e);
+        throw new Error("Error en el servidor");
+      }
     }
+  }
 });

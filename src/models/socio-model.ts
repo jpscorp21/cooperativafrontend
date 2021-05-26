@@ -42,6 +42,7 @@ export interface ISocio {
   otroIngreso: boolean;
   otroMonto: number;
   otroConcepto: string;
+  nombre_completo?: string;
   domicilioLaboral: IDireccion;
   domicilioLaboralId: string | null;
   correspondencia: string; // Debe tener con id

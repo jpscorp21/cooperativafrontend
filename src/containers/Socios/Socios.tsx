@@ -14,7 +14,7 @@ const Socios = () => {
 
     const history = useHistory();
 
-    const {data, create, remove, update, setParams, key} = useBackend(SociosAPI);
+    const {data, remove, setParams, key} = useBackend(SociosAPI);
     
     const [openConfirmModal, setOpenConfirmModal] = useState(false) 
     const [dataSelected, setDataSelected] = useState<any>(null);

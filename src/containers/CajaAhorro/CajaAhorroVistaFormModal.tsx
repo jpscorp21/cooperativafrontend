@@ -1,6 +1,6 @@
-import { Box, Button, Dialog, Grid, Paper, TextField, Typography } from '@material-ui/core'
+import { Box, Button, Dialog, Grid, Paper, Typography } from '@material-ui/core'
 import { FormApi } from 'final-form';
-import { useMemo, useRef, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Field, Form } from 'react-final-form';
 import ConfirmDialog from '../../components/ConfirmDialog';
 import SelectAdapter from '../../components/control/SelectAdapter';

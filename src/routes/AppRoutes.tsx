@@ -1,4 +1,4 @@
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import AcercaDe from '../containers/AcercaDe/AcercaDe';
 import Aportes from '../containers/Aportes/Aportes';
 import Barrios from '../containers/Barrios/Barrios';

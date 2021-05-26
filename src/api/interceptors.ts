@@ -1,5 +1,7 @@
 import { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import { TokenResponse } from "../models/auth-model";
+import { alertActions } from "../slices/alert.slice";
+import store from "../store";
 
 /** 
  * 
@@ -39,7 +41,7 @@ export const authInterceptor = (config: AxiosRequestConfig) => {
 
 // Interceptores de Respuesta
 export const errorInterceptor = (error: AxiosError) => {  
-
+  store.dispatch(alertActions.open({message: 'Problemas del servidor XD'}));
   // Ver el tema del error
 
   if (!error.response) {
@@ -52,12 +54,14 @@ export const errorInterceptor = (error: AxiosError) => {
   switch (error.response.status) {
     case 400:
       // snackbarErrorMessage('Consulta no encontrada');
+      store.dispatch(alertActions.open({message: 'Consulta no encontrada'}));
       console.error(error.response.status, error.message);
       // notify.warn('Nothing to display','Data Not Found');
       break;
 
     case 401: // authentication error, logout the user
       // notify.warn( 'Please login again', 'Session Expired');
+      store.dispatch(alertActions.open({message: 'Error de autenticación. Vuelva a iniciar sesión'}));
 
       // router.push('/auth');
       // snackbarErrorMessage(
@@ -65,11 +69,13 @@ export const errorInterceptor = (error: AxiosError) => {
       // );
       break;
     case 422: // authentication error, logout the user
+      store.dispatch(alertActions.open({message: 'Error de validación. Verifica los campos'}));
       // notify.warn( 'Please login again', 'Session Expired');
       // router.push('/auth');
       // snackbarErrorMessage('Algunos campos están sin completarse');
       break;
     case 500:
+      store.dispatch(alertActions.open({message: 'Problemas en el servidor. Vuelva a intentarlo'}));
       // snackbarErrorMessage('Error en el servidor. Vuelva a intentarlo');
       // Snackbar.open({
       //   message: 'Error en el servidor',

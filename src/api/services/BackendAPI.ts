@@ -1,10 +1,22 @@
 import { BaseAPI } from "./BaseAPI";
 
-const BackendAPI = <T, W = unknown>(key: string, options?: {requests?: W}) => ({
+interface BackendAPIProps<T = unknown> {
+    requests?: T;
+    mapAll?(data: any): any;
+    mapId?(data: any): any;
+}
+
+const BackendAPI = <T, W = unknown>(key: string, options?: BackendAPIProps<W>) => ({
     key,
 
     async getAll(params: {searchQuery?: string, pageNumber?: number, pageSize?: number}) {
-        return await BaseAPI.getAll<T>(key, params);
+        const res = await BaseAPI.getAll<T>(key, params);
+        return options?.mapAll ? {...res, items: options.mapAll(res.items)} : res;
+    },
+    
+    async getById(id: any) {        
+        const res = await BaseAPI.getById<T>(key, id);       
+        return options?.mapId ? options.mapId(res) : res;
     },
 
     async create(body: any) {
@@ -19,9 +31,7 @@ const BackendAPI = <T, W = unknown>(key: string, options?: {requests?: W}) => ({
         return await BaseAPI.remove<T>(key, id);
     },
 
-    async getById(id: any) {        
-        return await BaseAPI.getById<T>(key, id);       
-    },
+    
 
     ...options?.requests as W
 })

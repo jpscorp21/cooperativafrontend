@@ -1,4 +1,4 @@
-import { Box, Button, TableCell, Typography } from "@material-ui/core"
+import { Box, Button, IconButton, TableCell, Typography } from "@material-ui/core"
 import AddIcon from '@material-ui/icons/Add';
 import { FormApi } from "final-form";
 import { useMemo, useState } from "react";
@@ -14,6 +14,9 @@ import { ISocio } from "../../models/socio-model";
 import CajaAhorroVistaDepositoModal from "./CajaAhorroVistaDepositoModal";
 import CajaAhorroVistaFormModal from "./CajaAhorroVistaFormModal";
 import CajaAhorroVistaRetiroModal from "./CajaAhorroVistaRetiroModal";
+import PrintIcon from '@material-ui/icons/Print';
+import { coma, date, imprimir } from "../../utils/utils";
+
 
 const initialForm = () => ({  
   saldo: '',
@@ -34,7 +37,7 @@ const CajaAhorroVista = () => {
 
   const [openModal, setOpenModal] = useState(false);
   const [openRetiroModal, setOpenRetiroModal] = useState(false);
-  const [openDepositoModal, setOpenDepositoModal] = useState(false);
+  const [openDepositoModal, setOpenDepositoModal] = useState(false);  
   const [formData, setFormData] = useState(initialForm())
   const [retiroFormData, setRetiroFormData] = useState(detalleInitialForm());
   const [depositoFormData, setDepositoFormData] = useState(detalleInitialForm());
@@ -68,6 +71,7 @@ const CajaAhorroVista = () => {
   const handleChangeSocio = (value: ISocio) => {
     console.log(value);
     setSocio(value);
+    setCajaAhorro(null);
   }
 
   const nuevaCajaAhorro = () => {
@@ -88,10 +92,11 @@ const CajaAhorroVista = () => {
   }
 
   const imprimirReporteDetalle = (row: any) => {
-    const elem = document.createElement("a");
-    elem.href = `${BASE_URL}cajaahorrovista/detalles/${row.id}/reporte`;
-    elem.target = "_blank";
-    elem.click();    
+    imprimir(`${BASE_URL}cajaahorrovista/detalles/${row.id}/reporte`);    
+  }
+
+  const imprimirMovimiento = (row: any) => {
+    imprimir(`${BASE_URL}cajaahorrovista/detalles/${row.id}/movimientos`);    
   }
 
   const handleRetirar = () => {
@@ -101,9 +106,30 @@ const CajaAhorroVista = () => {
   }
 
   const handleDepositar = () => {
-    setDepositoFormData(detalleInitialForm(cajaAhorro))
+    setDepositoFormData(detalleInitialForm(cajaAhorro)) 
 
     setOpenDepositoModal(true);
+  }
+
+  const prepareBody = (values: any) => {    
+    return {
+      body: {
+        importe: Number(values.importe),
+        observacion: ''
+      },
+      id: cajaAhorro?.id
+    }
+  }
+
+  const onSuccessOperation = (data: any, form: FormApi) => {
+    if (data && data.id) {
+      imprimirReporteDetalle(data);
+      setOpenDepositoModal(false); 
+      setOpenRetiroModal(false); 
+      queryClient.invalidateQueries('cajaAhorros');   
+      queryClient.invalidateQueries('cajaAhorroDetalles');   
+      form.restart();
+    }
   }
 
   const onSubmitDeposito = async (values: any, form: FormApi) => {
@@ -111,22 +137,12 @@ const CajaAhorroVista = () => {
       return;
     }
 
-    const params = {
-      body: {
-        importe: Number(values.importe),
-        observacion: ''
-      },
-      id: cajaAhorro?.id
-    }
+    const params = prepareBody(values);
 
     depositar.mutate(params, {
-      onSuccess() {    
-        setOpenDepositoModal(false); 
-        queryClient.invalidateQueries('cajaAhorros');   
-        queryClient.invalidateQueries('cajaAhorroDetalles');   
-        form.restart();
+      onSuccess(data) {    
+        onSuccessOperation(data, form);
       },
-
     })
   }
 
@@ -136,25 +152,15 @@ const CajaAhorroVista = () => {
       return;
     }
 
-    const params = {
-      body: {
-        importe: Number(values.importe),
-        observacion: ''
-      },
-      id: cajaAhorro?.id
-    }
+    const params = prepareBody(values);
 
     retirar.mutate(params, {
-      onSuccess() {    
-        setOpenRetiroModal(false); 
-        queryClient.invalidateQueries('cajaAhorros');   
-        queryClient.invalidateQueries('cajaAhorroDetalles');   
-        form.restart();
+      onSuccess(data) {    
+        onSuccessOperation(data, form);
       },
 
     })
   }
-
   
 
   const columns = useMemo(() => [
@@ -178,8 +184,22 @@ const CajaAhorroVista = () => {
     {
       key: 'saldo',
       label: 'Saldo',
-      align: 'right'
-    }
+      align: 'right',
+      format: (value: any) => coma(value.saldo)              
+    },
+    {
+      key: 'acciones',   
+      label: 'Acciones',   
+      align: 'right',
+      render: (item: any) => (
+        <TableCell align="right" sx={{minWidth: '100px'}}>           
+          <IconButton size="small" color="primary" onClick={() => imprimirMovimiento(item)}>
+            <PrintIcon color="primary"></PrintIcon>
+          </IconButton>           
+        </TableCell>
+      )
+    }, 
+       
   ], [])
 
   const columnsDetalle = useMemo(() => [
@@ -189,7 +209,8 @@ const CajaAhorroVista = () => {
     },
     {
       key: 'fechaOperacion',
-      label: 'Fecha'
+      label: 'Fecha',
+      format: (value: any) => date(new Date(value.fechaOperacion))      
     },
     {
       key: 'tipoOperacion',
@@ -199,27 +220,37 @@ const CajaAhorroVista = () => {
           <span>{item.tipoOperacion === 'D' ? 'Depósito' : 'Retiro'}</span>
         </TableCell>
       )
-    },    
+    }, 
+  
     {
       key: 'importe',
       label: 'Importe',
-      align: 'right'
+      align: 'right',
+      format: (value: any) => coma(value.importe)  
     },
     {
       key: 'tasa',
       label: 'Tasa',
       align: 'right'
-    },
-    {
-      key: 'saldoAnterior',
-      label: 'Saldo Anterior',
-      align: 'right'
-    },
+    },    
     {
       key: 'saldoActual',
-      label: 'Saldo Actual',
-      align: 'right'
-    }        
+      label: 'Saldo',
+      align: 'right',
+      format: (value: any) => coma(value.saldoActual)  
+    },        
+    {
+      key: 'acciones',   
+      label: 'Acciones',   
+      align: 'right',
+      render: (item: any) => (
+        <TableCell align="right" sx={{minWidth: '100px'}}>           
+          <IconButton size="small" color="primary" onClick={() => imprimirReporteDetalle(item)}>
+            <PrintIcon color="primary"></PrintIcon>
+          </IconButton>           
+        </TableCell>
+      )
+    },        
   ], [])
 
   return (
@@ -227,23 +258,34 @@ const CajaAhorroVista = () => {
       <TituloContainer>Ahorro a la Vista</TituloContainer>
 
       <Box px={2} pb={2} display="flex" alignItems="center">        
-          <SociosAutocomplete onChange={handleChangeSocio} />         
+          <SociosAutocomplete 
+            value={socio} 
+            onChange={handleChangeSocio} 
+          />         
       </Box>
       
       {
         socio && socio.id
         ? (
+          
           <>            
-            <Box px={2} pb={2} display="flex" alignItems="center">                
+            <Box px={2} pb={1} display="flex" justifyContent="space-between">              
+              <Typography component="p">
+                  <b>{socio.nombre + ' ' + socio.apellido}</b><br />
+                  <span style={{color: '#777'}}>N°: {socio?.codigo}</span><br />
+                  <span style={{color: '#777'}}>Documento: {socio.cedula}</span>
+              </Typography>
+              
               <Button           
                 variant="contained" 
                 size="small" 
+                sx={{alignSelf: 'center'}}
                 color="secondary"          
                 onClick={nuevaCajaAhorro} 
                 startIcon={<AddIcon />}>
                 Nueva caja de ahorro
               </Button>            
-            </Box>
+            </Box>            
 
             <CajaAhorroVistaFormModal 
               openModal={openModal} 
@@ -259,13 +301,14 @@ const CajaAhorroVista = () => {
               </Typography> 
             </Box>
 
-            <Box sx={{px: 2}}>
+            <Box sx={{px: 2}} pb={1}>
               <CustomTable                 
                 columns={columns} 
                 data={cajaAhorros || []}    
                 count={1}  
                 hover
                 onClickRow={fetchDetalle}
+                paginate={false}
               />  
             </Box>  
 

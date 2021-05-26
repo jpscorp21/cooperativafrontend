@@ -9,6 +9,7 @@ export const sociosInitialForm = () => ({
     lugar: '',
     sexo: 'M',
     nacionalidadId: null,
+    nombre_completo: '',
     gradoAcademico: '',
     motivo: '',
     correspondencia: 'particular',

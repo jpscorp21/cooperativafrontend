@@ -1,20 +1,21 @@
-import { Autocomplete, Box, createFilterOptions, TextField, Typography } from '@material-ui/core';
-import { useDebounce } from 'ahooks';
-import React, { useState } from 'react'
+import { Box, Typography } from '@material-ui/core';
 import { useQuery } from 'react-query'
 import { SociosAPI } from '../api/services/SociosAPI';
 import { ISocio } from '../models/socio-model';
+import useSearchText from '../utils/hooks/useSearchText';
+import CustomAutocomplete from './CustomAutocomplete';
 
 type SociosAutocompleteProps = {
     onChange?(item: any): void;
     fullWidth?: boolean;
+    value: any;
+    name?: string;
+    autoFocus?: boolean;
 }
 
-const SociosAutocomplete = ({onChange, fullWidth = true}: SociosAutocompleteProps) => {
+const SociosAutocomplete = ({onChange, fullWidth = true, value, name = '', autoFocus = false}: SociosAutocompleteProps) => {
 
-    const [searchText, setSearchText] = useState('');
-
-    const searchQuery = useDebounce(searchText, {wait: 350});
+    const [searchQuery, setSearchText] = useSearchText();    
 
     const {data: socios} = useQuery(
         ['socio', searchQuery], 
@@ -22,31 +23,18 @@ const SociosAutocomplete = ({onChange, fullWidth = true}: SociosAutocompleteProp
         {
           keepPreviousData: true
         }
-
     );
 
-    return (
-        <Autocomplete 
-          disablePortal
-          id="socio-autocomplete"
-          options={socios?.items || []}  
-          fullWidth={fullWidth}
-          sx={{bgcolor: 'white', mr: 1}}
-          size="small"         
-          freeSolo                                
-          onChange={(_, value: any, reason) => {
-            if (onChange) {
-                onChange(value);
-            }
-          }}           
-          filterOptions={createFilterOptions({
-            matchFrom: 'any',
-            ignoreAccents: true,
-            stringify: (option: any) => option.cedula + ' ' + option.nombre + ' ' + option.apellido + ' ' + option.codigo
-          })}
-          getOptionSelected={(option, value) => option.id === value.id}
-          inputMode="text"
-          getOptionLabel={(option: ISocio) => option.nombre + ' ' + option.apellido}
+    return (      
+        <CustomAutocomplete                     
+          options={socios?.items || []}   
+          fullWidth={fullWidth}                                                           
+          onChange={onChange}
+          value={value}        
+          label={"Socio"}
+          optionLabel="nombre_completo"
+          optionSelected="id"
+          filterOptions={(option: any) => option.cedula + ' ' + option.nombre + ' ' + option.apellido + ' ' + option.codigo}                              
           renderOption={(props: any, option: ISocio) => (
             <Box
               {...props}
@@ -59,7 +47,8 @@ const SociosAutocomplete = ({onChange, fullWidth = true}: SociosAutocompleteProp
               
             </Box>
           )}
-          renderInput={(params) => <TextField {...params} label="Socio" onChange={(event) => setSearchText(event.target.value)} />}
+          onInputChange={setSearchText}
+                 
         />
     )
 }

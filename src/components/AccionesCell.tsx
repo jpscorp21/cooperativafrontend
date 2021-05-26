@@ -14,7 +14,7 @@ const AccionesCell = ({children, onEditar, onEliminar, item}: React.PropsWithChi
     return (
         <TableCell align="right" sx={{minWidth: '100px'}}>
           {children} 
-          <IconButton size="small" color="primary" onClick={() => onEditar && onEditar(item)}>
+          <IconButton size="small" color="primary" onClick={() => onEditar ? onEditar(item) : null}>
             <EditIcon color="primary"></EditIcon>
           </IconButton> 
           <IconButton size="small" onClick={() => onEliminar && onEliminar(item)}>

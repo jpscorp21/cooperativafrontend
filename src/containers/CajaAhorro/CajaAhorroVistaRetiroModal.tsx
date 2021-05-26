@@ -5,7 +5,6 @@ import { Field, Form } from 'react-final-form'
 import ConfirmDialog from '../../components/ConfirmDialog'
 import TextFieldAdapter from '../../components/control/TextFieldAdapter'
 import { FormModalProps } from '../../types'
-import { required } from '../../utils/errorMessages'
 
 type CajaAhorroVistaRetiroModalProps = FormModalProps & {
     onSubmit: any;

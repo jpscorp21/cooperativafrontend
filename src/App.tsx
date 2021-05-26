@@ -5,14 +5,15 @@ import Login from './containers/Login/Login';
 import { AppRoutes } from './routes/AppRoutes';
 
 function App() {
+
   return (
     <Switch>
       <Route exact path="/login">
         <Login />
       </Route>
-      <Layout>
+      <Layout> 
         <AppRoutes></AppRoutes>      
-      </Layout>
+      </Layout>      
     </Switch>
   );
 } 

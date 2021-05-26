@@ -13,7 +13,7 @@ import SociosUbicacion from "./SociosUbicacion";
 import SociosDomicilioParticular from "./SociosDomicilioParticular";
 import SociosHijos from "./SociosHijos";
 import { FormApi } from "final-form";
-import { Form, FormSpy } from "react-final-form";
+import { Form } from "react-final-form";
 import arrayMutators from 'final-form-arrays'
 import SaveIcon from '@material-ui/icons/Save';
 import useBackend from "../../shared/hooks/useBackend";
