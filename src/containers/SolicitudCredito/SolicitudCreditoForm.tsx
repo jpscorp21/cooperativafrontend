@@ -16,7 +16,6 @@ import { solicitudCreditoInitialForm } from './solicitudcredito-map';
 import { TipoCreditoAPI } from '../../api/services/TipoCreditoAPI';
 import useBackend from '../../shared/hooks/useBackend';
 import { TipoGarantiaAPI } from '../../api/services/TipoGarantiaAPI';
-import { DesembolsoCreditoAPI } from '../../api/services/DesembolsoCreditoAPI';
 import { TipoSolicitudAPI } from '../../api/services/TipoSolicitudAPI';
 import SelectAdapter from '../../components/control/SelectAdapter';
 import { ISocio } from '../../models/socio-model';
@@ -25,11 +24,10 @@ import { CajaAhorroVistaAPI } from '../../api/services/CajaAhorroVistaAPI';
 const SolicitudCreditoForm = () => {    
 
     const [searchQuery, setSearchText] = useSearchText();    
-    const [formData, ] = useState<any>(solicitudCreditoInitialForm());    
+    const [formData, setFormData] = useState<any>(solicitudCreditoInitialForm());    
     const [socioId, setSocioId] = useState<any>(null);
 
-    const onSubmit = async (values: any, form: FormApi) => {   
-        console.log(values)
+    const onSubmit = async (values: any, form: FormApi) => {           
         form.restart();
     }    
 
@@ -44,7 +42,17 @@ const SolicitudCreditoForm = () => {
     const {data: tiposCreditos} = useBackend(TipoCreditoAPI);
     const {data: tiposGarantias} = useBackend(TipoGarantiaAPI);    
     const {data: tiposSolicitudes} = useBackend(TipoSolicitudAPI);
-    const {data: cajaAhorroVistas} = useQuery(['cajaahorrovista', socioId], () => CajaAhorroVistaAPI.getCajaAhorroVistaBySocio(socioId || ''))
+    const {data: cajaAhorroVistas} = useQuery(
+        ['cajaahorrovista', socioId], () => CajaAhorroVistaAPI.getCajaAhorroVistaBySocio(socioId || ''),
+        {
+            onSuccess(data) {
+                if (data && data[0]) {
+                    setFormData({...formData, desembolsoCreditoId: data[0].id});
+                }
+                console.log(data);
+            }
+        }
+    )
 
     const handleChangeSocio = (socio: ISocio, input: any, form: FormApi) => {
         if (socio) {                         
@@ -52,7 +60,7 @@ const SolicitudCreditoForm = () => {
             form.change('socioId', socio.id)
             setSocioId(socio.id);
         }
-    }
+    } 
         
     return (
         <>
@@ -60,7 +68,7 @@ const SolicitudCreditoForm = () => {
 
             <Box sx={{px: 2}}>
                     <Form
-                        initialValues={{...formData}}
+                        initialValues={{...formData}}                        
                         onSubmit={onSubmit}
                         render={({handleSubmit, values, form}) => (
                             <form onSubmit={handleSubmit}>                                
