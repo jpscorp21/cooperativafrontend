@@ -6,7 +6,6 @@ import TituloContainer from "../../components/TituloContainer";
 import ButtonActionContainer from "../../components/ButtonActionContainer";
 import TipoGarantiaFormModal from "./TipoGarantiaFormModal";
 import { FormApi } from "final-form";
-import queryClient from "../../config/queryClient";
 import ConfirmDialog from "../../components/ConfirmDialog";
 import useBackend from "../../shared/hooks/useBackend";
 import { TipoGarantiaAPI } from "../../api/services/TipoGarantiaAPI";
@@ -18,7 +17,7 @@ const initialForm = () => ({
 
 const TipoGarantia = () => {
 
-  const {data, create, remove, update, setParams, key} = useBackend(TipoGarantiaAPI);
+  const {data, create, remove, update, setParams, refresh} = useBackend(TipoGarantiaAPI);
 
   const [openModal, setOpenModal] = useState(false)
   const [openConfirmModal, setOpenConfirmModal] = useState(false) 
@@ -43,7 +42,7 @@ const TipoGarantia = () => {
     remove.mutate(formData.id, {
       onSuccess() {      
         setOpenConfirmModal(false);      
-        queryClient.invalidateQueries(key)           
+        refresh();           
       }
     }) 
   }
@@ -58,7 +57,7 @@ const TipoGarantia = () => {
       update.mutate(({body: values, id: values.id}), {
         onSuccess() {    
           handleCloseModal();     
-          queryClient.invalidateQueries(key)   
+          refresh();   
           form.reset();
         }
       }) 
@@ -68,7 +67,7 @@ const TipoGarantia = () => {
     create.mutate(values, {
       onSuccess() {    
         handleCloseModal();     
-        queryClient.invalidateQueries(key)   
+        refresh();   
         form.reset();
       }
     })    
@@ -105,7 +104,7 @@ const TipoGarantia = () => {
     <>
       <TituloContainer>Tipo Garantía</TituloContainer>  
 
-      <ButtonActionContainer onNew={handleNew} onRefresh={() => console.log('refrescando')} />            
+      <ButtonActionContainer onNew={handleNew} onRefresh={refresh} />            
 
       <Box px={2} pb={2}> 
         <TextField sx={{bgcolor: 'white'}} onChange={(event) => setParams(event.target.value, 'searchQuery')} fullWidth placeholder="Buscar un Tipo de Garantia" size="small" />

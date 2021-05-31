@@ -1,3 +1,5 @@
+import { ISocio } from "./socio-model";
+
 export interface ISolicitudCredito {
   id: string | null;
   socioId: string;
@@ -6,9 +8,11 @@ export interface ISolicitudCredito {
   tipoGarantiaId: string;
   funcionarioId: string;
   tipoCreditoId: string;
-  desembolsoCreditoId: string;
+  desembolsoCreditoId: string; 
+  cajaAhorroVistaId: string;
   importe: string;
   plazo: string;
   fechaPrimerPago: Date;
   observacion: string;
+  codeudores?: ISocio[];
 }

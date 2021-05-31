@@ -6,7 +6,6 @@ import TituloContainer from "../../components/TituloContainer";
 import ButtonActionContainer from "../../components/ButtonActionContainer";
 import CiudadesFormModal from "./CiudadesFormModal";
 import { FormApi } from "final-form";
-import queryClient from "../../config/queryClient";
 import ConfirmDialog from "../../components/ConfirmDialog";
 import { CiudadesAPI } from "../../api/services/CiudadesAPI";
 import useBackend from "../../shared/hooks/useBackend";
@@ -18,7 +17,7 @@ const initialForm = () => ({
 
 const Ciudades = () => {   
         
-  const {data, create, remove, update, setParams, key} = useBackend(CiudadesAPI);
+  const {data, create, remove, update, setParams, refresh} = useBackend(CiudadesAPI);
 
   const [openModal, setOpenModal] = useState(false) 
   const [openConfirmModal, setOpenConfirmModal] = useState(false) 
@@ -27,7 +26,7 @@ const Ciudades = () => {
   const handleNew = () => {
     setFormData(initialForm());
     setOpenModal(true);
-  }
+  }  
 
   const handleEditar = (item: any) => {
     setFormData({...item});
@@ -43,7 +42,7 @@ const Ciudades = () => {
     remove.mutate(formData.id, {
       onSuccess() {      
         setOpenConfirmModal(false);      
-        queryClient.invalidateQueries(key)           
+        refresh();
       }
     }) 
   }
@@ -58,7 +57,7 @@ const Ciudades = () => {
       update.mutate(({body: values, id: values.id}), {
         onSuccess() {    
           handleCloseModal();     
-          queryClient.invalidateQueries(key)   
+          refresh();
           form.restart();
         }
       }) 
@@ -68,7 +67,7 @@ const Ciudades = () => {
     create.mutate(values, {
       onSuccess() {    
         handleCloseModal();     
-        queryClient.invalidateQueries(key)   
+        refresh();  
         form.restart();
       }
     })    
@@ -105,7 +104,7 @@ const Ciudades = () => {
 
       <TituloContainer>Ciudades</TituloContainer>      
            
-      <ButtonActionContainer onNew={() => handleNew()}/>
+      <ButtonActionContainer onNew={() => handleNew()} onRefresh={refresh}/>
 
       <Box px={2} pb={2}> 
         <TextField sx={{bgcolor: 'white'}} onChange={(event) => setParams(event.target.value, 'searchQuery')} fullWidth placeholder="Buscar una ciudad" size="small" />

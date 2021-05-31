@@ -1,4 +1,5 @@
 import { useMutation, useQuery } from "react-query";
+import queryClient from "../../config/queryClient";
 import useApiParams from "./useApiParams";
 
 const useBackend = (API: any) => {
@@ -10,7 +11,11 @@ const useBackend = (API: any) => {
     const update = useMutation((params: any) => API.update(params.body, params.id));
     const remove = useMutation(API.remove);
 
-    return {data, create, update, remove, setParams, params, key: API.key}
+    const refresh = () => {
+        queryClient.invalidateQueries(API.key);
+    }
+
+    return {data, create, update, remove, setParams, params, key: API.key, refresh}
 }
 
 export default useBackend;

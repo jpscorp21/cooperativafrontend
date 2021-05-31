@@ -7,7 +7,6 @@ import ButtonActionContainer from "../../components/ButtonActionContainer";
 import ConfirmDialog from "../../components/ConfirmDialog";
 import CustomTable, { ColumnCustomTable } from "../../components/CustomTable";
 import TituloContainer from "../../components/TituloContainer"
-import queryClient from "../../config/queryClient";
 import useBackend from "../../shared/hooks/useBackend";
 import TimbradosFormModal from "./TimbradosFormModal";
 
@@ -20,7 +19,7 @@ const initialForm = () => ({
 
 const Timbrados = () => {
 
-  const {data, create, remove, update, setParams, key} = useBackend(TimbradosAPI);
+  const {data, create, remove, update, setParams, refresh} = useBackend(TimbradosAPI);
 
   const [openModal, setOpenModal] = useState(false);
   const [openConfirmModal, setOpenConfirmModal] = useState(false) 
@@ -45,7 +44,7 @@ const Timbrados = () => {
     remove.mutate(formData.id, {
       onSuccess() {      
         setOpenConfirmModal(false);      
-        queryClient.invalidateQueries(key)           
+        refresh();           
       }
     }) 
   }
@@ -60,7 +59,7 @@ const Timbrados = () => {
       update.mutate(({body: values, id: values.id}), {
         onSuccess() {    
           handleCloseModal();     
-          queryClient.invalidateQueries(key)   
+          refresh();   
           form.reset();
         }
       }) 
@@ -70,7 +69,7 @@ const Timbrados = () => {
     create.mutate(values, {
       onSuccess() {    
         handleCloseModal();     
-        queryClient.invalidateQueries(key)   
+        refresh();   
         form.reset();
       }
     })    
@@ -110,7 +109,7 @@ const Timbrados = () => {
     <>
       <TituloContainer>Timbrados</TituloContainer>
 
-      <ButtonActionContainer onNew={handleNew} onRefresh={() => console.log('refrescando')} />              
+      <ButtonActionContainer onNew={handleNew} onRefresh={refresh} />              
 
       <Box px={2} pb={2}>
         <TextField sx={{bgcolor: 'white'}} fullWidth placeholder="Buscar" size="small" />

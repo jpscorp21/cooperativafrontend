@@ -1,6 +1,6 @@
 import { Box, Button } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add';
-// import RefreshIcon from '@material-ui/icons/Refresh';
+import RefreshIcon from '@material-ui/icons/Refresh';
 import React from 'react'
 
 type ButtonActionContainerProps = {
@@ -8,7 +8,7 @@ type ButtonActionContainerProps = {
     onRefresh?(): void
 }
 
-const ButtonActionContainer = ({children, onNew}: React.PropsWithChildren<ButtonActionContainerProps>) => {
+const ButtonActionContainer = ({children, onNew, onRefresh}: React.PropsWithChildren<ButtonActionContainerProps>) => {
     return (
         <Box px={2}>
             <Button 
@@ -20,7 +20,7 @@ const ButtonActionContainer = ({children, onNew}: React.PropsWithChildren<Button
                 startIcon={<AddIcon />}>
                 Nuevo
             </Button>
-            {/* <Button 
+            <Button 
                 variant="outlined" 
                 size="small" 
                 color="secondary" 
@@ -29,7 +29,7 @@ const ButtonActionContainer = ({children, onNew}: React.PropsWithChildren<Button
                 startIcon={<RefreshIcon />}
             >
                 Refrescar
-            </Button>                   */}
+            </Button>
             {children}
         </Box> 
     )

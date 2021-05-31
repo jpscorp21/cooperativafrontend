@@ -14,7 +14,7 @@ const Socios = () => {
 
     const history = useHistory();
 
-    const {data, remove, setParams, key} = useBackend(SociosAPI);
+    const {data, remove, setParams, key, refresh} = useBackend(SociosAPI);
     
     const [openConfirmModal, setOpenConfirmModal] = useState(false) 
     const [dataSelected, setDataSelected] = useState<any>(null);
@@ -35,9 +35,9 @@ const Socios = () => {
     
     const handleEliminar = () => {
         remove.mutate(dataSelected.id, {
-            onSuccess() {      
-            setOpenConfirmModal(false);      
-            queryClient.invalidateQueries(key)           
+              onSuccess() {      
+              setOpenConfirmModal(false);      
+              refresh();           
             }
         }) 
     }
@@ -76,7 +76,7 @@ const Socios = () => {
         <>
             <TituloContainer>Socios</TituloContainer>
 
-            <ButtonActionContainer onNew={() => handleNew()}/>
+            <ButtonActionContainer onNew={() => handleNew()} onRefresh={refresh}/>
 
             <Box px={2} pb={2}> 
                 <TextField sx={{bgcolor: 'white'}} onChange={(event) => setParams(event.target.value, 'searchQuery')} fullWidth placeholder="Buscar un socio" size="small" />
@@ -95,7 +95,7 @@ const Socios = () => {
             <ConfirmDialog 
                 openModal={openConfirmModal}
                 onAceptar={handleEliminar}
-                message="Estás seguro de eliminar esté socio?"
+                message="Estás seguro de eliminar está solicitud?"
                 handleCloseModal={() => setOpenConfirmModal(false)}
             />
         </>

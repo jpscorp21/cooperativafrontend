@@ -6,7 +6,6 @@ import TituloContainer from "../../components/TituloContainer";
 import ButtonActionContainer from "../../components/ButtonActionContainer";
 import EstadoCivilFormModal from "./EstadoCivilFormModal";
 import { FormApi } from "final-form";
-import queryClient from "../../config/queryClient";
 import ConfirmDialog from "../../components/ConfirmDialog";
 import useBackend from "../../shared/hooks/useBackend";
 import { EstadosCivilesAPI } from "../../api/services/EstadosCivilesAPI";
@@ -18,7 +17,7 @@ const initialForm = () => ({
 
 const EstadoCivil = () => {
 
-  const {data, create, remove, update, setParams, key} = useBackend(EstadosCivilesAPI);
+  const {data, create, remove, update, setParams, refresh} = useBackend(EstadosCivilesAPI);
 
   const [openModal, setOpenModal] = useState(false)
   const [openConfirmModal, setOpenConfirmModal] = useState(false) 
@@ -43,7 +42,7 @@ const EstadoCivil = () => {
     remove.mutate(formData.id, {
       onSuccess() {      
         setOpenConfirmModal(false);      
-        queryClient.invalidateQueries(key)           
+        refresh();           
       }
     }) 
   }
@@ -58,7 +57,7 @@ const EstadoCivil = () => {
       update.mutate(({body: values, id: values.id}), {
         onSuccess() {    
           handleCloseModal();     
-          queryClient.invalidateQueries(key)   
+          refresh();   
           form.reset();
         }
       }) 
@@ -68,7 +67,7 @@ const EstadoCivil = () => {
     create.mutate(values, {
       onSuccess() {    
         handleCloseModal();     
-        queryClient.invalidateQueries(key)   
+        refresh();   
         form.reset();
       }
     })    
@@ -107,7 +106,7 @@ const EstadoCivil = () => {
       <TituloContainer>Estados Civiles</TituloContainer>      
       
 
-      <ButtonActionContainer onNew={handleNew} />        
+      <ButtonActionContainer onNew={handleNew} onRefresh={refresh} />        
       
       <Box px={2} pb={2}> 
         <TextField sx={{bgcolor: 'white'}} onChange={(event) => setParams(event.target.value, 'searchQuery')} fullWidth placeholder="Buscar un Estado Civil" size="small" />

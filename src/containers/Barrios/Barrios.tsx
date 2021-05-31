@@ -8,7 +8,6 @@ import BarriosFormModal from "./BarriosFormModal";
 import { FormApi } from "final-form";
 import useBackend from "../../shared/hooks/useBackend";
 import { CiudadesAPI } from "../../api/services/CiudadesAPI";
-import queryClient from "../../config/queryClient";
 import { BarriosAPI } from "../../api/services/BarriosAPI";
 import ConfirmDialog from "../../components/ConfirmDialog";
 
@@ -20,7 +19,7 @@ const initialForm = () => ({
 
 const Barrios = () => {
 
-  const {data, create, remove, update, setParams, key} = useBackend(BarriosAPI);  
+  const {data, create, remove, update, setParams, refresh} = useBackend(BarriosAPI);  
   const {data: ciudades} = useBackend(CiudadesAPI);  
 
   const [openModal, setOpenModal] = useState(false)
@@ -35,7 +34,7 @@ const Barrios = () => {
   const handleEditar = (item: any) => {
     setFormData({...item});
     setOpenModal(true);
-  }
+  }  
 
   const handleOpenConfirmEliminar = (item: any) => {
     setFormData({...item});
@@ -46,7 +45,7 @@ const Barrios = () => {
     remove.mutate(formData.id, {
       onSuccess() {      
         setOpenConfirmModal(false);      
-        queryClient.invalidateQueries(key)           
+        refresh();          
       }
     }) 
   }
@@ -60,7 +59,7 @@ const Barrios = () => {
       update.mutate(({body: values, id: values.id}), {
         onSuccess() {    
           handleCloseModal();     
-          queryClient.invalidateQueries(key)   
+          refresh();
           form.reset();
         }
       }) 
@@ -70,7 +69,7 @@ const Barrios = () => {
     create.mutate(values, {
       onSuccess() {    
         handleCloseModal();     
-        queryClient.invalidateQueries(key)   
+        refresh();
         form.reset();
       }
     })    
@@ -111,7 +110,7 @@ const Barrios = () => {
     <>
       <TituloContainer>Barrios</TituloContainer>
 
-      <ButtonActionContainer onNew={handleNew}>
+      <ButtonActionContainer onNew={handleNew} onRefresh={refresh}>
         <Button variant="outlined" size="small" color="secondary" sx={{mb: 2, ml: 1}}  >Ciudad</Button>
       </ButtonActionContainer>      
 

@@ -8,7 +8,6 @@ import PuestoLaboralFormModal from "./PuestoLaboralFormModal";
 import { FormApi } from "final-form";
 import { ProfesionesAPI } from "../../api/services/ProfesionesAPI";
 import useBackend from "../../shared/hooks/useBackend";
-import queryClient from "../../config/queryClient";
 import ConfirmDialog from "../../components/ConfirmDialog";
 import { PuestosLaboralesAPI } from "../../api/services/PuestosLaboralesAPI";
 
@@ -21,7 +20,7 @@ const initialForm = () => ({
 
 const PuestoLaboral = () => {
 
-  const {data, create, update, remove, setParams, key} = useBackend(PuestosLaboralesAPI);
+  const {data, create, update, remove, setParams, refresh} = useBackend(PuestosLaboralesAPI);
   const {data: profesiones} = useBackend(ProfesionesAPI);
 
   const [openModal, setOpenModal] = useState(false) 
@@ -48,7 +47,7 @@ const PuestoLaboral = () => {
     remove.mutate(formData.id, {
       onSuccess() {      
         setOpenConfirmModal(false);      
-        queryClient.invalidateQueries(key)           
+        refresh();           
       }
     }) 
   }
@@ -62,7 +61,7 @@ const PuestoLaboral = () => {
       update.mutate(({body: values, id: values.id}), {
         onSuccess() {    
           handleCloseModal();     
-          queryClient.invalidateQueries(key)   
+          refresh();   
           form.reset();
         }
       }) 
@@ -72,7 +71,7 @@ const PuestoLaboral = () => {
     create.mutate(values, {
       onSuccess() {    
         handleCloseModal();     
-        queryClient.invalidateQueries(key)   
+        refresh();   
         form.reset();
       }
     })    
@@ -101,7 +100,7 @@ const PuestoLaboral = () => {
       <TituloContainer>Puestos Laborales</TituloContainer>
       
 
-      <ButtonActionContainer onNew={handleNew} onRefresh={() => console.log('refrescando')} />                
+      <ButtonActionContainer onNew={handleNew} onRefresh={refresh} />                
 
       <Box px={2} pb={2}>
         <TextField 

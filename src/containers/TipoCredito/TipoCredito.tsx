@@ -17,7 +17,7 @@ const initialForm = () => ({
 })
 
 const TipoCredito = () => {
-  const {data, create, remove, update, setParams, key} = useBackend(TipoCreditoAPI);
+  const {data, create, remove, update, setParams, refresh} = useBackend(TipoCreditoAPI);
 
   const {data: modalidadPago} = useBackend(ModalidadPagoAPI);
 
@@ -44,7 +44,7 @@ const TipoCredito = () => {
     remove.mutate(formData.id, {
       onSuccess() {      
         setOpenConfirmModal(false);      
-        queryClient.invalidateQueries(key)           
+        refresh();
       }
     }) 
   }
@@ -59,7 +59,7 @@ const TipoCredito = () => {
       update.mutate(({body: values, id: values.id}), {
         onSuccess() {    
           handleCloseModal();     
-          queryClient.invalidateQueries(key)   
+          refresh();
           form.reset();
         }
       }) 
@@ -69,7 +69,7 @@ const TipoCredito = () => {
     create.mutate(values, {
       onSuccess() {    
         handleCloseModal();     
-        queryClient.invalidateQueries(key)   
+        refresh();
         form.reset();
       }
     })    
@@ -101,7 +101,7 @@ const TipoCredito = () => {
     <>
       <TituloContainer>Tipo Crédito</TituloContainer>
 
-      <ButtonActionContainer onNew={handleNew} onRefresh={() => console.log('refrescando')} />
+      <ButtonActionContainer onNew={handleNew} onRefresh={refresh} />
 
       <Box px={2} pb={2}> 
         <TextField sx={{bgcolor: 'white'}} onChange={(event) => setParams(event.target.value, 'searchQuery')} fullWidth placeholder="Buscar un Tipo de Crédito" size="small" />

@@ -9,7 +9,6 @@ import { FormApi } from "final-form";
 import useBackend from "../../shared/hooks/useBackend";
 import { TiposCuentasAPI } from "../../api/services/TiposCuentasAPI";
 import { CuentasAPI } from "../../api/services/CuentasAPI";
-import queryClient from "../../config/queryClient";
 import ConfirmDialog from "../../components/ConfirmDialog";
 
 const initialForm = () => ({
@@ -20,7 +19,7 @@ const initialForm = () => ({
 
 const Cuentas = () => {
 
-  const {data, create, remove, update, setParams, key} = useBackend(CuentasAPI);
+  const {data, create, remove, update, setParams, refresh} = useBackend(CuentasAPI);
   const {data: tiposCuentas} = useBackend(TiposCuentasAPI);
 
   const [openModal, setOpenModal] = useState(false)  
@@ -46,7 +45,7 @@ const Cuentas = () => {
     remove.mutate(formData.id, {
       onSuccess() {      
         setOpenConfirmModal(false);      
-        queryClient.invalidateQueries(key)           
+        refresh();           
       }
     }) 
   }
@@ -61,7 +60,7 @@ const Cuentas = () => {
       update.mutate(({body: values, id: values.id}), {
         onSuccess() {    
           handleCloseModal();     
-          queryClient.invalidateQueries(key)   
+          refresh();   
           form.reset();
         }
       }) 
@@ -71,7 +70,7 @@ const Cuentas = () => {
     create.mutate(values, {
       onSuccess() {    
         handleCloseModal();     
-        queryClient.invalidateQueries(key)   
+        refresh();   
         form.reset();
       }
     })    
@@ -98,7 +97,7 @@ const Cuentas = () => {
       
       <TituloContainer>Cuentas</TituloContainer>
       
-      <ButtonActionContainer onNew={handleNew} onRefresh={() => console.log('refrescando')} />                
+      <ButtonActionContainer onNew={handleNew} onRefresh={refresh} />                
 
       <Box px={2} pb={2}>
         <TextField sx={{bgcolor: 'white'}} fullWidth placeholder="Buscar" size="small" />

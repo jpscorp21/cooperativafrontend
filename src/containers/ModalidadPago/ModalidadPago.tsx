@@ -18,7 +18,7 @@ const initialForm = () => ({
 
 const ModalidadPago = () => {
 
-  const {data, create, remove, update, setParams, key} = useBackend(ModalidadPagoAPI);
+  const {data, create, remove, update, setParams, refresh} = useBackend(ModalidadPagoAPI);
 
   const [openModal, setOpenModal] = useState(false)
   const [openConfirmModal, setOpenConfirmModal] = useState(false) 
@@ -43,7 +43,7 @@ const ModalidadPago = () => {
     remove.mutate(formData.id, {
       onSuccess() {      
         setOpenConfirmModal(false);      
-        queryClient.invalidateQueries(key)           
+        refresh();           
       }
     }) 
   }
@@ -58,7 +58,7 @@ const ModalidadPago = () => {
       update.mutate(({body: values, id: values.id}), {
         onSuccess() {    
           handleCloseModal();     
-          queryClient.invalidateQueries(key)   
+          refresh();   
           form.reset();
         }
       }) 
@@ -68,7 +68,7 @@ const ModalidadPago = () => {
     create.mutate(values, {
       onSuccess() {    
         handleCloseModal();     
-        queryClient.invalidateQueries(key)   
+        refresh();   
         form.reset();
       }
     })    
@@ -103,7 +103,7 @@ const ModalidadPago = () => {
     <>
       <TituloContainer>Modalidad Pago</TituloContainer>
       
-      <ButtonActionContainer onNew={handleNew} />
+      <ButtonActionContainer onNew={handleNew} onRefresh={refresh} />
 
       <Box px={2} pb={2}> 
         <TextField sx={{bgcolor: 'white'}} onChange={(event) => setParams(event.target.value, 'searchQuery')} fullWidth placeholder="Buscar una Modalidad de Pago" size="small" />

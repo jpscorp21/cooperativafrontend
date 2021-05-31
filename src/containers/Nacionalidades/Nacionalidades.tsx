@@ -6,7 +6,6 @@ import TituloContainer from "../../components/TituloContainer";
 import ButtonActionContainer from "../../components/ButtonActionContainer";
 import NacionalidadesFormModal from "./NacionalidadesFormModal";
 import { FormApi } from "final-form";
-import queryClient from "../../config/queryClient";
 import ConfirmDialog from "../../components/ConfirmDialog";
 import { NacionalidadesAPI } from "../../api/services/NacionalidadesAPI";
 import useBackend from "../../shared/hooks/useBackend";
@@ -18,7 +17,7 @@ const initialForm = () => ({
 
 const Nacionalidades = () => {
 
-  const {data, create, remove, update, setParams, key} = useBackend(NacionalidadesAPI);
+  const {data, create, remove, update, setParams, refresh} = useBackend(NacionalidadesAPI);
 
   const [openModal, setOpenModal] = useState(false)
   const [openConfirmModal, setOpenConfirmModal] = useState(false) 
@@ -42,7 +41,7 @@ const Nacionalidades = () => {
     remove.mutate(formData.id, {
       onSuccess() {      
         setOpenConfirmModal(false);      
-        queryClient.invalidateQueries(key)           
+        refresh();           
       }
     }) 
   }
@@ -57,7 +56,7 @@ const Nacionalidades = () => {
       update.mutate(({body: values, id: values.id}), {
         onSuccess() {    
           handleCloseModal();     
-          queryClient.invalidateQueries(key)   
+          refresh();   
           form.reset();
         }
       }) 
@@ -67,7 +66,7 @@ const Nacionalidades = () => {
     create.mutate(values, {
       onSuccess() {    
         handleCloseModal();     
-        queryClient.invalidateQueries(key)   
+        refresh();   
         form.reset();
       }
     })    
@@ -105,7 +104,7 @@ const Nacionalidades = () => {
       
       <TituloContainer>Nacionalidades</TituloContainer>
 
-      <ButtonActionContainer onNew={handleNew} />                
+      <ButtonActionContainer onNew={handleNew} onRefresh={refresh} />                
 
       <Box px={2} pb={2}> 
         <TextField sx={{bgcolor: 'white'}} onChange={(event) => setParams(event.target.value, 'searchQuery')} fullWidth placeholder="Buscar una ciudad" size="small" />
