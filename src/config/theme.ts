@@ -39,7 +39,12 @@ const theme = createMuiTheme({
     MuiAppBar: {
       defaultProps: {
         elevation: 0
-      },      
+      }, 
+      styleOverrides: {
+        root: {
+          zIndex: 1300
+        }
+      }     
     },
     MuiTableRow: {
       styleOverrides: {

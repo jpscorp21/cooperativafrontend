@@ -1,5 +1,6 @@
 import { AppBar, Box, Collapse, Drawer, Hidden, IconButton, List, makeStyles, Toolbar, Typography } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import clsx from 'clsx';
 import React, { PropsWithChildren, useEffect, useMemo } from 'react'
 import { menu, MenuItem, Menu } from '../data/menu';
@@ -15,22 +16,24 @@ const useStyles = makeStyles((theme) => ({
   root: {
     // display: 'flex',    
   },
-  appBar: {       
-    
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),           
+  appBar: {     
+      
+    zIndex: 1000000,
+    // transition: theme.transitions.create(['margin', 'width'], {
+    //   easing: theme.transitions.easing.easeOut,
+    //   duration: theme.transitions.duration.leavingScreen,
+    // }),           
   },
   appBarShift: {
-    [theme.breakpoints.up(breakpointDrawer)]: {
-      width: cssHelper.important(`calc(100% - ${drawerWidth}px)`),    
-      marginLeft: drawerWidth,      
-      transition: theme.transitions.create(['margin', 'width'], {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),       
-    },  
+    
+    // [theme.breakpoints.up(breakpointDrawer)]: {
+    //   width: cssHelper.important(`calc(100% - ${drawerWidth}px)`),    
+    //   marginLeft: drawerWidth,      
+    //   transition: theme.transitions.create(['margin', 'width'], {
+    //     easing: theme.transitions.easing.easeOut,
+    //     duration: theme.transitions.duration.leavingScreen,
+    //   }),       
+    // },  
        
   },
   // menuButton: {    
@@ -40,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   // },
   // necessary for content to be below app bar
   toolbar: {
-    ...theme.mixins.toolbar,
+    ...theme.mixins.toolbar,    
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
@@ -88,8 +91,8 @@ const useStyles = makeStyles((theme) => ({
   contentShift: {
     [theme.breakpoints.up(breakpointDrawer)]: {
       transition: theme.transitions.create('margin', {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
       }),                
       // marginLeft: '300px',
     },
@@ -168,17 +171,13 @@ const AppSidebar = ({children}: PropsWithChildren<{}>) => {
   )
 
   return ( 
-    <div className={classes.root}>
-    
+    <>
     <AppBar 
-      position="fixed"
-      
-      className={clsx(classes.appBar)}
+      position="fixed"      
+      className={clsx(classes.appBar, {[classes.appBarShift]: open})}
     >
-      <Toolbar variant="dense" className={clsx(classes.toolbar, {
-        [classes.appBarShift]: open,
-        [classes.toolbarShift]: !open,
-        
+      <Toolbar variant="dense" className={clsx(classes.toolbar, {        
+        [classes.toolbarShift]: !open,        
       })}> 
         <IconButton          
           edge="start"                 
@@ -196,15 +195,28 @@ const AppSidebar = ({children}: PropsWithChildren<{}>) => {
           component="div">
               Estrella Ltda
         </Typography>
+        <Box flex={1}></Box>
+        <IconButton          
+          edge="end"                 
+          aria-label="abrir drawer"
+          sx={{ p: 1 }}
+          onClick={handleDrawerToggle}
+        >
+          <ExitToAppIcon fontSize="medium" sx={{color: 'white'}} />
+        </IconButton>
       </Toolbar>
     </AppBar>
-    <nav className={clsx(classes.drawer)}> 
+    <div className={classes.root}>
+    
+    <nav className={clsx(classes.drawer)} style={{zIndex: -10000}}> 
       <Hidden mdDown implementation="css">
         <Drawer          
           classes={{paper: classes.drawerPaper}}      
-          variant="persistent"               
-          open={open}
+          variant="persistent"                      
+          open={open}   
+          sx={{top: '100px !important'}}       
         >
+          
           {contentDrawer}
         </Drawer>
       </Hidden>
@@ -226,7 +238,8 @@ const AppSidebar = ({children}: PropsWithChildren<{}>) => {
       <Box sx={{mt: 6}}></Box>
       {children}
     </main>
-    </div>   
+    </div>  
+    </> 
   )
 }
 
