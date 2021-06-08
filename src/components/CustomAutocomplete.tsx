@@ -79,6 +79,7 @@ const CustomAutocomplete = (
                     name={name}
                     autoFocus={autoFocus}
                     label={label}
+                    sx={{background: 'white'}}
                     placeholder={placeholder}
                 />
             )}

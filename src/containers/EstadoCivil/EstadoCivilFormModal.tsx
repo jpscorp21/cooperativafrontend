@@ -37,7 +37,7 @@ const EstadoCivilFormModal = ({openModal, handleCloseModal, onSubmit, formData}:
                   </Grid>            
                 </Grid>
             <Box sx={{pt: 4, textAlign: 'center'}}>
-              <Button type="submit" variant="contained" fullWidth color="secondary">Guardar cambios</Button>
+              <Button type="submit" variant="contained" fullWidth>Guardar cambios</Button>
             </Box>
           </form>
         )}

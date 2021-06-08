@@ -13,8 +13,7 @@ const ButtonActionContainer = ({children, onNew, onRefresh}: React.PropsWithChil
         <Box px={2}>
             <Button 
                 variant="contained" 
-                size="small" 
-                color="secondary" 
+                size="small"                                 
                 sx={{mb: 2, mr: 1}} 
                 onClick={onNew}  
                 startIcon={<AddIcon />}>
@@ -22,8 +21,7 @@ const ButtonActionContainer = ({children, onNew, onRefresh}: React.PropsWithChil
             </Button>
             <Button 
                 variant="outlined" 
-                size="small" 
-                color="secondary" 
+                size="small"                              
                 sx={{mb: 2}} 
                 onClick={onRefresh}  
                 startIcon={<RefreshIcon />}

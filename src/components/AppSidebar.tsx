@@ -1,4 +1,4 @@
-import { AppBar, Box, Collapse, Drawer, Hidden, IconButton, List, makeStyles, Toolbar, Typography } from '@material-ui/core';
+import { AppBar, Box, Collapse, Divider, Drawer, Hidden, IconButton, List, makeStyles, Toolbar, Typography } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import clsx from 'clsx';
@@ -62,8 +62,8 @@ const useStyles = makeStyles((theme) => ({
   drawerPaper: {
     width: drawerWidth,
     boxSizing: 'border-box',
-    color: 'white',
-    background: cssHelper.important('#263238')    
+    // color: 'white',
+    background: cssHelper.important('white')    
     // background: cssHelper.important('#0B233C')    
   },
   drawerHeader: {
@@ -149,14 +149,20 @@ const AppSidebar = ({children}: PropsWithChildren<{}>) => {
           { 
             menuSidebar.map((item, index) => (
               <React.Fragment key={index}>
-              <MenuItem menu={item} click={handleDrawerClick} collapse={openCollapse} />            
+              <MenuItem menu={item} click={handleDrawerClick} collapse={openCollapse} />
+              <Divider sx={{mx: 2}} />            
               {
                 item.submenu ? 
                   (
-                    <Collapse sx={{backgroundColor: '#35444C'}} in={openCollapse[item.text]} timeout="auto" unmountOnExit>
+                    <Collapse sx={{backgroundColor: '#eee'}} in={openCollapse[item.text]} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
                     {
-                      item.submenu.map((subitem, index) => <MenuItem key={index} menu={subitem} click={handleDrawerClick} collapse={openCollapse} submenu />)    
+                      item.submenu.map((subitem, index) => (
+                        <React.Fragment key={index}>
+                          <MenuItem menu={subitem} click={handleDrawerClick} collapse={openCollapse} submenu />
+                          <Divider sx={{mx: 2}} />            
+                        </React.Fragment>
+                      ))    
                     }
                     </List>
                   </Collapse>                
@@ -200,7 +206,7 @@ const AppSidebar = ({children}: PropsWithChildren<{}>) => {
           edge="end"                 
           aria-label="abrir drawer"
           sx={{ p: 1 }}
-          onClick={handleDrawerToggle}
+          onClick={() => history.push('/login')}
         >
           <ExitToAppIcon fontSize="medium" sx={{color: 'white'}} />
         </IconButton>

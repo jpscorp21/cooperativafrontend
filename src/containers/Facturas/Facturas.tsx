@@ -135,7 +135,7 @@ const Facturas = () => {
         handleCloseModal={handleCloseModal} 
         onSubmit={onSubmit} 
         formData={formData} 
-        timbrados={timbrados.items || []}
+        timbrados={timbrados?.items || []}
       />
 
       <ConfirmDialog 

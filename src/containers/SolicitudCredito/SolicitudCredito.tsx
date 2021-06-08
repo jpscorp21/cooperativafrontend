@@ -48,7 +48,16 @@ const SolicitudCredito = () => {
     },
     {
       key: 'nombreCompleto',
-      label: 'Socio',          
+      label: 'Socio', 
+      render: (item: any) => (
+        <TableCell sx={{py: 1}}>
+          <span>
+            <b>{item.nombreCompleto}</b> <br />
+            <span style={{color: '#777'}} >{item.credito}</span>            
+          </span> 
+        </TableCell>
+      )
+      
     },
     {
       key: 'credito',
@@ -84,9 +93,13 @@ const SolicitudCredito = () => {
 
       <ButtonActionContainer onNew={handleNew} onRefresh={refresh} />             
 
-      <Box px={2} pb={2} display="flex" alignItems="center">
-        <TextField sx={{bgcolor: 'white', mr: 1}} placeholder="Buscar" size="small" />
-        <Select                 
+      <Box px={2} pb={1} display="flex" alignItems="center">
+        <TextField sx={{bgcolor: 'white', mr: 1}} placeholder="Buscar socio" size="small" fullWidth />
+                   
+      </Box> 
+
+      <Box px={2}>
+      <Select                 
           value={estadoSelected}
           onChange={handleChangeEstadoSelect}
           label="ciudad"          
@@ -94,8 +107,8 @@ const SolicitudCredito = () => {
               <MenuItem value={'pendiente'} selected>Pendientes</MenuItem>
               <MenuItem value={'aprobado'}>Aprobados</MenuItem>
               <MenuItem value={'rechazado'}>Rechazados</MenuItem>
-        </Select>             
-      </Box> 
+        </Select>  
+      </Box>
 
       <Box sx={{px: 2}}>      
         <CustomTable 

@@ -32,7 +32,7 @@ const SociosAutocomplete = ({onChange, fullWidth = true, value, name = '', autoF
           onChange={onChange}
           value={value}        
           label={"Socio"}
-          optionLabel="nombre_completo"
+          optionLabel="nombre_completo"          
           optionSelected="id"
           filterOptions={(option: any) => option.cedula + ' ' + option.nombre + ' ' + option.apellido + ' ' + option.codigo}                              
           renderOption={(props: any, option: ISocio) => (

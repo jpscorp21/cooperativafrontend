@@ -7,7 +7,7 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ArchiveIcon from '@material-ui/icons/Business';
 import React from 'react';
-import { ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import { Divider, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 
 export interface Menu { 
   icon: React.ReactNode,
@@ -217,14 +217,19 @@ interface MenuItemProps {
   submenu?: any
 }
 
+const colorText: any = {color: '#37474f'}
+
 export const MenuItem = ({menu, click, collapse, submenu}: MenuItemProps) => (
+  <>
   <ListItem button key={menu.text} onClick={() => click(menu)} sx={{pl: submenu ?  4 : ''}}>
-    <ListItemIcon sx={{color: 'white'}}>
+    <ListItemIcon sx={{colorText}}>
       {menu.icon}
-    </ListItemIcon>              
-    <ListItemText sx={{color: 'white'}}>{menu.text}</ListItemText> 
+    </ListItemIcon>  
+    
+    <ListItemText sx={colorText}>{menu.text}</ListItemText> 
     {menu.submenu && menu.submenu.length ? 
-      collapse[menu.text] ? <ExpandLessIcon sx={{color: 'white'}} /> : < ExpandMoreIcon sx={{color: 'white'}} /> : null
+      collapse[menu.text] ? <ExpandLessIcon sx={colorText} /> : < ExpandMoreIcon sx={{colorText}} /> : null
     }                   
-  </ListItem>
+  </ListItem>  
+  </>
 )

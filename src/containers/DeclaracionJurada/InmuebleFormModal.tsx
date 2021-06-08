@@ -74,7 +74,7 @@ const InmuebleFormModal = ({openModal, handleCloseModal}: FormModalProps) => {
                 </Grid>
 
                 <Box sx={{pt: 4, textAlign: 'center'}}>
-                <Button variant="contained" fullWidth color="secondary">Guardar cambios</Button>
+                <Button variant="contained" fullWidth >Guardar cambios</Button>
 
                 </Box>
             </form>

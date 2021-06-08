@@ -1,16 +1,19 @@
 import { createMuiTheme } from "@material-ui/core/styles";
-import { green, cyan } from "@material-ui/core/colors";
+import { green, cyan, grey, lightBlue } from "@material-ui/core/colors";
 import { esES } from '@material-ui/core/locale';
 
 const theme = createMuiTheme({
   
   palette: {    
     primary: {
-      main: cyan[800],    
+      // main: cyan[800],    
+      main: '#007D4C',    
       "600": green[700]
     },
     secondary: {
-      main: cyan[700]
+      // main: cyan[700]
+      // main: lightBlue[700]
+      main: '#066B7D'
     }
   },
   typography: {
@@ -36,6 +39,11 @@ const theme = createMuiTheme({
         }
       }
     },
+    MuiButton: {
+      defaultProps: {
+        disableElevation: true
+      }
+    },
     MuiAppBar: {
       defaultProps: {
         elevation: 0
@@ -49,7 +57,7 @@ const theme = createMuiTheme({
     MuiTableRow: {
       styleOverrides: {
         head: {                
-          backgroundColor: cyan[800],          
+          backgroundColor: '#066B7D',          
         },
         root: {                    
           borderBottom: '1px solid #E7E7E7', 
