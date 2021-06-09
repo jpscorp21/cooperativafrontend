@@ -1,4 +1,4 @@
-import { Box, Button } from '@material-ui/core'
+import { Button } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import React from 'react'
@@ -10,26 +10,21 @@ type ButtonActionContainerProps = {
 
 const ButtonActionContainer = ({children, onNew, onRefresh}: React.PropsWithChildren<ButtonActionContainerProps>) => {
     return (
-        <Box px={2}>
+        <>
+            {children}
             <Button 
-                variant="contained" 
-                size="small"                                 
-                sx={{mb: 2, mr: 1}} 
+                variant="outlined"                                                       
+                onClick={onRefresh}  
+                startIcon={<RefreshIcon />}>
+                Refrescar
+            </Button>
+            <Button 
+                variant="contained"                                 
                 onClick={onNew}  
                 startIcon={<AddIcon />}>
                 Nuevo
-            </Button>
-            <Button 
-                variant="outlined" 
-                size="small"                              
-                sx={{mb: 2}} 
-                onClick={onRefresh}  
-                startIcon={<RefreshIcon />}
-            >
-                Refrescar
-            </Button>
-            {children}
-        </Box> 
+            </Button>                        
+        </> 
     )
 }
 

@@ -1,4 +1,4 @@
-import { Box, TableCell, TextField } from "@material-ui/core"
+import { Box, Button, OutlinedInput, Paper, Stack, TableCell, TextField } from "@material-ui/core"
 import { FormApi } from "final-form"
 import { useMemo, useState } from "react"
 import { ConceptosAPI } from "../../api/services/ConceptosAPI"
@@ -7,9 +7,12 @@ import ButtonActionContainer from "../../components/ButtonActionContainer"
 import ConfirmDialog from "../../components/ConfirmDialog"
 import CustomTable, { ColumnCustomTable } from "../../components/CustomTable"
 import { descripcionInitialForm } from "../../components/DescripcionFormModal"
+import Spacer from "../../components/Spacer"
 import TituloContainer from "../../components/TituloContainer"
 import useBackend from "../../shared/hooks/useBackend"
 import ConceptosFormModal from "./ConceptosFormModal"
+import SearchIcon from '@material-ui/icons/Search';
+import { grey } from "@material-ui/core/colors"
 
 
 const Conceptos = () => {
@@ -99,21 +102,32 @@ const Conceptos = () => {
     <>
       <TituloContainer>Conceptos</TituloContainer>      
 
-      <ButtonActionContainer onNew={handleNew} onRefresh={refresh} />              
+      
+      <Paper sx={{mx: 2, pb: 2}}>
+        <Stack spacing={2} direction={{xs: 'column', sm: 'row'}} sx={{px: 2, py: 2}}>
+          <OutlinedInput 
+            sx={{flex: 1, pl: 1}} 
+            placeholder="Buscar concepto" 
+            size="small"
+            startAdornment={
+              <SearchIcon sx={{color: grey[400]}}></SearchIcon>
+            }
+          />                    
+          <Spacer />          
+          <ButtonActionContainer onNew={handleNew} onRefresh={refresh} />                        
+        </Stack>        
+        <Box>
+          <CustomTable 
+            page={data?.currentPage}  
+            count={data?.totalPages} 
+            columns={columns}             
+            data={data?.items ? data?.items : []} 
+            totalCount={data?.totalCount}
+            onPageChange={(value) => setParams(value, 'pageNumber')}
+          />  
+        </Box>
+      </Paper>            
 
-      <Box px={2} pb={2}>
-        <TextField sx={{bgcolor: 'white'}} fullWidth placeholder="Buscar" size="small" />
-      </Box>
-
-      <Box sx={{px: 2}}>
-        <CustomTable 
-          page={data?.currentPage}  
-          count={data?.totalPages} 
-          columns={columns} 
-          data={data?.items ? data?.items : []} 
-          onPageChange={(value) => setParams(value, 'pageNumber')}
-        />  
-      </Box>
 
       <ConceptosFormModal 
         openModal={openModal} 

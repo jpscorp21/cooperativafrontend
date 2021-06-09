@@ -272,15 +272,13 @@ const CajaAhorroVista = () => {
             <Box px={2} pb={1} display="flex" justifyContent="space-between">              
               <Typography component="p">
                   <b>{socio.nombre + ' ' + socio.apellido}</b><br />
-                  <span style={{color: '#777'}}>N°: {socio?.codigo}</span><br />
-                  <span style={{color: '#777'}}>Documento: {socio.cedula}</span>
+                  <span style={{color: '#777'}}>N°: {socio?.codigo} - Documento: {socio.cedula}</span><br />                  
               </Typography>
               
               <Button           
                 variant="contained" 
                 size="small" 
-                sx={{alignSelf: 'center'}}
-                color="secondary"          
+                sx={{alignSelf: 'center'}}                
                 onClick={nuevaCajaAhorro} 
                 startIcon={<AddIcon />}>
                 Nueva caja de ahorro
@@ -327,14 +325,14 @@ const CajaAhorroVista = () => {
                       size="small"
                       sx={{mr: 1}}
                       onClick={handleRetirar} 
-                      color="secondary">
+                      >
                       Retirar
                     </Button>
                     <Button
                       variant="contained" 
                       size="small" 
                       onClick={handleDepositar} 
-                      color="secondary">
+                      >
                       Depositar
                     </Button>
                   </Box>

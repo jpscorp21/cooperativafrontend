@@ -1,4 +1,5 @@
-import { Pagination, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@material-ui/core";
+import { Box, Pagination, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@material-ui/core";
+import { grey } from "@material-ui/core/colors";
 import React from "react";
 
 export interface ColumnCustomTable {
@@ -19,13 +20,14 @@ interface CustomTableProps {
     hover?: boolean;
     onClickRow?(item: any): void;
     paginate?: boolean;
+    totalCount?: number;
 }
 
-const CustomTable = ({columns, data, onPageChange, count = 100, page = 1, hover = false, onClickRow, paginate = true}: CustomTableProps) => {    
+const CustomTable = ({columns, data, onPageChange, count = 100, page = 1, hover = false, onClickRow, paginate = true, totalCount = 0}: CustomTableProps) => {    
 
     return (
     <>
-      <Paper sx={{width: '100% ', overflow: 'hidden'}}>
+      <Paper sx={{width: '100% ', overflow: 'hidden'}} elevation={0}>
         <TableContainer>
             <Table>
                 <TableHead>
@@ -83,13 +85,15 @@ const CustomTable = ({columns, data, onPageChange, count = 100, page = 1, hover 
         {
             paginate
             ? (
-                <Stack alignItems="center" pt={2} >
+                <Stack spacing={1} alignItems="center" justifyContent="space-between" direction={{xs: 'column', sm: 'row' }} px={2} pt={2}>
+                    <Box sx={{display: {sm: 'block', xs: 'none'}}}></Box>            
                     <Pagination
                         page={page} 
                         count={count} 
                         color="primary" 
                         onChange={(e, page) => onPageChange && onPageChange(page)} 
                     />
+                    <Typography component="h6" variant="h6" color={grey[700]} fontWeight="bold" fontSize={14} >Total: {totalCount}</Typography>
                 </Stack>
             ) : null
         }                    

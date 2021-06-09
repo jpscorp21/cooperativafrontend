@@ -1,4 +1,4 @@
-import { Box, TextField } from "@material-ui/core"
+import { Box, Paper, Stack, TextField } from "@material-ui/core"
 import { useMemo, useState } from "react";
 import AccionesCell from "../../components/AccionesCell";
 import CustomTable, { ColumnCustomTable } from "../../components/CustomTable";
@@ -10,6 +10,8 @@ import useBackend from "../../shared/hooks/useBackend";
 import { TiposCuentasAPI } from "../../api/services/TiposCuentasAPI";
 import { CuentasAPI } from "../../api/services/CuentasAPI";
 import ConfirmDialog from "../../components/ConfirmDialog";
+import Spacer from "../../components/Spacer";
+import BusquedaInput from "../../components/BusquedaInput";
 
 const initialForm = () => ({
   descripcion: '',
@@ -97,22 +99,26 @@ const Cuentas = () => {
       
       <TituloContainer>Cuentas</TituloContainer>
       
-      <ButtonActionContainer onNew={handleNew} onRefresh={refresh} />                
-
-      <Box px={2} pb={2}>
-        <TextField sx={{bgcolor: 'white'}} fullWidth placeholder="Buscar" size="small" />
-      </Box>     
-
-      {/* TABLA */}
-      <Box sx={{px: 2}}>
-        <CustomTable 
-          page={data?.currentPage}  
-          count={data?.totalPages} 
-          columns={columns} 
-          data={data?.items ? data?.items : []} 
-          onPageChange={(value) => setParams(value, 'pageNumber')}
-        />  
-      </Box> 
+      <Paper sx={{mx: 2, pb: 2}}>
+        <Stack spacing={2} direction={{xs: 'column', sm: 'row'}} sx={{px: 2, py: 2}}>
+          <BusquedaInput 
+            placeholder="Buscar cuenta" 
+            onChange={(value) => setParams(value, 'searchQuery')}
+          />                
+          <Spacer />          
+          <ButtonActionContainer onNew={handleNew} onRefresh={refresh} />                        
+        </Stack>
+        <Box>
+            <CustomTable 
+                page={data?.currentPage}  
+                count={data?.totalPages} 
+                columns={columns} 
+                data={data?.items ? data?.items : []} 
+                totalCount={data?.totalCount}
+                onPageChange={(value) => setParams(value, 'pageNumber')}
+            />  
+        </Box>      
+      </Paper>  
 
       <CuentasFormModal 
         openModal={openModal} 

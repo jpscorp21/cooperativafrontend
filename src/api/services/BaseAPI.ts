@@ -3,9 +3,11 @@ import api from "..";
 export const BaseAPI = {
     async getAll<T>(key: string, params: any) {
         try {            
-            const { data, currentPage, pageSize, totalPages }: any = await api.get<T[]>(key, {params});            
+            const { data, currentPage, pageSize, totalPages, totalCount }: any = await api.get<T[]>(key, {params});   
             
-            return {items: data as T[], currentPage, pageSize, totalPages } as any;
+            console.log('totalCount', totalCount);
+            
+            return {items: data as T[], currentPage, pageSize, totalPages, totalCount } as any;
         } catch(e) {
             return [] 
         }

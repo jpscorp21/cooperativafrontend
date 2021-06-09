@@ -1,12 +1,14 @@
-import { Box, TableCell, TextField } from "@material-ui/core"
+import { Box, Paper, Stack, TableCell, TextField } from "@material-ui/core"
 import { FormApi } from "final-form"
 import { useMemo, useState } from "react"
 import { FacturasAPI } from "../../api/services/FacturasAPI"
 import { TimbradosAPI } from "../../api/services/TimbradosAPI"
 import AccionesCell from "../../components/AccionesCell"
+import BusquedaInput from "../../components/BusquedaInput"
 import ButtonActionContainer from "../../components/ButtonActionContainer"
 import ConfirmDialog from "../../components/ConfirmDialog"
 import CustomTable, { ColumnCustomTable } from "../../components/CustomTable"
+import Spacer from "../../components/Spacer"
 import TituloContainer from "../../components/TituloContainer"
 import queryClient from "../../config/queryClient"
 import useBackend from "../../shared/hooks/useBackend"
@@ -24,7 +26,7 @@ const initialForm = () => ({
 
 const Facturas = () => {
 
-  const {data, create, remove, update, setParams, key} = useBackend(FacturasAPI);
+  const {data, create, remove, update, setParams, key, refresh} = useBackend(FacturasAPI);
   const {data: timbrados} = useBackend(TimbradosAPI);
 
   const [openModal, setOpenModal] = useState(false)
@@ -50,7 +52,7 @@ const Facturas = () => {
     remove.mutate(formData.id, {
       onSuccess() {      
         setOpenConfirmModal(false);      
-        queryClient.invalidateQueries(key)           
+        refresh();       
       }
     }) 
   }
@@ -64,8 +66,8 @@ const Facturas = () => {
       update.mutate(({body: values, id: values.id}), {
         onSuccess() {    
           handleCloseModal();     
-          queryClient.invalidateQueries(key)   
-          form.reset();
+          refresh();
+          form.restart();
         }
       }) 
       return;
@@ -74,8 +76,8 @@ const Facturas = () => {
     create.mutate(values, {
       onSuccess() {    
         handleCloseModal();     
-        queryClient.invalidateQueries(key)   
-        form.reset();
+        refresh();
+        form.restart();
       }
     })     
   }  
@@ -114,21 +116,26 @@ const Facturas = () => {
     <>
       <TituloContainer>Facturas</TituloContainer>
 
-      <ButtonActionContainer onNew={handleNew} onRefresh={() => console.log('refrescando')} />        
-
-      <Box px={2} pb={2}>
-        <TextField sx={{bgcolor: 'white', mr: 1}} fullWidth placeholder="Buscar" size="small" />        
-      </Box>
-
-      <Box sx={{px: 2}}>
-        <CustomTable 
-          page={data?.currentPage}  
-          count={data?.totalPages} 
-          columns={columns} 
-          data={data?.items ? data?.items : []} 
-          onPageChange={(value) => setParams(value, 'pageNumber')}
-        />  
-      </Box>
+      <Paper sx={{mx: 2, pb: 2}}>
+        <Stack spacing={2} direction={{xs: 'column', sm: 'row'}} sx={{px: 2, py: 2}}>
+          <BusquedaInput 
+            placeholder="Buscar factura" 
+            onChange={(value) => setParams(value, 'searchQuery')}
+          />                
+          <Spacer />          
+          <ButtonActionContainer onNew={handleNew} onRefresh={refresh} />                        
+        </Stack>
+        <Box>
+            <CustomTable  
+                page={data?.currentPage}  
+                count={data?.totalPages} 
+                columns={columns} 
+                data={data?.items ? data?.items : []} 
+                totalCount={data?.totalCount}
+                onPageChange={(value) => setParams(value, 'pageNumber')}
+            />  
+        </Box>      
+      </Paper>           
 
       <FacturasFormModal 
         openModal={openModal} 

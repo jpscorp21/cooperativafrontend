@@ -21,7 +21,7 @@ const ProfesionesFormModal = ({openModal, handleCloseModal, onSubmit, formData}:
         </Typography>   
 
         <Form 
-          initialValues={{}}
+          initialValues={{...formData}}
           onSubmit={onSubmit}
           render={({handleSubmit}) => (
             <form onSubmit={handleSubmit}>

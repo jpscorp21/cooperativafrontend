@@ -1,6 +1,8 @@
-import { Box, TextField } from "@material-ui/core";
+import { Box, Paper, Stack, TextField } from "@material-ui/core";
 import { useState } from "react";
+import BusquedaInput from "../../components/BusquedaInput";
 import ButtonActionContainer from "../../components/ButtonActionContainer";
+import Spacer from "../../components/Spacer";
 import TituloContainer from "../../components/TituloContainer"
 
 const Aportes = () => {
@@ -11,11 +13,18 @@ const Aportes = () => {
     <>
       <TituloContainer>Aportes</TituloContainer>
 
-      <ButtonActionContainer onNew={() => setOpenModal(true)} onRefresh={() => console.log('refrescando')} />        
+      <Paper sx={{mx: 2, pb: 2}}>
+        <Stack spacing={2} direction={{xs: 'column', sm: 'row'}} sx={{px: 2, py: 2}}>
+          <BusquedaInput 
+            placeholder="Buscar declaracion jurada"             
+            onChange={() => {
 
-      <Box px={2} pb={2}>
-        <TextField sx={{bgcolor: 'white', mr: 1}} fullWidth placeholder="Buscar socio" size="small" />        
-      </Box>      
+            }}
+          />                
+          <Spacer />          
+          <ButtonActionContainer onNew={() => {}} onRefresh={() => console.log('refrescando')} />        
+        </Stack>            
+      </Paper>       
     </>
   )
 }

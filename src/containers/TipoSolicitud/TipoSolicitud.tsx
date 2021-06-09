@@ -1,4 +1,4 @@
-import { Box, TableCell, TextField } from "@material-ui/core";
+import { Box, Paper, Stack, TableCell, TextField } from "@material-ui/core";
 import { useMemo, useState } from "react"
 import AccionesCell from "../../components/AccionesCell";
 import CustomTable, { ColumnCustomTable } from "../../components/CustomTable";
@@ -9,6 +9,8 @@ import { FormApi } from "final-form";
 import ConfirmDialog from "../../components/ConfirmDialog";
 import useBackend from "../../shared/hooks/useBackend";
 import { TipoSolicitudAPI } from "../../api/services/TipoSolicitudAPI";
+import BusquedaInput from "../../components/BusquedaInput";
+import Spacer from "../../components/Spacer";
 
 const initialForm = () => ({
   descripcion: '',
@@ -102,22 +104,29 @@ const TipoSolicitud = () => {
   return (
     <>
       <TituloContainer>Tipo Solicitud</TituloContainer>  
-        
-      <ButtonActionContainer onNew={handleNew} onRefresh={refresh} />        
-    
-      <Box px={2} pb={2}> 
-        <TextField sx={{bgcolor: 'white'}} onChange={(event) => setParams(event.target.value, 'searchQuery')} fullWidth placeholder="Buscar un Tipo de Solicitud" size="small" />
-      </Box>        
 
-      <Box sx={{px: 2}}>
-        <CustomTable 
-          page={data?.currentPage}  
-          count={data?.totalPages} 
-          columns={columns} 
-          data={data?.items ? data?.items : []} 
-          onPageChange={(value) => setParams(value, 'pageNumber')}
-        />  
-      </Box> 
+
+        
+      <Paper sx={{mx: 2, pb: 2}}>
+        <Stack spacing={2} direction={{xs: 'column', sm: 'row'}} sx={{px: 2, py: 2}}>
+          <BusquedaInput 
+            placeholder="Buscar tipo solicitud" 
+            onChange={(value) => setParams(value, 'searchQuery')}
+          />                
+          <Spacer />          
+          <ButtonActionContainer onNew={handleNew} onRefresh={refresh} />                        
+        </Stack>
+        <Box>
+            <CustomTable 
+                page={data?.currentPage}  
+                count={data?.totalPages} 
+                columns={columns} 
+                data={data?.items ? data?.items : []} 
+                totalCount={data?.totalCount}
+                onPageChange={(value) => setParams(value, 'pageNumber')}
+            />  
+        </Box>      
+      </Paper>  
       <TipoSolicitudFormModal
          openModal={openModal}
          handleCloseModal={handleCloseModal}

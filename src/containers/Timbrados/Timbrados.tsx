@@ -1,11 +1,13 @@
-import { Box, TableCell, TextField } from "@material-ui/core";
+import { Box, Paper, Stack, TableCell, TextField } from "@material-ui/core";
 import { FormApi } from "final-form";
 import { useMemo, useState } from "react"
 import { TimbradosAPI } from "../../api/services/TimbradosAPI";
 import AccionesCell from "../../components/AccionesCell";
+import BusquedaInput from "../../components/BusquedaInput";
 import ButtonActionContainer from "../../components/ButtonActionContainer";
 import ConfirmDialog from "../../components/ConfirmDialog";
 import CustomTable, { ColumnCustomTable } from "../../components/CustomTable";
+import Spacer from "../../components/Spacer";
 import TituloContainer from "../../components/TituloContainer"
 import useBackend from "../../shared/hooks/useBackend";
 import TimbradosFormModal from "./TimbradosFormModal";
@@ -109,21 +111,26 @@ const Timbrados = () => {
     <>
       <TituloContainer>Timbrados</TituloContainer>
 
-      <ButtonActionContainer onNew={handleNew} onRefresh={refresh} />              
-
-      <Box px={2} pb={2}>
-        <TextField sx={{bgcolor: 'white'}} fullWidth placeholder="Buscar" size="small" />
-      </Box>   
-
-      <Box sx={{px: 2}}>
-        <CustomTable 
-          page={data?.currentPage}  
-          count={data?.totalPages} 
-          columns={columns} 
-          data={data?.items ? data?.items : []} 
-          onPageChange={(value) => setParams(value, 'pageNumber')}
-        />  
-      </Box> 
+      <Paper sx={{mx: 2, pb: 2}}>
+        <Stack spacing={2} direction={{xs: 'column', sm: 'row'}} sx={{px: 2, py: 2}}>
+          <BusquedaInput 
+            placeholder="Buscar timbrado" 
+            onChange={(value) => setParams(value, 'searchQuery')}
+          />                
+          <Spacer />          
+          <ButtonActionContainer onNew={handleNew} onRefresh={refresh} />                        
+        </Stack>
+        <Box>
+            <CustomTable 
+                page={data?.currentPage}  
+                count={data?.totalPages} 
+                columns={columns} 
+                data={data?.items ? data?.items : []} 
+                totalCount={data?.totalCount}
+                onPageChange={(value) => setParams(value, 'pageNumber')}
+            />  
+        </Box>      
+      </Paper>  
 
       <TimbradosFormModal 
         openModal={openModal} 

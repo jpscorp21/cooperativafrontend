@@ -275,8 +275,7 @@ const SolicitudCreditoInnerForm = () => {
                 <Button 
                     type="submit"
                     variant="contained" 
-                    size="small" 
-                    color="secondary" 
+                    size="small"                     
                     startIcon={<SaveIcon />}                                
                 >
                     Guardar

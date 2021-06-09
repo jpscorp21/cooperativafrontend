@@ -1,4 +1,4 @@
-import { Box, TableCell, TextField } from '@material-ui/core';
+import { Box, Paper, Stack, TableCell } from '@material-ui/core';
 import { useMemo, useState } from 'react'
 import { useHistory } from 'react-router';
 import { SociosAPI } from '../../api/services/SociosAPI';
@@ -6,15 +6,17 @@ import AccionesCell from '../../components/AccionesCell';
 import ButtonActionContainer from '../../components/ButtonActionContainer';
 import ConfirmDialog from '../../components/ConfirmDialog';
 import CustomTable, { ColumnCustomTable } from '../../components/CustomTable';
+import Spacer from '../../components/Spacer';
 import TituloContainer from '../../components/TituloContainer'
-import queryClient from '../../config/queryClient';
 import useBackend from '../../shared/hooks/useBackend';
+import BusquedaInput from '../../components/BusquedaInput';
+
 
 const Socios = () => {
 
     const history = useHistory();
 
-    const {data, remove, setParams, key, refresh} = useBackend(SociosAPI);
+    const {data, remove, setParams, refresh} = useBackend(SociosAPI);
     
     const [openConfirmModal, setOpenConfirmModal] = useState(false) 
     const [dataSelected, setDataSelected] = useState<any>(null);
@@ -76,22 +78,27 @@ const Socios = () => {
         <>
             <TituloContainer>Socios</TituloContainer>
 
-            <ButtonActionContainer onNew={() => handleNew()} onRefresh={refresh}/>
-
-            <Box px={2} pb={2}> 
-                <TextField sx={{bgcolor: 'white'}} onChange={(event) => setParams(event.target.value, 'searchQuery')} fullWidth placeholder="Buscar un socio" size="small" />
-            </Box>       
-
-            <Box sx={{px: 2}}>
-                <CustomTable 
-                    page={data?.currentPage}  
-                    count={data?.totalPages} 
-                    columns={columns} 
-                    data={data?.items ? data?.items : []} 
-                    onPageChange={(value) => setParams(value, 'pageNumber')}
-                />  
-            </Box>      
-
+            <Paper sx={{mx: 2, pb: 2}}>
+              <Stack spacing={2} direction={{xs: 'column', sm: 'row'}} sx={{px: 2, py: 2}}>
+                <BusquedaInput 
+                  placeholder="Buscar socio" 
+                  onChange={(value) => setParams(value, 'searchQuery')}
+                />                
+                <Spacer />          
+                <ButtonActionContainer onNew={handleNew} onRefresh={refresh} />                        
+              </Stack>
+              <Box>
+                  <CustomTable 
+                      page={data?.currentPage}  
+                      count={data?.totalPages} 
+                      columns={columns} 
+                      data={data?.items ? data?.items : []} 
+                      totalCount={data?.totalCount}
+                      onPageChange={(value) => setParams(value, 'pageNumber')}
+                  />  
+              </Box>      
+            </Paper>
+            
             <ConfirmDialog 
                 openModal={openConfirmModal}
                 onAceptar={handleEliminar}

@@ -1,11 +1,13 @@
-import { Box, MenuItem, Select, TableCell, TextField } from "@material-ui/core";
+import { Box, MenuItem, Paper, Select, Stack, TableCell, TextField } from "@material-ui/core";
 import { ChangeEvent, useMemo, useState } from "react"
 import { useHistory } from "react-router";
 import { SolicitudCreditoAPI } from "../../api/services/SolicitudCreditoAPI";
 import AccionesCell from "../../components/AccionesCell";
+import BusquedaInput from "../../components/BusquedaInput";
 import ButtonActionContainer from "../../components/ButtonActionContainer"
 import ConfirmDialog from "../../components/ConfirmDialog";
 import CustomTable, { ColumnCustomTable } from "../../components/CustomTable";
+import Spacer from "../../components/Spacer";
 import TituloContainer from "../../components/TituloContainer"
 import useBackend from "../../shared/hooks/useBackend";
 
@@ -91,34 +93,35 @@ const SolicitudCredito = () => {
     <>
       <TituloContainer>Solicitud Crédito</TituloContainer> 
 
-      <ButtonActionContainer onNew={handleNew} onRefresh={refresh} />             
-
-      <Box px={2} pb={1} display="flex" alignItems="center">
-        <TextField sx={{bgcolor: 'white', mr: 1}} placeholder="Buscar socio" size="small" fullWidth />
-                   
-      </Box> 
-
-      <Box px={2}>
-      <Select                 
-          value={estadoSelected}
-          onChange={handleChangeEstadoSelect}
-          label="ciudad"          
-        >
-              <MenuItem value={'pendiente'} selected>Pendientes</MenuItem>
-              <MenuItem value={'aprobado'}>Aprobados</MenuItem>
-              <MenuItem value={'rechazado'}>Rechazados</MenuItem>
-        </Select>  
-      </Box>
-
-      <Box sx={{px: 2}}>      
-        <CustomTable 
-            page={data?.currentPage}  
-            count={data?.totalPages} 
-            columns={columns} 
-            data={data ? data : []} 
-            onPageChange={(value) => setParams(value, 'pageNumber')}
-        />  
-      </Box>      
+      <Paper sx={{mx: 2, pb: 2}}>
+        <Stack spacing={2} direction={{xs: 'column', sm: 'row'}} sx={{px: 2, py: 2}}>
+          <BusquedaInput 
+            placeholder="Buscar solicitud crédito" 
+            onChange={(value) => setParams(value, 'searchQuery')}
+          />               
+           <Select                 
+              value={estadoSelected}
+              onChange={handleChangeEstadoSelect}
+              label="ciudad"          
+            >
+                  <MenuItem value={'pendiente'} selected>Pendientes</MenuItem>
+                  <MenuItem value={'aprobado'}>Aprobados</MenuItem>
+                  <MenuItem value={'rechazado'}>Rechazados</MenuItem>
+            </Select>  
+          <Spacer />          
+          <ButtonActionContainer onNew={handleNew} onRefresh={refresh} />                        
+        </Stack>
+        <Box>
+            <CustomTable 
+                page={data?.currentPage}  
+                count={data?.totalPages} 
+                columns={columns} 
+                data={data ? data : []} 
+                totalCount={data?.totalCount}
+                onPageChange={(value) => setParams(value, 'pageNumber')}
+            />  
+        </Box>      
+      </Paper>                  
 
       <ConfirmDialog 
         openModal={openConfirmModal}

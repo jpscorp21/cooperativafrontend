@@ -1,4 +1,4 @@
-import { Box, TableCell, TextField } from "@material-ui/core"
+import { Box, Paper, Stack, TableCell, TextField } from "@material-ui/core"
 import { useState, useMemo } from "react";
 import AccionesCell from "../../components/AccionesCell";
 import CustomTable, { ColumnCustomTable } from "../../components/CustomTable";
@@ -11,6 +11,8 @@ import ConfirmDialog from "../../components/ConfirmDialog";
 import useBackend from "../../shared/hooks/useBackend";
 import { ModalidadPagoAPI } from "../../api/services/ModalidadPagoAPI";
 import { TipoCreditoAPI } from "../../api/services/TipoCreditoAPI";
+import BusquedaInput from "../../components/BusquedaInput";
+import Spacer from "../../components/Spacer";
 
 const initialForm = () => ({ 
   descripcion: ''
@@ -101,20 +103,26 @@ const TipoCredito = () => {
     <>
       <TituloContainer>Tipo Crédito</TituloContainer>
 
-      <ButtonActionContainer onNew={handleNew} onRefresh={refresh} />
-
-      <Box px={2} pb={2}> 
-        <TextField sx={{bgcolor: 'white'}} onChange={(event) => setParams(event.target.value, 'searchQuery')} fullWidth placeholder="Buscar un Tipo de Crédito" size="small" />
-      </Box>                
-      <Box sx={{px: 2}}>
-        <CustomTable 
-          page={data?.currentPage}  
-          count={data?.totalPages} 
-          columns={columns} 
-          data={data?.items ? data?.items : []} 
-          onPageChange={(value) => setParams(value, 'pageNumber')}
-        />  
-      </Box> 
+      <Paper sx={{mx: 2, pb: 2}}>
+        <Stack spacing={2} direction={{xs: 'column', sm: 'row'}} sx={{px: 2, py: 2}}>
+          <BusquedaInput 
+            placeholder="Buscar tipo crédito" 
+            onChange={(value) => setParams(value, 'searchQuery')}
+          />                
+          <Spacer />          
+          <ButtonActionContainer onNew={handleNew} onRefresh={refresh} />                        
+        </Stack>
+        <Box>
+            <CustomTable 
+                page={data?.currentPage}  
+                count={data?.totalPages} 
+                columns={columns} 
+                data={data?.items ? data?.items : []} 
+                totalCount={data?.totalCount}
+                onPageChange={(value) => setParams(value, 'pageNumber')}
+            />  
+        </Box>      
+      </Paper>  
       <TipoCreditoFormModal
          openModal={openModal}
          handleCloseModal={handleCloseModal}

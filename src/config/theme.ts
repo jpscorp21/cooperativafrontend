@@ -56,11 +56,15 @@ const theme = createMuiTheme({
     },
     MuiTableRow: {
       styleOverrides: {
-        head: {                
-          backgroundColor: '#066B7D',          
+        head: {
+          paddintTop: '8px',
+          paddintBottom: '8px',
+          borderTop: '1px solid ' + grey[300],          
+          backgroundColor: '',          
         },
         root: {                    
-          borderBottom: '1px solid #E7E7E7', 
+          borderBottom: '1px solid ' + grey[300],
+           
           // hide last border
           // '&:nth-of-type(odd)': {
           //   backgroundColor: '#F4F8FB',
@@ -74,13 +78,13 @@ const theme = createMuiTheme({
     MuiTableCell: {
       styleOverrides: {        
         head: { 
-          color: 'white',       
+          color: grey[900],       
           fontWeight: 'bold',
           // background: '#EBEBEB',            
         },
         root: {          
-          paddingTop: 4,
-          paddingBottom: 4,
+          paddingTop: 5,
+          paddingBottom: 5,
           fontSize: '14px'
           
         },
