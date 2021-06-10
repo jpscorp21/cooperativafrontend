@@ -23,7 +23,7 @@ const theme = createMuiTheme({
       'Helveitca Neue'
     ].join(','),
     h5: {
-      fontSize: '1.25rem',
+      fontSize: '24px',
       fontWeight: 700
     },
     body2: {

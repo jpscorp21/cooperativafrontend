@@ -1,4 +1,4 @@
-import { Box, MenuItem, Paper, Select, Stack, TableCell, TextField } from "@material-ui/core";
+import { Box, Chip, IconButton, MenuItem, Paper, Select, Stack, TableCell, TextField } from "@material-ui/core";
 import { ChangeEvent, useMemo, useState } from "react"
 import { useHistory } from "react-router";
 import { SolicitudCreditoAPI } from "../../api/services/SolicitudCreditoAPI";
@@ -10,16 +10,21 @@ import CustomTable, { ColumnCustomTable } from "../../components/CustomTable";
 import Spacer from "../../components/Spacer";
 import TituloContainer from "../../components/TituloContainer"
 import useBackend from "../../shared/hooks/useBackend";
+import PrintIcon from '@material-ui/icons/Print';
+import { SolicitudEstados } from "../../utils/constants";
+import SolicitudCreditoDialogPrint from "./SolicitudCreditoDialogPrint";
+import { BASE_URL } from "../../api";
 
 const SolicitudCredito = () => {
 
   const history = useHistory();
 
-  const {data, remove, setParams, refresh} = useBackend(SolicitudCreditoAPI);
+  const {data, setParams, refresh} = useBackend(SolicitudCreditoAPI);
 
   const [openConfirmModal, setOpenConfirmModal] = useState(false) 
   const [dataSelected, setDataSelected] = useState<any>(null);  
   const [estadoSelected, setEstadoSelected] = useState('pendiente')  
+  const [openPrint, setOpenPrint] = useState(false);
 
   const handleChangeEstadoSelect = (e: ChangeEvent<{value: string}>) => {
     setEstadoSelected(e.target.value);
@@ -42,6 +47,13 @@ const SolicitudCredito = () => {
   const handleEliminar = () => {
 
   }
+
+  const imprimir = (url: string) => {
+    const elem = document.createElement("a");
+    elem.href = `${BASE_URL}${url}`;
+    elem.target = "_blank";
+    elem.click();
+  }
   
   const columns = useMemo(() => [
     {
@@ -52,7 +64,7 @@ const SolicitudCredito = () => {
       key: 'nombreCompleto',
       label: 'Socio', 
       render: (item: any) => (
-        <TableCell sx={{py: 1}}>
+        <TableCell sx={{py: 1, cursor: 'pointer'}} onClick={() => handleEditar(item)}>
           <span>
             <b>{item.nombreCompleto}</b> <br />
             <span style={{color: '#777'}} >{item.credito}</span>            
@@ -79,13 +91,35 @@ const SolicitudCredito = () => {
     },        
     {
       key: 'estadoSolicitud',
-      label: 'Estado',                  
+      label: 'Estado', 
+      render: (item: any) => (
+        <TableCell sx={{py: 1, cursor: 'pointer'}} onClick={() => handleEditar(item)}>
+          <span>
+            <Chip 
+              label={SolicitudEstados[item.estadoSolicitud].label || ''} 
+              sx={{background: SolicitudEstados[item.estadoSolicitud].background, 
+                  color: 'white'
+              }} />
+            
+            
+          </span> 
+        </TableCell>
+      )                 
     },        
     {
       key: 'acciones',
       label: 'Acciones',
       align: 'right',
-      render: (item: any) => <AccionesCell item={item} onEditar={handleEditar} onEliminar={handleOpenConfirmEliminar} />
+      render: (item: any) => (
+        <AccionesCell item={item} onEditar={handleEditar} onEliminar={handleOpenConfirmEliminar}>
+          <IconButton size="small" color="primary" onClick={() => {
+            setDataSelected({...item});
+            setOpenPrint(true);
+          }}>
+            <PrintIcon color="primary"></PrintIcon>
+          </IconButton>
+        </AccionesCell>
+      )
     },
   ] as ColumnCustomTable[], [])
 
@@ -128,6 +162,15 @@ const SolicitudCredito = () => {
         onAceptar={handleEliminar}
         message="Estás seguro de eliminar esté socio?"
         handleCloseModal={() => setOpenConfirmModal(false)}
+      />
+      <SolicitudCreditoDialogPrint 
+        open={openPrint}
+        onHide={() => setOpenPrint(false)}
+        onPrint={(url: string) => {
+          if (dataSelected && dataSelected.id) {
+            imprimir(url + dataSelected.id);
+          }
+        }}
       />
     </>
   )
