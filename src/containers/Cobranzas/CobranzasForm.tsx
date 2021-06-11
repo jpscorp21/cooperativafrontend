@@ -1,39 +1,36 @@
-import { Box, Grid, Paper, TextField } from '@material-ui/core'
+import { Box, Paper } from '@material-ui/core'
+import { FormApi } from 'final-form'
 import { useState } from 'react'
-import CustomDatePicker from '../../components/CustomDatePicker'
+import { Form } from 'react-final-form'
 import TituloContainer from '../../components/TituloContainer'
+import { cobranzaInitialForm, createCobranzaForSave } from './cobranzas-data'
+import CobranzasInnerForm from './CobranzasInnerForm'
 
-const CobranzasForm = () => {
+const CobranzasForm = () => {    
 
-    const [selectedDate, setSelectedDate] = useState(new Date().toISOString());
-
-    const handleDateChange = (date: any, name: string) => {
-        console.log(date, name);
-        setSelectedDate(date);
-    };
+    const [formData,] = useState<any>(cobranzaInitialForm()); 
+    
+    const onSubmit = async (values: any, form: FormApi) => {
+        const dataForSave = createCobranzaForSave(values);
+        form.restart();
+        console.log(dataForSave);
+    }           
 
     return (
         <>
-            <TituloContainer>Formulario Cobranza</TituloContainer>  
+            <TituloContainer>Cobranza</TituloContainer>  
 
             <Box sx={{px: 2}}>
-                <Paper sx={{p: 2}}>
-                    <form>
-                        <Grid sx={{mt:2}}>
-                            <Grid item xs={6} sx={{mb:2}}>
-                                <TextField fullWidth label="Nro Factura" name="codigo" size="small" />
-                            </Grid>                        
-                            <Grid item xs={6} sx={{mb:2}}>
-                                <CustomDatePicker value={selectedDate} onChange={handleDateChange} name={"vencimiento"} />
-                                <TextField fullWidth label="Fecha" name="codigo" size="small" />
-                            </Grid>                        
-                        </Grid>
-                        <Grid sx={{mt: 2}}>
-                            <Grid item xs={12} sx={{mb:2}}>
-                                <TextField fullWidth label="Buscar Socio" name="codigo" size="small" />
-                            </Grid>
-                        </Grid>                    
-                    </form>
+                <Paper>
+                    <Form
+                        initialValues={{...formData}}
+                        onSubmit={onSubmit}
+                        render={({handleSubmit}) => (
+                            <form onSubmit={handleSubmit}>  
+                                <CobranzasInnerForm />                                                                                                                                                                                                                      
+                            </form>
+                        )} 
+                    />                    
                 </Paper>
             </Box>          
         </>

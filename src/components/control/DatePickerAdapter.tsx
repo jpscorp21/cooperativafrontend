@@ -15,8 +15,8 @@ const DatePickerAdapter = ({input, meta, ...rest}: any) => {
                     <TextField
                         size="small"
                         {...input}
-                        {...rest}
                         {...params}
+                        {...rest}                        
                         fullWidth
                         error={meta.error && meta.touched}
                         helperText={meta.error && meta.touched ? meta.error : ''}
