@@ -6,9 +6,11 @@ const TextFieldAdapter = ({input, meta, ...rest}: any) => {
       <TextField
          {...input}
          {...rest}
-         size="small"
+         size="small"                           
+         inputProps={{ readOnly: rest.readOnly || false }}
          onChange={(event: any) => input.onChange(event.target.value)}
-         error={meta.error && meta.touched}                 
+         error={meta.error && meta.touched}             
+         sx={{background: rest.background || ''}}                            
          helperText={meta.error && meta.touched ? meta.error : '' }       
       />
     )

@@ -10,6 +10,7 @@ import queryClient from '../../config/queryClient';
 import { solicitudCreditoInitialForm, solicitudCreditoMapForCreate } from './solicitudcredito-map';
 import SolicitudCreditoInnerForm from './SolicitudCreditoInnerForm';
 
+
 const SolicitudCreditoForm = () => {    
 
     const history = useHistory();
@@ -41,7 +42,7 @@ const SolicitudCreditoForm = () => {
             <Box sx={{px: 2}}>
                     <Form
                         initialValues={{...formData}}                        
-                        onSubmit={onSubmit}
+                        onSubmit={onSubmit}                        
                         render={({handleSubmit}) => (
                             <form onSubmit={handleSubmit}>  
                                 <SolicitudCreditoInnerForm />                                                                                                                                                                                                                      

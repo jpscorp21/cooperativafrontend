@@ -11,6 +11,7 @@ const DatePickerAdapter = ({input, meta, ...rest}: any) => {
                 label={input.label}
                 value={input.value} 
                 onChange={(value) => input.onChange(value)}
+                readOnly
                 renderInput={(params) => (
                     <TextField
                         size="small"
@@ -18,6 +19,7 @@ const DatePickerAdapter = ({input, meta, ...rest}: any) => {
                         {...params}
                         {...rest}                        
                         fullWidth
+                        sx={{background: rest.background || ''}}                        
                         error={meta.error && meta.touched}
                         helperText={meta.error && meta.touched ? meta.error : ''}
                     />
