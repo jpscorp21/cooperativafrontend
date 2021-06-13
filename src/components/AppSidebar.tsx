@@ -1,4 +1,4 @@
-import { AppBar, Box, Collapse, Divider, Drawer, Hidden, IconButton, List, makeStyles, Toolbar, Typography } from '@material-ui/core';
+import { AppBar, Box, Collapse, Divider, Drawer, IconButton, List, Toolbar, Typography } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import clsx from 'clsx';
@@ -7,12 +7,13 @@ import { menu, MenuItem, Menu } from '../data/menu';
 import { cssHelper } from '../utils/helpers';
 import useResponsive from '../utils/hooks/useResponsive';
 import { useHistory } from 'react-router';
-
+import { makeStyles } from '@material-ui/styles';
+import theme from '../config/theme';
 
 const drawerWidth = 300;
 const breakpointDrawer = 'md';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme2) => ({
   root: {
     // display: 'flex',    
   },
@@ -36,11 +37,6 @@ const useStyles = makeStyles((theme) => ({
     // },  
        
   },
-  // menuButton: {    
-  //   [theme.breakpoints.up('sm')]: {
-  //     display: cssHelper.important('none')
-  //   }
-  // },
   // necessary for content to be below app bar
   toolbar: {
     ...theme.mixins.toolbar,    
@@ -215,7 +211,7 @@ const AppSidebar = ({children}: PropsWithChildren<{}>) => {
     <div className={classes.root}>
     
     <nav className={clsx(classes.drawer)} style={{zIndex: -10000}}> 
-      <Hidden mdDown implementation="css">
+      <Box sx={{display: {xs: 'block', sm: 'block'}}}>
         <Drawer          
           classes={{paper: classes.drawerPaper}}      
           variant="persistent"                      
@@ -225,8 +221,8 @@ const AppSidebar = ({children}: PropsWithChildren<{}>) => {
           
           {contentDrawer}
         </Drawer>
-      </Hidden>
-      <Hidden mdUp implementation="css">
+      </Box>
+      <Box sx={{display: {md: 'block', lg: 'block', xl: 'block'}}}>
         <Drawer 
           variant="temporary"
           open={open && desktop}
@@ -238,7 +234,7 @@ const AppSidebar = ({children}: PropsWithChildren<{}>) => {
         >
           {contentDrawer}
         </Drawer>
-      </Hidden>
+      </Box>
     </nav>
     <main className={clsx(classes.content, {[classes.contentShift]: !open, [classes.toolbarShift]: !open })}>
       <Box sx={{mt: 6}}></Box>

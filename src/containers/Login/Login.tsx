@@ -1,9 +1,11 @@
-import { Alert, Button, Container, makeStyles, Paper, TextField, Typography } from "@material-ui/core";
+import { Alert, Button, Container, Paper, TextField, Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/styles";
 import { useEffect, useRef, useState } from "react";
 import { useHistory } from "react-router";
 import { AuthAPI } from "../../api/services/AuthAPI";
+import theme from "../../config/theme";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme2) => ({
   paper: {
     marginTop: theme.spacing(8),
     display: 'flex',
