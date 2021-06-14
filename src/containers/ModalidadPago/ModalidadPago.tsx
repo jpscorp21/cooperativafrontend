@@ -1,4 +1,4 @@
-import { Box, Paper, Stack, TableCell, TextField } from "@material-ui/core";
+import { Box, Paper, Stack, TableCell } from "@material-ui/core";
 import { useMemo, useState } from "react"
 import AccionesCell from "../../components/AccionesCell";
 import CustomTable, { ColumnCustomTable } from "../../components/CustomTable";
@@ -6,7 +6,6 @@ import TituloContainer from "../../components/TituloContainer"
 import ButtonActionContainer from "../../components/ButtonActionContainer"
 import ModalidadPagoFormModal from "./ModalidadPagoFormModal";
 import { FormApi } from "final-form";
-import queryClient from "../../config/queryClient";
 import ConfirmDialog from "../../components/ConfirmDialog";
 import useBackend from "../../shared/hooks/useBackend";
 import { ModalidadPagoAPI } from "../../api/services/ModalidadPagoAPI";

@@ -1,5 +1,5 @@
-import { Box, Button, Grid, IconButton, Paper, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@material-ui/core';
-import React, { useEffect, useState } from 'react'
+import { Box, Button, Grid, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@material-ui/core';
+import { useEffect, useMemo, useState } from 'react'
 import { Field, useForm, useFormState } from 'react-final-form';
 import { useQuery } from 'react-query';
 import { SociosAPI } from '../../api/services/SociosAPI';
@@ -18,11 +18,15 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import useBackend from '../../shared/hooks/useBackend';
 import { ConceptosAPI } from '../../api/services/ConceptosAPI';
 import CustomAutocomplete from '../../components/CustomAutocomplete';
+import { cobranzaInitialDetalle } from './cobranzas-data';
+import CobranzasConceptoFormModal from './CobranzasConceptoFormModal';
+import CustomTable, { ColumnCustomTable } from '../../components/CustomTable';
 
 const CobranzasInnerForm = () => {
 
     const [searchQuery, setSearchText] = useSearchText();  
-    const [socioId, setSocioId] = useState<any>(null)
+    const [socioId, setSocioId] = useState<any>(null);
+    const [openConceptoFormModal, setOpenConceptoFormModal] = useState(false);
 
     const form = useForm();
     const {values} = useFormState();
@@ -41,6 +45,10 @@ const CobranzasInnerForm = () => {
         getUltimaFactura();
     }, [])
 
+    const closeOpenConceptoFormModal = () => {
+        setOpenConceptoFormModal(false);
+    }
+    
     const handleChangeSocio = (socio: ISocio) => {
         if (socio) {          
             console.log(socio);            
@@ -50,12 +58,13 @@ const CobranzasInnerForm = () => {
         }
     }
 
-    const addDetalle = () => {
-        form.change('detalles', [
-            ...values.detalles,
-            {numItem: 0, descripcion: 'Solidaridad', monto: 10000, montoCuota: 10000, cuota: 1}
-        ])
-    }
+    // const addDetalle = () => {
+    //     setOpenConceptoFormModal(true);
+    //     // form.change('detalles', [
+    //     //     ...values.detalles,
+    //     //     cobranzaInitialDetalle()            
+    //     // ])
+    // }
 
     const quitarDetalle = (row: any) => {
 
@@ -81,6 +90,60 @@ const CobranzasInnerForm = () => {
             console.log(e)
         }
     }
+
+    const addDetalle = () => {
+        // console.log(values.detalle);
+        form.change('detalles', [
+            ...values.detalles,
+            {...values.detalle, numItem: values.detalles.length + 1}            
+        ])
+
+        form.change('detalle', cobranzaInitialDetalle());
+        setOpenConceptoFormModal(false);
+    }
+
+    const columns = useMemo(() => [
+        {
+          key: 'numItem',
+          label: 'N°',          
+        },
+        {
+          key: 'descripcion',
+          label: 'Cuenta',          
+        },
+        {
+          key: 'monto',
+          label: 'Monto',          
+        },
+        {
+          key: 'montoCuota',
+          label: 'Monto cuota',          
+        },
+        {
+            key: 'cuota',
+            label: 'Cuota',          
+        },
+        // {
+        //   key: 'descripcion',
+        //   label: 'Descripcion',            
+        //   render: (item: any) => (
+        //     <TableCell>
+        //       <span style={{cursor: 'pointer', paddingTop: '8px'}} onClick={() => handleEditar(item)}>{item.descripcion}</span>
+        //     </TableCell>
+        //   )
+        // },        
+        {
+          key: 'observacion',
+          label: 'Observación',                  
+        },        
+        // {
+        //   key: 'acciones',
+        //   label: 'Acciones',
+        //   align: 'right',
+        //   render: (item: any) => <AccionesCell item={item} onEditar={handleEditar} onEliminar={handleOpenConfirmEliminar} />
+        // },
+    ] as ColumnCustomTable[], []) 
+    
 
     return (
         <>
@@ -138,97 +201,106 @@ const CobranzasInnerForm = () => {
                 </Grid>
                            
                 <Box pt={3}>
-                    <Table>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell width="100px">N°</TableCell>
-                                <TableCell width="300px">Cuenta</TableCell>
-                                <TableCell>Monto</TableCell>
-                                <TableCell>Monto Cuota</TableCell>
-                                <TableCell>Cuota</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            <FieldArray name="detalles" subscription={{}}>
-                            {({fields}) => fields.map((name, index) => (
-                                <TableRow key={name}>
-                                    <TableCell width="100px">                                        
-                                        <Field 
-                                            fullWidth 
-                                            placeholder="Código" 
-                                            background="#eee"
-                                            readOnly
-                                            name={`${name}.numItem`} 
-                                            component={TextFieldAdapter}                                             
-                                        />
-                                    </TableCell>
-                                    <TableCell width="300px">
-                                        <Field 
-                                            name={`${name}.descripcion`}                                                                                           
-                                            render={({input}) => (
-                                                <CustomAutocomplete 
-                                                    options={conceptos?.items || []}                                                    
-                                                    fullWidth={true}
-                                                    value={input.value}
-                                                    optionLabel="descripcion"
-                                                    optionSelected="id"
-                                                    onInputChange={(value) => setParams(value, 'searchQuery')}
-                                                    onChange={(value) => {
-                                                        if (value) {
-                                                            input.onChange(value);
-                                                        }
-                                                    }}
-                                                />
-                                            )}                                             
-                                        />
-                                    </TableCell>
-                                    <TableCell>
-                                        <Field 
-                                            fullWidth 
-                                            placeholder="Monto" 
-                                            name={`${name}.monto`} 
-                                            background="#eee"
-                                            readOnly
-                                            component={TextFieldAdapter}                                             
-                                        />
-                                    </TableCell>
-                                    <TableCell>
-                                        <Field 
-                                            fullWidth 
-                                            placeholder="Monto Cuota" 
-                                            background="#eee"
-                                            readOnly
-                                            name={`${name}.montoCuota`} 
-                                            component={TextFieldAdapter}                                             
-                                        />
-                                    </TableCell>
-                                    <TableCell>
-                                        <Field 
-                                            fullWidth 
-                                            placeholder="Cuota" 
-                                            background="#eee"
-                                            readOnly
-                                            name={`${name}.cuota`} 
-                                            component={TextFieldAdapter}                                             
-                                        />
-                                    </TableCell>
-                                    <TableCell>
-                                        <IconButton size="small" onClick={() => quitarDetalle(values.detalles[index])}>
-                                            <DeleteIcon sx={{color: red[700]}}></DeleteIcon>
-                                        </IconButton>  
-                                    </TableCell>
+                    <CustomTable
+                        columns={columns}
+                        data={values.detalles || []}
+                        paginate={false}
+                    />
+                    <TableContainer>
+                        <Table sx={{ minWidth: 850 }}>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell width="100px">N°</TableCell>
+                                    <TableCell width="300px">Cuenta</TableCell>
+                                    <TableCell>Monto</TableCell>
+                                    <TableCell>Monto Cuota</TableCell>
+                                    <TableCell>Cuota</TableCell>
                                 </TableRow>
-                            ))}
-                            </FieldArray>                            
-                        </TableBody>
-                    </Table>                    
+                            </TableHead>
+                            <TableBody>
+                                <FieldArray name="detalles" subscription={{}}>
+                                {({fields}) => fields.map((name, index) => (
+                                    <TableRow key={name}>
+                                        <TableCell width="100px">                                        
+                                            <Field 
+                                                fullWidth 
+                                                placeholder="Código" 
+                                                background="#eee"
+                                                readOnly
+                                                name={`${name}.numItem`} 
+                                                component={TextFieldAdapter}                                             
+                                            />
+                                        </TableCell>
+                                        <TableCell width="300px">
+                                            <Field 
+                                                name={`${name}.concepto`}                                                                                           
+                                                render={({input}) => (
+                                                    <CustomAutocomplete 
+                                                        options={conceptos?.items || []}                                                    
+                                                        fullWidth={true}
+                                                        value={input.value}
+                                                        optionLabel="descripcion"
+                                                        optionSelected="id"
+                                                        onInputChange={(value) => setParams(value, 'searchQuery')}
+                                                        onChange={(value) => {
+                                                            console.log(value)
+                                                            if (value) {
+                                                                input.onChange(value);
+                                                            }
+                                                        }}
+                                                    />
+                                                )}                                             
+                                            />
+                                        </TableCell>
+                                        <TableCell>
+                                            <Field 
+                                                fullWidth 
+                                                placeholder="Monto" 
+                                                name={`${name}.monto`} 
+                                                background="#eee"
+                                                readOnly
+                                                component={TextFieldAdapter}                                             
+                                            />
+                                        </TableCell>
+                                        <TableCell>
+                                            <Field 
+                                                fullWidth 
+                                                placeholder="Monto Cuota" 
+                                                background="#eee"
+                                                readOnly
+                                                name={`${name}.montoCuota`} 
+                                                component={TextFieldAdapter}                                             
+                                            />
+                                        </TableCell>
+                                        <TableCell>
+                                            <Field 
+                                                fullWidth 
+                                                placeholder="Cuota" 
+                                                background="#eee"
+                                                readOnly
+                                                name={`${name}.cuota`} 
+                                                component={TextFieldAdapter}                                             
+                                            />
+                                        </TableCell>
+                                        <TableCell>
+                                            <IconButton size="small" onClick={() => quitarDetalle(values.detalles[index])}>
+                                                <DeleteIcon sx={{color: red[700]}}></DeleteIcon>
+                                            </IconButton>  
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                                </FieldArray>                            
+                            </TableBody>
+                        </Table>  
+                    </TableContainer>                  
                 </Box>  
                 <Box pt={2} sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start'}}>
                     <Button 
                         type="button"
                         variant="text" 
                         size="small"  
-                        onClick={() => addDetalle()}                   
+                        onClick={() => setOpenConceptoFormModal(true)}  
+                        disabled={!values.socioId}                 
                         startIcon={<AddIcon />}                                
                     >
                         Agregar cuenta
@@ -247,13 +319,19 @@ const CobranzasInnerForm = () => {
                     <Button 
                         type="submit"
                         variant="contained" 
-                        size="small"                     
+                        size="small"                                             
                         startIcon={<SaveIcon />}                                
                     >
                         Guardar
                     </Button>            
                 </Box>                                      
             </Paper>
+
+            <CobranzasConceptoFormModal 
+                open={openConceptoFormModal}
+                onHide={closeOpenConceptoFormModal}
+                onAceptar={addDetalle}
+            />
         </>
     )
 }

@@ -1,4 +1,4 @@
-import { Box, Paper, Stack, TextField } from "@material-ui/core";
+import { Box, Paper, Stack } from "@material-ui/core";
 import { useMemo, useState } from "react";
 import AccionesCell from "../../components/AccionesCell";
 import CustomTable, { ColumnCustomTable } from "../../components/CustomTable";

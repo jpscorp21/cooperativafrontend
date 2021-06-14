@@ -1,5 +1,5 @@
 import { createTheme } from "@material-ui/core/styles";
-import { green, cyan, grey, lightBlue } from "@material-ui/core/colors";
+import { green, grey } from "@material-ui/core/colors";
 import { esES } from '@material-ui/core/locale';
 
 const theme = createTheme({

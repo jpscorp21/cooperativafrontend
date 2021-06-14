@@ -1,4 +1,4 @@
-import { Box, Paper, Stack, TableCell, TextField } from "@material-ui/core"
+import { Box, Paper, Stack, TableCell } from "@material-ui/core"
 import { FormApi } from "final-form"
 import { useMemo, useState } from "react"
 import { FacturasAPI } from "../../api/services/FacturasAPI"
@@ -10,7 +10,6 @@ import ConfirmDialog from "../../components/ConfirmDialog"
 import CustomTable, { ColumnCustomTable } from "../../components/CustomTable"
 import Spacer from "../../components/Spacer"
 import TituloContainer from "../../components/TituloContainer"
-import queryClient from "../../config/queryClient"
 import useBackend from "../../shared/hooks/useBackend"
 import FacturasFormModal from "./FacturasFormModal"
 

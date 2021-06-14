@@ -1,13 +1,10 @@
-import { Box, Paper, Stack, TextField } from "@material-ui/core";
-import { useState } from "react";
+import { Paper, Stack } from "@material-ui/core";
 import BusquedaInput from "../../components/BusquedaInput";
 import ButtonActionContainer from "../../components/ButtonActionContainer";
 import Spacer from "../../components/Spacer";
 import TituloContainer from "../../components/TituloContainer"
 
-const Aportes = () => {
-
-  const [, setOpenModal] = useState(false);
+const Aportes = () => {  
 
   return (
     <>

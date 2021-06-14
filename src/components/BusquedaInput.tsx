@@ -1,4 +1,4 @@
-import { IconButton, OutlinedInput, OutlinedInputProps } from '@material-ui/core'
+import { IconButton, OutlinedInput } from '@material-ui/core'
 import SearchIcon from '@material-ui/icons/Search';
 import CloseIcon from '@material-ui/icons/Close';
 import { grey } from '@material-ui/core/colors';

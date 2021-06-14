@@ -5,7 +5,9 @@ export const cobranzaInitialDetalle: any = () => ({
   monto: 0,
   montoCuota: 0,    
   numItem: 0,
-  concepto: '',
+  concepto: {
+    descripcion: ''
+  },
   conceptoId: '',    
   cuota: 0,
   descripcion: '',

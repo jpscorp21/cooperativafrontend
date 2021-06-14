@@ -22,7 +22,6 @@ const CiudadesFormModal = ({
         
           <Typography variant="h5" component="h5" sx={{pb: 2}}>
             Formulario Ciudad             
-
           </Typography>        
           <Form 
             onSubmit={onSubmit}
