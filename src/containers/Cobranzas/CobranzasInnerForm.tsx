@@ -12,6 +12,7 @@ import useSearchText from '../../utils/hooks/useSearchText';
 import SaveIcon from '@material-ui/icons/Save';
 import AddIcon from '@material-ui/icons/Add';
 import { FieldArray } from 'react-final-form-arrays';
+import { FacturasAPI } from '../../api/services/FacturasAPI';
 
 const CobranzasInnerForm = () => {
 
@@ -43,6 +44,11 @@ const CobranzasInnerForm = () => {
             ...values.detalles,
             {numItem: 0, descripcion: 'Solidaridad', monto: 10000, montoCuota: 10000, cuota: 1}
         ])
+    }
+
+    const getUltimaFactura = async () => {
+        const data = await FacturasAPI.getUltimaFactura();
+        
     }
 
     return (
@@ -101,7 +107,7 @@ const CobranzasInnerForm = () => {
                     <Table>
                         <TableHead>
                             <TableRow>
-                                <TableCell>N°</TableCell>
+                                <TableCell width="100px">N°</TableCell>
                                 <TableCell>Cuenta</TableCell>
                                 <TableCell>Monto</TableCell>
                                 <TableCell>Monto Cuota</TableCell>
@@ -112,7 +118,7 @@ const CobranzasInnerForm = () => {
                             <FieldArray name="detalles" subscription={{}}>
                             {({fields}) => fields.map((name) => (
                                 <TableRow key={name}>
-                                    <TableCell>
+                                    <TableCell width="100px">
                                         <Field 
                                             fullWidth 
                                             placeholder="Código" 

@@ -23,3 +23,4 @@ export const FacturasAPI = BackendAPI<IFactura, FacturasRequests>('facturas', {r
         }
       }
 }});
+
