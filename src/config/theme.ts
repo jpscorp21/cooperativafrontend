@@ -1,8 +1,8 @@
-import { createMuiTheme } from "@material-ui/core/styles";
+import { createTheme } from "@material-ui/core/styles";
 import { green, cyan, grey, lightBlue } from "@material-ui/core/colors";
 import { esES } from '@material-ui/core/locale';
 
-const theme = createMuiTheme({
+const theme = createTheme({
   
   palette: {    
     primary: {

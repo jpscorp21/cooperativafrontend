@@ -1,5 +1,5 @@
-import { Box, Button, Grid, Paper, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@material-ui/core';
-import React, { useState } from 'react'
+import { Box, Button, Grid, IconButton, Paper, Table, TableBody, TableCell, TableHead, TableRow, Typography } from '@material-ui/core';
+import React, { useEffect, useState } from 'react'
 import { Field, useForm, useFormState } from 'react-final-form';
 import { useQuery } from 'react-query';
 import { SociosAPI } from '../../api/services/SociosAPI';
@@ -13,6 +13,8 @@ import SaveIcon from '@material-ui/icons/Save';
 import AddIcon from '@material-ui/icons/Add';
 import { FieldArray } from 'react-final-form-arrays';
 import { FacturasAPI } from '../../api/services/FacturasAPI';
+import { red } from '@material-ui/core/colors';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const CobranzasInnerForm = () => {
 
@@ -30,6 +32,10 @@ const CobranzasInnerForm = () => {
         }
     );
 
+    useEffect(() => {
+        getUltimaFactura();
+    }, [])
+
     const handleChangeSocio = (socio: ISocio) => {
         if (socio) {          
             console.log(socio);            
@@ -46,14 +52,32 @@ const CobranzasInnerForm = () => {
         ])
     }
 
+    const quitarDetalle = (row: any) => {
+
+        console.log(row);
+        
+        const detalles = values.detalles
+        .filter((x: any) => Number(x.numItem) !== Number(row.numItem))
+        .map((x: any, index: number) => ({...x, numItem: index + 1})); 
+
+        form.change('detalles', [...detalles]);
+    }
+
     const getUltimaFactura = async () => {
         const data = await FacturasAPI.getUltimaFactura();
-        
+
+        if (!data) return null;
+
+        form.change('facturaId', data.id);
+        form.change('nroFactura', data.ultimoNro);
     }
 
     return (
         <>
             <Paper sx={{p: 2}}>
+                <pre>
+                    {JSON.stringify(values, null, 2)}
+                </pre>
                 <Grid container spacing={2}>
                     <Grid item xs={12} sm={6} md={4} lg={4}>
                         <Field
@@ -116,7 +140,7 @@ const CobranzasInnerForm = () => {
                         </TableHead>
                         <TableBody>
                             <FieldArray name="detalles" subscription={{}}>
-                            {({fields}) => fields.map((name) => (
+                            {({fields}) => fields.map((name, index) => (
                                 <TableRow key={name}>
                                     <TableCell width="100px">
                                         <Field 
@@ -165,6 +189,11 @@ const CobranzasInnerForm = () => {
                                             name={`${name}.cuota`} 
                                             component={TextFieldAdapter}                                             
                                         />
+                                    </TableCell>
+                                    <TableCell>
+                                        <IconButton size="small" onClick={() => quitarDetalle(values.detalles[index])}>
+                                            <DeleteIcon sx={{color: red[700]}}></DeleteIcon>
+                                        </IconButton>  
                                     </TableCell>
                                 </TableRow>
                             ))}
