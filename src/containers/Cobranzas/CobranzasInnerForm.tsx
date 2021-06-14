@@ -86,7 +86,7 @@ const CobranzasInnerForm = () => {
         <>
             <Paper sx={{p: 2}}>
                 <pre>
-                    {JSON.stringify(values, null, 2)}
+                    {/* {JSON.stringify(values, null, 2)} */}
                 </pre>
                 <Grid container spacing={2}>
                     <Grid item xs={12} sm={6} md={4} lg={4}>
@@ -142,7 +142,7 @@ const CobranzasInnerForm = () => {
                         <TableHead>
                             <TableRow>
                                 <TableCell width="100px">N°</TableCell>
-                                <TableCell>Cuenta</TableCell>
+                                <TableCell width="300px">Cuenta</TableCell>
                                 <TableCell>Monto</TableCell>
                                 <TableCell>Monto Cuota</TableCell>
                                 <TableCell>Cuota</TableCell>
@@ -162,13 +162,12 @@ const CobranzasInnerForm = () => {
                                             component={TextFieldAdapter}                                             
                                         />
                                     </TableCell>
-                                    <TableCell>
+                                    <TableCell width="300px">
                                         <Field 
                                             name={`${name}.descripcion`}                                                                                           
                                             render={({input}) => (
                                                 <CustomAutocomplete 
-                                                    options={conceptos?.items || []}
-                                                    label="Cuenta"
+                                                    options={conceptos?.items || []}                                                    
                                                     fullWidth={true}
                                                     value={input.value}
                                                     optionLabel="descripcion"

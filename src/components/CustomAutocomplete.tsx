@@ -70,16 +70,18 @@ const CustomAutocomplete = (
                         <Typography component="p">{option[optionLabel]}</Typography>                    
                     </Box>
                 )
-            )}            
+            )}   
+            sx={{maxWidth: '100%'}}         
             renderInput={(params) => (
                 <TextField 
                     {...params}
                     variant="outlined"
                     size="small"
                     name={name}
+                    fullWidth={fullWidth}
                     autoFocus={autoFocus}
                     label={label}
-                    sx={{background: 'white'}}
+                    sx={{background: 'white', maxWidth: '100%'}}
                     placeholder={placeholder}
                 />
             )}
