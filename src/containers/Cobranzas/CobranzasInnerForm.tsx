@@ -102,6 +102,11 @@ const CobranzasInnerForm = () => {
         setOpenConceptoFormModal(false);
     }
 
+    const handleEditar = (item: any) => {
+        console.log(item);
+        setOpenConceptoFormModal(true);
+    }
+
     const columns = useMemo(() => [
         {
           key: 'numItem',
@@ -109,7 +114,12 @@ const CobranzasInnerForm = () => {
         },
         {
           key: 'descripcion',
-          label: 'Cuenta',          
+          label: 'Cuenta',
+          render: (item: any) => (
+            <TableCell>
+              <span style={{cursor: 'pointer', paddingTop: '8px'}} onClick={() => handleEditar(item)}>{item.descripcion}</span>
+            </TableCell>
+          )          
         },
         {
           key: 'monto',
