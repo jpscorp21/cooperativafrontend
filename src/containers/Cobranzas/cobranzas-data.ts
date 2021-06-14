@@ -25,6 +25,8 @@ export const cobranzaInitialForm = () => ({
   nroFactura: 0,
   montoTotal: 0,
   observacion: "",
+  total: 0,
+  vuelto: 0,  
   detalle: cobranzaInitialDetalle(),  
   detalles: [] as ICobranzaDetalle[]
 });

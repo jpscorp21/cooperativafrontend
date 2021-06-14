@@ -22,7 +22,7 @@ const CobranzasConceptoFormModal = ({open, onHide, onAceptar}: CobranzasConcepto
     const {values} = useFormState();
     const {data: conceptos, setParams} = useBackend(ConceptosAPI);
 
-    const esAporteOSolidaridad = values.detalle && (values.detalle.descripcion === 'aporte' || values.detalle.descripcion === 'solidaridad')
+    const esAporteOSolidaridad = values.detalle && (values.detalle.descripcion.indexOf('aporte') > -1 || values.detalle.descripcion.indexOf('solidaridad') > -1)
 
     const quitarDetalle = (row: any) => {
 
@@ -37,6 +37,12 @@ const CobranzasConceptoFormModal = ({open, onHide, onAceptar}: CobranzasConcepto
 
     const getTipoPlanCuenta = async (item: {socioId: string, conceptoNombre: string}) => {
         try {
+
+
+            if (values.detalle.planCuentaId) {
+                return;
+            }
+
             const data = await PlanCuentaAPI.getPlanCuentaDetalleBySocio(item);
     
             if (!data[0]) {            
@@ -61,8 +67,6 @@ const CobranzasConceptoFormModal = ({open, onHide, onAceptar}: CobranzasConcepto
                 const anho = date.getFullYear();
                 form.change('detalle.planCuentaId', cuenta.planCuentaId);
                 form.change('detalle.descripcion', item.conceptoNombre + ' ' + mes + '/' + anho);
-
-
             }
 
         } catch(e) {

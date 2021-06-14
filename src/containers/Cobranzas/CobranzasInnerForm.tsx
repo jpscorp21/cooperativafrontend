@@ -46,6 +46,16 @@ const CobranzasInnerForm = () => {
         getUltimaFactura();
     }, [])
 
+    useEffect(() => {
+        const total = values?.detalles?.reduce((ant: any, actual: any) => {
+            console.log(actual);
+            return Number(ant) + Number(actual.monto);
+        }, 0);
+
+        console.log(total);
+
+    }, [values.detalle])
+
     const closeOpenConceptoFormModal = () => {
         form.change('detalle', cobranzaInitialDetalle())
         setOpenConceptoFormModal(false);
@@ -94,7 +104,7 @@ const CobranzasInnerForm = () => {
     }
 
     const addDetalle = () => {
-        // console.log(values.detalle);
+        // console.log(values.detalle);       
         form.change('detalles', [
             ...values.detalles,
             {...values.detalle, numItem: values.detalles.length + 1}            
