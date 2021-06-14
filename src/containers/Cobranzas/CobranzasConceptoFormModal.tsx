@@ -24,6 +24,17 @@ const CobranzasConceptoFormModal = ({open, onHide, onAceptar}: CobranzasConcepto
 
     const esAporteOSolidaridad = values.detalle && (values.detalle.descripcion === 'aporte' || values.detalle.descripcion === 'solidaridad')
 
+    const quitarDetalle = (row: any) => {
+
+        console.log(row);
+        
+        const detalles = values.detalles
+        .filter((x: any) => Number(x.numItem) !== Number(row.numItem))
+        .map((x: any, index: number) => ({...x, numItem: index + 1})); 
+
+        form.change('detalles', [...detalles]);
+    }
+
     const getTipoPlanCuenta = async (item: {socioId: string, conceptoNombre: string}) => {
         try {
             const data = await PlanCuentaAPI.getPlanCuentaDetalleBySocio(item);
@@ -35,9 +46,21 @@ const CobranzasConceptoFormModal = ({open, onHide, onAceptar}: CobranzasConcepto
             }        
 
             if (item.conceptoNombre === 'aporte' || item.conceptoNombre === 'solidaridad') {
+
+
+                const existeConcepto = values.detalles.find((det: any) => det.descripcion.indexOf(item.conceptoNombre) > -1);
+                if (existeConcepto) {
+                    console.log('existe concepto', existeConcepto);
+                    quitarDetalle(existeConcepto);
+                }
+
                 const cuenta = data[0];
-                form.change('detalle.planCuentId', cuenta.planCuentaId);
-                form.change('detalle.descripcion', item.conceptoNombre);
+
+                const date = new Date();
+                const mes = date.getMonth() + 1;
+                const anho = date.getFullYear();
+                form.change('detalle.planCuentaId', cuenta.planCuentaId);
+                form.change('detalle.descripcion', item.conceptoNombre + ' ' + mes + '/' + anho);
 
 
             }
@@ -61,7 +84,7 @@ const CobranzasConceptoFormModal = ({open, onHide, onAceptar}: CobranzasConcepto
         <>
             <Dialog open={open} onClose={onHide} fullWidth>
                 <Paper elevation={6} sx={{p: 2}}>
-                    {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
+                    <pre>{JSON.stringify(values.detalle, null, 2)}</pre>
                     <Typography variant="h5" component="h5" sx={{pb: 4}}>
                         Nueva cuenta             
                     </Typography>  
@@ -104,7 +127,7 @@ const CobranzasConceptoFormModal = ({open, onHide, onAceptar}: CobranzasConcepto
                     </Grid> 
                     <DialogActions sx={{mt:2}}>
                         <Button onClick={onHide} disabled={false}>Cancelar</Button>
-                        <Button onClick={onAceptar} disabled={false} variant="contained">
+                        <Button onClick={onAceptar} disabled={!values?.detalle?.planCuentaId} variant="contained">
                             Aceptar
                         </Button>
                         </DialogActions>     

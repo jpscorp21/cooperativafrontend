@@ -21,6 +21,7 @@ import CustomAutocomplete from '../../components/CustomAutocomplete';
 import { cobranzaInitialDetalle } from './cobranzas-data';
 import CobranzasConceptoFormModal from './CobranzasConceptoFormModal';
 import CustomTable, { ColumnCustomTable } from '../../components/CustomTable';
+import AccionesCell from '../../components/AccionesCell';
 
 const CobranzasInnerForm = () => {
 
@@ -46,6 +47,7 @@ const CobranzasInnerForm = () => {
     }, [])
 
     const closeOpenConceptoFormModal = () => {
+        form.change('detalle', cobranzaInitialDetalle())
         setOpenConceptoFormModal(false);
     }
     
@@ -103,7 +105,7 @@ const CobranzasInnerForm = () => {
     }
 
     const handleEditar = (item: any) => {
-        console.log(item);
+        form.change('detalle', {...item});
         setOpenConceptoFormModal(true);
     }
 
@@ -117,7 +119,7 @@ const CobranzasInnerForm = () => {
           label: 'Cuenta',
           render: (item: any) => (
             <TableCell>
-              <span style={{cursor: 'pointer', paddingTop: '8px'}} onClick={() => handleEditar(item)}>{item.descripcion}</span>
+              <span style={{cursor: 'pointer', paddingTop: '8px'}} onClick={() => handleEditar(item)}><b>{item.descripcion}</b></span>
             </TableCell>
           )          
         },
@@ -132,26 +134,13 @@ const CobranzasInnerForm = () => {
         {
             key: 'cuota',
             label: 'Cuota',          
-        },
-        // {
-        //   key: 'descripcion',
-        //   label: 'Descripcion',            
-        //   render: (item: any) => (
-        //     <TableCell>
-        //       <span style={{cursor: 'pointer', paddingTop: '8px'}} onClick={() => handleEditar(item)}>{item.descripcion}</span>
-        //     </TableCell>
-        //   )
-        // },        
+        },                
         {
-          key: 'observacion',
-          label: 'Observación',                  
-        },        
-        // {
-        //   key: 'acciones',
-        //   label: 'Acciones',
-        //   align: 'right',
-        //   render: (item: any) => <AccionesCell item={item} onEditar={handleEditar} onEliminar={handleOpenConfirmEliminar} />
-        // },
+          key: 'acciones',
+          label: 'Acciones',
+          align: 'right',
+          render: (item: any) => <AccionesCell item={item} onEditar={handleEditar} onEliminar={quitarDetalle} />
+        },
     ] as ColumnCustomTable[], []) 
     
 
@@ -215,94 +204,7 @@ const CobranzasInnerForm = () => {
                         columns={columns}
                         data={values.detalles || []}
                         paginate={false}
-                    />
-                    <TableContainer>
-                        <Table sx={{ minWidth: 850 }}>
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell width="100px">N°</TableCell>
-                                    <TableCell width="300px">Cuenta</TableCell>
-                                    <TableCell>Monto</TableCell>
-                                    <TableCell>Monto Cuota</TableCell>
-                                    <TableCell>Cuota</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                <FieldArray name="detalles" subscription={{}}>
-                                {({fields}) => fields.map((name, index) => (
-                                    <TableRow key={name}>
-                                        <TableCell width="100px">                                        
-                                            <Field 
-                                                fullWidth 
-                                                placeholder="Código" 
-                                                background="#eee"
-                                                readOnly
-                                                name={`${name}.numItem`} 
-                                                component={TextFieldAdapter}                                             
-                                            />
-                                        </TableCell>
-                                        <TableCell width="300px">
-                                            <Field 
-                                                name={`${name}.concepto`}                                                                                           
-                                                render={({input}) => (
-                                                    <CustomAutocomplete 
-                                                        options={conceptos?.items || []}                                                    
-                                                        fullWidth={true}
-                                                        value={input.value}
-                                                        optionLabel="descripcion"
-                                                        optionSelected="id"
-                                                        onInputChange={(value) => setParams(value, 'searchQuery')}
-                                                        onChange={(value) => {
-                                                            console.log(value)
-                                                            if (value) {
-                                                                input.onChange(value);
-                                                            }
-                                                        }}
-                                                    />
-                                                )}                                             
-                                            />
-                                        </TableCell>
-                                        <TableCell>
-                                            <Field 
-                                                fullWidth 
-                                                placeholder="Monto" 
-                                                name={`${name}.monto`} 
-                                                background="#eee"
-                                                readOnly
-                                                component={TextFieldAdapter}                                             
-                                            />
-                                        </TableCell>
-                                        <TableCell>
-                                            <Field 
-                                                fullWidth 
-                                                placeholder="Monto Cuota" 
-                                                background="#eee"
-                                                readOnly
-                                                name={`${name}.montoCuota`} 
-                                                component={TextFieldAdapter}                                             
-                                            />
-                                        </TableCell>
-                                        <TableCell>
-                                            <Field 
-                                                fullWidth 
-                                                placeholder="Cuota" 
-                                                background="#eee"
-                                                readOnly
-                                                name={`${name}.cuota`} 
-                                                component={TextFieldAdapter}                                             
-                                            />
-                                        </TableCell>
-                                        <TableCell>
-                                            <IconButton size="small" onClick={() => quitarDetalle(values.detalles[index])}>
-                                                <DeleteIcon sx={{color: red[700]}}></DeleteIcon>
-                                            </IconButton>  
-                                        </TableCell>
-                                    </TableRow>
-                                ))}
-                                </FieldArray>                            
-                            </TableBody>
-                        </Table>  
-                    </TableContainer>                  
+                    />                    
                 </Box>  
                 <Box pt={2} sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start'}}>
                     <Button 
