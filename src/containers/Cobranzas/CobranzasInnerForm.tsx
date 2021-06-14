@@ -15,6 +15,9 @@ import { FieldArray } from 'react-final-form-arrays';
 import { FacturasAPI } from '../../api/services/FacturasAPI';
 import { red } from '@material-ui/core/colors';
 import DeleteIcon from '@material-ui/icons/Delete';
+import useBackend from '../../shared/hooks/useBackend';
+import { ConceptosAPI } from '../../api/services/ConceptosAPI';
+import CustomAutocomplete from '../../components/CustomAutocomplete';
 
 const CobranzasInnerForm = () => {
 
@@ -31,6 +34,8 @@ const CobranzasInnerForm = () => {
           keepPreviousData: true,             
         }
     );
+
+    const {data: conceptos, setParams} = useBackend(ConceptosAPI);
 
     useEffect(() => {
         getUltimaFactura();
@@ -64,12 +69,17 @@ const CobranzasInnerForm = () => {
     }
 
     const getUltimaFactura = async () => {
-        const data = await FacturasAPI.getUltimaFactura();
+        try {
 
-        if (!data) return null;
-
-        form.change('facturaId', data.id);
-        form.change('nroFactura', data.ultimoNro);
+            const data = await FacturasAPI.getUltimaFactura();
+    
+            if (!data) return null;
+    
+            form.change('facturaId', data.id);
+            form.change('nroFactura', data.ultimoNro);
+        } catch(e) {
+            console.log(e)
+        }
     }
 
     return (
@@ -142,7 +152,7 @@ const CobranzasInnerForm = () => {
                             <FieldArray name="detalles" subscription={{}}>
                             {({fields}) => fields.map((name, index) => (
                                 <TableRow key={name}>
-                                    <TableCell width="100px">
+                                    <TableCell width="100px">                                        
                                         <Field 
                                             fullWidth 
                                             placeholder="Código" 
@@ -154,10 +164,23 @@ const CobranzasInnerForm = () => {
                                     </TableCell>
                                     <TableCell>
                                         <Field 
-                                            fullWidth 
-                                            placeholder="Cuenta" 
-                                            name={`${name}.descripcion`} 
-                                            component={TextFieldAdapter}                                             
+                                            name={`${name}.descripcion`}                                                                                           
+                                            render={({input}) => (
+                                                <CustomAutocomplete 
+                                                    options={conceptos?.items || []}
+                                                    label="Cuenta"
+                                                    fullWidth={true}
+                                                    value={input.value}
+                                                    optionLabel="descripcion"
+                                                    optionSelected="id"
+                                                    onInputChange={(value) => setParams(value, 'searchQuery')}
+                                                    onChange={(value) => {
+                                                        if (value) {
+                                                            input.onChange(value);
+                                                        }
+                                                    }}
+                                                />
+                                            )}                                             
                                         />
                                     </TableCell>
                                     <TableCell>
