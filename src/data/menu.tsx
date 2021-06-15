@@ -44,14 +44,13 @@ export const menu: Menu[] = [
       {
         icon: <ArchiveIcon></ArchiveIcon>,
         text: 'Nacionalidades',
-        url: '/nacionalidades',
-      },
+        url: '/nacionalidades'},
       {
         icon: <ArchiveIcon></ArchiveIcon>,
         text: 'Puestos Laborales',
         url: '/puestolaboral',
       },
-      {
+      { 
         icon: <ArchiveIcon></ArchiveIcon>,
         text: 'Profesion',
         url: '/profesiones',
@@ -204,10 +203,16 @@ export const menu: Menu[] = [
     ]
   },
   { 
+    icon: <PersonIcon></PersonIcon>, 
+    text: 'Usuarios', 
+    url: '/usuarios' 
+  },
+  { 
     icon: <SubjectIcon></SubjectIcon>, 
     text: 'Acerca de', 
     url: '/acerca-de' 
   },
+  
 ]
 
 interface MenuItemProps {
