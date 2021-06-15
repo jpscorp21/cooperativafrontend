@@ -1,6 +1,6 @@
-import { Box, Pagination, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@material-ui/core";
+import { Box, Checkbox, Pagination, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@material-ui/core";
 import { grey } from "@material-ui/core/colors";
-import React from "react";
+import React, { useState } from "react";
 
 export interface ColumnCustomTable {
     key: string;
@@ -19,11 +19,40 @@ interface CustomTableProps {
     page?: number;
     hover?: boolean;
     onClickRow?(item: any): void;
+    onCheckboxRow?(item: any): void;
     paginate?: boolean;
     totalCount?: number;
+
 }
 
-const CustomTable = ({columns, data, onPageChange, count = 100, page = 1, hover = false, onClickRow, paginate = true, totalCount = 0}: CustomTableProps) => {    
+const CustomTable = ({columns, data, onPageChange, count = 100, page = 1, hover = false, onClickRow, paginate = true, totalCount = 0, onCheckboxRow}: CustomTableProps) => {    
+
+    const [checkboxItemsSelected, setCheckboxItemsSelected] = useState<any>({});
+
+    const handleCheckbox = (item: any, index: number) => {
+
+        if (!onCheckboxRow) {
+            return;
+        }
+
+        const items = {...checkboxItemsSelected};
+
+        if (items[index]) {
+            delete items[index]
+            setCheckboxItemsSelected(items);
+            onCheckboxRow(Object.values(items));
+            return;
+        }
+
+        const newItems =  {
+            ...items,
+            [index]: {...item}
+        };
+
+        setCheckboxItemsSelected(newItems)
+
+        onCheckboxRow(Object.values(newItems));
+    }
 
     return (
     <>
@@ -32,6 +61,8 @@ const CustomTable = ({columns, data, onPageChange, count = 100, page = 1, hover 
             <Table>
                 <TableHead>
                     <TableRow>
+                        {onCheckboxRow ? (<TableCell></TableCell>) : null}
+                    
                     {columns.map((column) => (
                         <TableCell 
                             align={column.align || 'left'}
@@ -45,8 +76,12 @@ const CustomTable = ({columns, data, onPageChange, count = 100, page = 1, hover 
                 </TableHead>
                 <TableBody>
                     {data && Array.isArray(data) && data.map((item, index) => {
+
+                        const isCheckboxSelected = !!checkboxItemsSelected[index];
+
                         return (
                             <TableRow 
+                                role="checkbox"
                                 hover={hover} 
                                 key={index}
                                 onClick={() => {
@@ -56,6 +91,17 @@ const CustomTable = ({columns, data, onPageChange, count = 100, page = 1, hover 
                                 }} 
                                 sx={{cursor: hover ? 'pointer' : 'default'}}
                             >
+                                {
+                                    onCheckboxRow ? (
+                                        <TableCell padding="checkbox">
+                                            <Checkbox
+                                                color="primary"
+                                                checked={isCheckboxSelected}
+                                                onClick={() => handleCheckbox(item, index)}                                        
+                                            />
+                                        </TableCell>
+                                    ) : null
+                                }
                                 {columns.map((column, columnIndex) => {
 
                                     let cell = <TableCell align={column.align || 'left'}>

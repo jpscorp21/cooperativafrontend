@@ -1,13 +1,17 @@
-import { Button, Dialog, DialogActions, Grid, Paper, Typography } from "@material-ui/core"
+import { Box, Button, Dialog, DialogActions, Grid, Paper, Typography } from "@material-ui/core"
+import { useEffect, useMemo, useState } from "react";
 import { Field, useForm, useFormState } from "react-final-form";
 import { useDispatch } from "react-redux";
 import { ConceptosAPI } from "../../api/services/ConceptosAPI";
+import { PagareAPI } from "../../api/services/PagareAPI";
 import { PlanCuentaAPI } from "../../api/services/PlanCuentaAPI";
 import TextFieldAdapter from "../../components/control/TextFieldAdapter";
 import CustomAutocomplete from "../../components/CustomAutocomplete";
+import CustomTable, { ColumnCustomTable } from "../../components/CustomTable";
 import { IConcepto } from "../../models/concepto-model";
 import useBackend from "../../shared/hooks/useBackend";
 import { alertActions } from "../../slices/alert.slice";
+import { date } from "../../utils/utils";
 
 type CobranzasConceptoFormModalProps = {
     open: boolean;
@@ -21,8 +25,17 @@ const CobranzasConceptoFormModal = ({open, onHide, onAceptar}: CobranzasConcepto
     const form = useForm();
     const {values} = useFormState();
     const {data: conceptos, setParams} = useBackend(ConceptosAPI);
+    const [pagare, setPagare] = useState<any[]>([]);
+    const [pagareDetalle, setPagareDetalle] = useState<any[]>([]);
 
-    const esAporteOSolidaridad = values.detalle && (values.detalle.descripcion.indexOf('aporte') > -1 || values.detalle.descripcion.indexOf('solidaridad') > -1)
+    const esAporteOSolidaridad = (values.detalle.descripcion.indexOf('aporte') > -1 || values.detalle.descripcion.indexOf('solidaridad') > -1)
+
+    const esPagare = values.detalle.descripcion.indexOf('pagare') > -1
+
+    // Quitar el pagare
+    useEffect(() => {        
+        setPagare([]);
+    }, [onHide])
 
     const quitarDetalle = (row: any) => {
 
@@ -69,6 +82,10 @@ const CobranzasConceptoFormModal = ({open, onHide, onAceptar}: CobranzasConcepto
                 form.change('detalle.descripcion', item.conceptoNombre + ' ' + mes + '/' + anho);
             }
 
+            if (item.conceptoNombre === 'pagare') {                                
+                setPagare([...data]);                                
+            }
+
         } catch(e) {
             console.log(e);
         }
@@ -82,7 +99,61 @@ const CobranzasConceptoFormModal = ({open, onHide, onAceptar}: CobranzasConcepto
         });
     }
 
+    const fetchDetalle = async (row: any) => {
+        try {
+            console.log(row.planCuentaId);
+            const data = await PagareAPI.getDeudasById(row.id); 
+            setPagareDetalle([...data])
 
+        } catch(e) {
+            console.log(e);
+        }
+    }
+
+    const handleCheckboxRow = (items: any) => {
+        console.log(items);
+    }
+    
+    
+
+
+    const columns = useMemo(() => [
+        {
+            key: 'codigo',
+            label: 'N°',                
+        },
+        {
+            key: 'titular',
+            label: 'Titular',          
+        },
+        {
+            key: 'plazo',
+            label: 'Plazo',          
+        },
+        {
+            key: 'total',
+            label: 'Total',                      
+        },                                 
+    ] as ColumnCustomTable[], []) 
+
+    const columnsDetalle = useMemo(() => [
+        {
+            key: 'fechaVencimiento',
+            label: 'Fecha vencimiento',                
+        },
+        {
+            key: 'numCuota',
+            label: 'Cuota',          
+        },
+        {
+            key: 'interes',
+            label: 'Interes',          
+        },
+        {
+            key: 'monto',
+            label: 'Monto',          
+        },                                 
+    ] as ColumnCustomTable[], []) 
 
     return (
         <>
@@ -119,7 +190,7 @@ const CobranzasConceptoFormModal = ({open, onHide, onAceptar}: CobranzasConcepto
                         </Grid>
                         <Grid item xs={12}>
                             {esAporteOSolidaridad ? (
-                                <Field 
+                                <Field  
                                     fullWidth 
                                     label={'Monto'}
                                     placeholder="Monto" 
@@ -127,10 +198,37 @@ const CobranzasConceptoFormModal = ({open, onHide, onAceptar}: CobranzasConcepto
                                     component={TextFieldAdapter}                                             
                                 />
                             ): null}
-                        </Grid>
+                        </Grid> 
+                        {pagare && pagare.length ? (
+                            <>
+
+                                <Grid item xs={12}>
+                                    <Box>
+                                        <CustomTable 
+                                            columns={columns} 
+                                            data={pagare} 
+                                            paginate={false} 
+                                            hover
+                                            onClickRow={fetchDetalle}
+                                        />
+                                    </Box>
+                                </Grid>
+                                <Grid item xs={12} mt={0}>                                    
+                                    <Box>
+                                        <CustomTable 
+                                            columns={columnsDetalle} 
+                                            data={pagareDetalle} 
+                                            paginate={false}  
+                                            onCheckboxRow={handleCheckboxRow}                                                                                       
+                                        />
+                                    </Box>
+                                </Grid>
+                            </>
+                        ): null}                        
                     </Grid> 
                     <DialogActions sx={{mt:2}}>
-                        <Button onClick={onHide} disabled={false}>Cancelar</Button>
+                        
+                        <Button onClick={onHide} disabled={false}>Cancelar</Button>                                                
                         <Button onClick={onAceptar} disabled={!values?.detalle?.planCuentaId} variant="contained">
                             Aceptar
                         </Button>

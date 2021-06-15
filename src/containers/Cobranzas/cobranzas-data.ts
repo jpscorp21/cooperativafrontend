@@ -13,7 +13,7 @@ export const cobranzaInitialDetalle: any = () => ({
   descripcion: '',
   planCuentaId: '',
   cobranzaId: '', 
-  mostrarImporte: false    
+  mostrarImporte: false,    
 })
 
 export const cobranzaInitialForm = () => ({
@@ -27,6 +27,7 @@ export const cobranzaInitialForm = () => ({
   observacion: "",
   total: 0,
   vuelto: 0,  
+  pagare: [],
   detalle: cobranzaInitialDetalle(),  
   detalles: [] as ICobranzaDetalle[]
 });

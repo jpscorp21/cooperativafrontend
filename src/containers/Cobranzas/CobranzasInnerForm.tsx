@@ -52,6 +52,8 @@ const CobranzasInnerForm = () => {
             return Number(ant) + Number(actual.monto);
         }, 0);
 
+        form.change('total', total);
+
         console.log(total);
 
     }, [values.detalle])
@@ -214,6 +216,7 @@ const CobranzasInnerForm = () => {
                         columns={columns}
                         data={values.detalles || []}
                         paginate={false}
+                        
                     />                    
                 </Box>  
                 <Box pt={2} sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start'}}>
@@ -232,8 +235,8 @@ const CobranzasInnerForm = () => {
                         p={2}
                     >
                         <Box textAlign="right" sx={{display: 'flex',flexDirection: 'column'}}>
-                            <Typography fontSize="14px" pb={1} component="span">Subtotal: <b>Gs. 100000</b></Typography>
-                            <Typography fontSize="14px">Total: <b>Gs. 100000</b></Typography>
+                            <Typography fontSize="14px" pb={1} component="span">Subtotal: <b>Gs. {values.total}</b></Typography>
+                            <Typography fontSize="14px">Total: <b>Gs. {values.total}</b></Typography>
                         </Box>
                     </Box>            
                 </Box>                         

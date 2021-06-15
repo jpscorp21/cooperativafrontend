@@ -123,7 +123,7 @@ const Conceptos = () => {
             columns={columns}             
             data={data?.items ? data?.items : []} 
             totalCount={data?.totalCount}
-            onPageChange={(value) => setParams(value, 'pageNumber')}
+            onPageChange={(value) => setParams(value, 'pageNumber')}               
           />  
         </Box>
       </Paper>            
