@@ -16,7 +16,7 @@ import { date } from "../../utils/utils";
 type CobranzasConceptoFormModalProps = {
     open: boolean;
     onHide(e: any): void;
-    onAceptar(): void;
+    onAceptar(cuenta?: string): void;
 }
 
 const CobranzasConceptoFormModal = ({open, onHide, onAceptar}: CobranzasConceptoFormModalProps) => {
@@ -27,10 +27,9 @@ const CobranzasConceptoFormModal = ({open, onHide, onAceptar}: CobranzasConcepto
     const {data: conceptos, setParams} = useBackend(ConceptosAPI);
     const [pagare, setPagare] = useState<any[]>([]);
     const [pagareDetalle, setPagareDetalle] = useState<any[]>([]);
+    const [pagareDetalleSelected, setPagareDetalleSelected] = useState<any>([]);
 
     const esAporteOSolidaridad = (values.detalle.descripcion.indexOf('aporte') > -1 || values.detalle.descripcion.indexOf('solidaridad') > -1)
-
-    const esPagare = values.detalle.descripcion.indexOf('pagare') > -1
 
     // Quitar el pagare
     useEffect(() => {        
@@ -101,7 +100,7 @@ const CobranzasConceptoFormModal = ({open, onHide, onAceptar}: CobranzasConcepto
 
     const fetchDetalle = async (row: any) => {
         try {
-            console.log(row.planCuentaId);
+            form.change('detalle.planPagoId', row.planPagoId);
             const data = await PagareAPI.getDeudasById(row.id); 
             setPagareDetalle([...data])
 
@@ -111,9 +110,41 @@ const CobranzasConceptoFormModal = ({open, onHide, onAceptar}: CobranzasConcepto
     }
 
     const handleCheckboxRow = (items: any) => {
+        setPagareDetalleSelected([...items]);
         console.log(items);
     }
     
+    const onAceptarPagare = () => {
+
+        if (!pagareDetalleSelected.length) {
+            return;
+        }
+
+        const newDetalles = [...pagareDetalleSelected];
+        
+        const dataForSave: any[] = newDetalles.map((detalle, index) => {
+            return {
+              monto: detalle.montoCuota,
+              montoCuota: detalle.montoCuota,
+              idDetalle: detalle.id,
+              numItem: values.detalles.length + (index + 1),
+              mostrarImporte: false, 
+              planCuentaId: values.detalle.planCuentaId,
+              conceptoId: values.detalle.conceptoId,
+              concepto: values.detalle.concepto,
+              cuota: detalle.numCuota,
+              descripcion: 'credito ' + detalle.numCuota + '/' + values.detalle.plazo,
+              cobranzaId: '',
+            }
+        })
+
+        console.log('dataForSave', dataForSave);
+        
+        form.change('detalles', [
+            ...values.detalles,
+            {...values.detalle, numItem: values.detalles.length + 1}            
+        ])
+    }
     
 
 
@@ -229,9 +260,17 @@ const CobranzasConceptoFormModal = ({open, onHide, onAceptar}: CobranzasConcepto
                     <DialogActions sx={{mt:2}}>
                         
                         <Button onClick={onHide} disabled={false}>Cancelar</Button>                                                
-                        <Button onClick={onAceptar} disabled={!values?.detalle?.planCuentaId} variant="contained">
-                            Aceptar
-                        </Button>
+                        {
+                            pagareDetalle && pagareDetalle.length ? (
+                                <Button onClick={() => onAceptarPagare()} disabled={!values?.detalle?.planCuentaId} variant="contained">
+                                    Aceptar
+                                </Button>        
+                            ) : (
+                                <Button onClick={() => onAceptar('pagare')} disabled={!values?.detalle?.planCuentaId} variant="contained">
+                                    Aceptar
+                                </Button>
+                            )
+                        }
                         </DialogActions>     
                 </Paper>
             </Dialog>
