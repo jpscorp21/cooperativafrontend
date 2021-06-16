@@ -1,9 +1,11 @@
 import { Alert, Button, Container, Paper, TextField, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
+import { useAtom } from "jotai";
 import { useEffect, useRef, useState } from "react";
 import { useHistory } from "react-router";
 import { AuthAPI } from "../../api/services/AuthAPI";
 import theme from "../../config/theme";
+import usuarioAtom from "../../shared/atoms/usuarioAtom";
 
 const useStyles = makeStyles((theme2) => ({
   paper: {
@@ -30,6 +32,7 @@ const Login = () => {
   const history = useHistory();
 
   const classes = useStyles();
+  const [usuario, setUsuario] = useAtom(usuarioAtom);
   const usuarioRef = useRef<HTMLInputElement | null>();
   const passwordRef = useRef<HTMLInputElement | null>();
 
@@ -74,6 +77,8 @@ const Login = () => {
       }
 
       localStorage.setItem('estrella', JSON.stringify(data));
+      setUsuario({...data});
+      
       history.push('/');
     })
     .catch((e) => {

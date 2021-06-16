@@ -1,4 +1,4 @@
-import { AppBar, Box, Collapse, Divider, Drawer, IconButton, List, Toolbar, Typography } from '@material-ui/core';
+import { AppBar, Avatar, Box, Collapse, Divider, Drawer, IconButton, List, Toolbar, Typography } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import clsx from 'clsx';
@@ -9,6 +9,10 @@ import useResponsive from '../utils/hooks/useResponsive';
 import { useHistory } from 'react-router';
 import { makeStyles } from '@material-ui/styles';
 import theme from '../config/theme';
+import { useLocalStorageState } from 'ahooks';
+import { useAtom } from 'jotai';
+import usuarioAtom from '../shared/atoms/usuarioAtom';
+import { deepOrange } from '@material-ui/core/colors';
 
 const drawerWidth = 300;
 const breakpointDrawer = 'md';
@@ -102,13 +106,19 @@ const AppSidebar = ({children}: PropsWithChildren<{}>) => {
   const history = useHistory();
 
   const classes = useStyles();
+  const [usuario] = useAtom<any>(usuarioAtom);
   
   const [open, setOpen] = React.useState(true); 
   const [openCollapse, setOpenCollapse] = React.useState<{[key: string]: boolean}>({});
+  // const [usuario, setUsuario] = useLocalStorageState('estrella');
 
   const { desktop } = useResponsive();
 
-  const menuSidebar = useMemo(() => [...menu], []);  
+  const menuSidebar = useMemo(() => [...menu], []); 
+  
+  useEffect(() => {
+    console.log(usuario);
+  }, [])
 
   useEffect(() => {     
     if (desktop) {
@@ -140,7 +150,20 @@ const AppSidebar = ({children}: PropsWithChildren<{}>) => {
   }
 
   const contentDrawer = (
-    <div>             
+    <div>     
+          {
+            usuario && usuario.id ? (
+            <Box paddingTop="65px" pl={2} sx={{display: 'flex'}}>
+              <Avatar variant="square" sx={{background: deepOrange[500], mr: 1, fontWeight: 'bold'}}>{usuario.nombre[0]}</Avatar>
+              <Box display="flex" flexDirection={'column'} justifyContent="start">
+                <Typography fontWeight="bold" sx={{textTransform: 'capitalize'}} >{usuario.nombre || ''} {usuario.apellido || ''}<br/> <small style={{fontWeight: 'normal'}}>{usuario.role}</small></Typography>
+               
+              </Box>
+            </Box>
+            ) : null
+          }
+          
+
         <List>
           { 
             menuSidebar.map((item, index) => (

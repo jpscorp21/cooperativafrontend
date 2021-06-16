@@ -54,42 +54,50 @@ const theme = createTheme({
         }
       }     
     },
+    MuiTable: {
+      styleOverrides: {
+        root: {
+          borderCollapse: 'initial'
+        }
+      }
+    },
     MuiTableRow: {
       styleOverrides: {
         head: {
           paddintTop: '8px',
-          paddintBottom: '8px',
-          borderTop: '1px solid ' + grey[300],          
-          backgroundColor: '',          
+          paddintBottom: '8px',                              
         },
-        root: {                    
-          borderBottom: '1px solid ' + grey[300],
+        root: {  
+          border: 'none',
+          // border: '1px solid red'                  
+          // borderBottom: '1px solid red !important',
            
           // hide last border
           // '&:nth-of-type(odd)': {
           //   backgroundColor: '#F4F8FB',
           // },
-          '&:last-child td, &:last-child th': {
-            border: 0,
-          },
-        }
+          // '&:last-child td, &:last-child th': {
+          //   border: 0,
+          // },
+        },
       }
-    },
+    },    
     MuiTableCell: {
       styleOverrides: {        
         head: { 
           color: grey[900],       
           fontWeight: 'bold',
+          borderTop: '1px solid ' + grey[300],          
           // background: '#EBEBEB',            
         },
         root: {          
           paddingTop: 5,
           paddingBottom: 5,
-          fontSize: '14px'
-          
+          fontSize: '14px',
+          // border: 'none'
         },
         body: {           
-          
+          // border: '1px solid red'
         }
       }      
     },
@@ -123,7 +131,17 @@ const theme = createTheme({
           
         }
       }
-    }
+    },
+    MuiListItemText: {
+      styleOverrides: {
+        root: {
+          fontSize: '36px !important',
+
+        },
+      
+      }
+    },
+    
   }
 }, esES);
 

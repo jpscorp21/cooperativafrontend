@@ -1,19 +1,27 @@
-import { TableCell } from "@material-ui/core";
-import { FormApi } from "final-form";
+import { Box, Paper, Stack, TableCell } from "@material-ui/core";
+import { FormApi, FORM_ERROR } from "final-form";
 import { useMemo, useState } from "react";
+import { useMutation, useQuery } from "react-query";
+import { UsuariosAPI } from "../../api/services/UsuariosAPI";
 import AccionesCell from "../../components/AccionesCell";
+import BusquedaInput from "../../components/BusquedaInput";
+import ButtonActionContainer from "../../components/ButtonActionContainer";
 import ConfirmDialog from "../../components/ConfirmDialog";
-import { ColumnCustomTable } from "../../components/CustomTable";
+import CustomTable, { ColumnCustomTable } from "../../components/CustomTable";
+import Spacer from "../../components/Spacer";
 import TituloContainer from "../../components/TituloContainer";
+import queryClient from "../../config/queryClient";
+import UsuariosFormModal from "./UsuariosFormModal";
 
 const initialForm = () => ({
   email: '',
-  usuario: '',
+  userName: '',
   password: '',
   nombre: '',
   apellido: '',
   role: '',
-  observacion: ''
+  observacion: '',
+  password_confirmation: ''
 }) 
 
 const Usuarios = () => {
@@ -22,13 +30,20 @@ const Usuarios = () => {
   const [openModal, setOpenModal] = useState(false); 
   const [formData, setFormData] = useState<any>(initialForm());   
 
+  const {data} = useQuery('usuarios', UsuariosAPI.getAll);
+  const create = useMutation(UsuariosAPI.createUser);
+
+  const refresh = () => {
+    queryClient.invalidateQueries('usuarios');
+  }
+
   const handleNew = () => {
     setFormData(initialForm());
     setOpenModal(true);
   }  
 
   const handleEditar = (item: any) => {
-    setFormData({...item});
+    setFormData({...item, usuario: item.userName});
     setOpenModal(true);
   }
 
@@ -51,6 +66,12 @@ const Usuarios = () => {
   }  
 
   const onSubmit = async (values: any, form: FormApi) => {   
+
+    if (values.password !== values.password_confirmation) {
+      return { [FORM_ERROR]: 'Las contraseñas no son iguales' }
+    }
+
+
     console.log(values);
     form.restart()    
     if (values.id) {
@@ -64,21 +85,17 @@ const Usuarios = () => {
       return;
     }
 
-    // create.mutate(values, {
-    //   onSuccess() {    
-    //     handleCloseModal();     
-    //     refresh();  
-    //     form.restart();
-    //   }
-    // })    
+    create.mutate(values, {
+      onSuccess() {    
+        handleCloseModal();     
+        refresh();  
+        form.restart();
+      }
+    })    
   }  
   
   
-  const columns = useMemo(() => [
-    {
-      key: 'codigo',
-      label: 'Codigo',          
-    },
+  const columns = useMemo(() => [  
     {
       key: 'nombre_completo',
       label: 'Usuario',            
@@ -89,35 +106,58 @@ const Usuarios = () => {
       )
     },
     {
-      key: 'usuario',
+      key: 'userName',
       label: 'Usuario',          
     },        
     {
       key: 'email',
       label: 'Correo',          
-    },        
-    {
-      key: 'observacion',
-      label: 'Observación',                  
-    },        
-    {
-      key: 'acciones',
-      label: 'Acciones',
-      align: 'right',
-      render: (item: any) => <AccionesCell item={item} onEditar={handleEditar} onEliminar={handleOpenConfirmEliminar} />
-    },
+    },              
+    // {
+    //   key: 'acciones',
+    //   label: 'Acciones',
+    //   align: 'right',
+    //   render: (item: any) => <AccionesCell item={item} onEditar={handleEditar} onEliminar={handleOpenConfirmEliminar} />
+    // },
   ] as ColumnCustomTable[], [])  
 
   return (
     <>
-      <TituloContainer>Usuarios</TituloContainer>  
+      <TituloContainer>Usuarios</TituloContainer>          
+        
+
+      <Paper sx={{mx: 2, pb: 2}}>
+        <Stack spacing={2} direction={{xs: 'column', sm: 'row'}} sx={{px: 2, py: 2}}>
+          {/* <BusquedaInput 
+            placeholder="Buscar ciudad" 
+            onChange={(value) => setParams(value, 'searchQuery')}
+          />                 */}
+          <Spacer />          
+          <ButtonActionContainer onNew={handleNew} onRefresh={refresh} />                        
+        </Stack>
+        <Box>
+            <CustomTable                 
+                columns={columns} 
+                data={data || []} 
+                totalCount={data ? data.length : 0}                
+                paginate={false}
+            />  
+        </Box>      
+      </Paper>  
+
+      <UsuariosFormModal                                                          
+        openModal={openModal}
+        handleCloseModal={handleCloseModal}
+        onSubmit={onSubmit}
+        formData={formData}
+      />
 
       <ConfirmDialog 
         openModal={openConfirmModal}
         onAceptar={handleEliminar}
         message="Estás seguro de eliminar el usuario?"
         handleCloseModal={() => setOpenConfirmModal(false)}
-      />    
+      />   
     </>
   )
 }

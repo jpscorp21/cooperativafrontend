@@ -222,16 +222,16 @@ interface MenuItemProps {
   submenu?: any
 }
 
-const colorText: any = {color: '#37474f'}
+const colorText: any = {color: '#37474f', fontSize: '24px'}
 
 export const MenuItem = ({menu, click, collapse, submenu}: MenuItemProps) => (
   <>
-  <ListItem button key={menu.text} onClick={() => click(menu)} sx={{pl: submenu ?  4 : ''}}>
+  <ListItem button key={menu.text} onClick={() => click(menu)} sx={{pl: submenu ?  4 : '', fontSize: '24px'}}>
     <ListItemIcon sx={{colorText}}>
       {menu.icon}
     </ListItemIcon>  
     
-    <ListItemText sx={colorText}>{menu.text}</ListItemText> 
+    <ListItemText sx={{...colorText, fontSize: 24, my: 0}}><span style={{fontSize: '14px'}}>{menu.text}</span></ListItemText> 
     {menu.submenu && menu.submenu.length ? 
       collapse[menu.text] ? <ExpandLessIcon sx={colorText} /> : < ExpandMoreIcon sx={{colorText}} /> : null
     }                   
