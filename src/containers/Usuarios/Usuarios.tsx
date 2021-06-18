@@ -14,6 +14,7 @@ import MoreIcon from '@material-ui/icons/MoreVert'
 import theme from "../../config/theme";
 import { red } from "@material-ui/core/colors";
 import BusquedaInput from "../../components/BusquedaInput";
+import UsuarioPasswordFormModal from "./UsuarioPasswordFormModal";
 
 const initialForm = () => ({
   email: '',
@@ -32,12 +33,15 @@ const Usuarios = () => {
   const [anchor, setAnchor] = useState<any>(null);
   const [openConfirmModal, setOpenConfirmModal] = useState(false); 
   const [openModal, setOpenModal] = useState(false); 
+  const [openModalPassword, setOpenModalPassword] = useState(false)
   const [formData, setFormData] = useState<any>(initialForm()); 
   
   const [params, setParams] = useState({searchQuery: ''})
 
   const {data} = useQuery(['usuarios', params], () => UsuariosAPI.getAll(params), {keepPreviousData: true});
   const create = useMutation(UsuariosAPI.createUser);
+  const update = useMutation(UsuariosAPI.updateUser);
+  const resetPassword = useMutation(UsuariosAPI.resetPassword);
 
   const activos = useMemo<any>(() => ({
     "true": {
@@ -60,7 +64,7 @@ const Usuarios = () => {
   }  
 
   const handleEditar = (item: any) => {
-    closePopoverUsuario();
+    setOpenPopover(false);
     setFormData({...item, usuario: item.userName});
     setOpenModal(true);
   }
@@ -88,23 +92,30 @@ const Usuarios = () => {
     setOpenModal(false);
   }  
 
+  const handleCloseModalPassword = () => {
+    setOpenModalPassword(false);
+  }
+  
+
   const onSubmit = async (values: any, form: FormApi) => {   
 
     if (values.password !== values.password_confirmation) {
       return { [FORM_ERROR]: 'Las contraseñas no son iguales' }
     }
-
-
-    console.log(values);
+    
     form.restart()    
     if (values.id) {
-      // update.mutate(({body: values, id: values.id}), {
-      //   onSuccess() {    
-      //     handleCloseModal();     
-      //     refresh();
-      //     form.restart();
-      //   }
-      // }) 
+      const itemForUpdate = {
+        ...values, userName: values.usuario
+      }
+      delete itemForUpdate.usuario;
+      update.mutate(({...itemForUpdate}), {
+        onSuccess() {    
+          handleCloseModal();     
+          refresh();
+          form.restart();
+        }
+      }) 
       return;
     }
 
@@ -115,7 +126,29 @@ const Usuarios = () => {
         form.restart();
       }
     })    
-  }  
+  } 
+  
+  const onSubmitPassword = async (values: any, form: FormApi) => {
+    
+    if (values.password !== values.passwordConfirmation) {
+      return { [FORM_ERROR]: 'Las contraseñas no son iguales' }
+    }
+
+    const dataForChange = {
+      id: formData.id,
+      ...values
+    }
+
+    resetPassword.mutate(dataForChange, {
+      onSuccess() {    
+        handleCloseModal(); 
+        setOpenModalPassword(false);    
+        refresh();  
+        form.restart();
+      }
+    })  
+  }
+  
 
   const openPopoverUsuario = (event: any, item: any) => {
     setAnchor(event.currentTarget);   
@@ -131,13 +164,24 @@ const Usuarios = () => {
   }
 
   const cambiarPassword = () => {
-    const item = {...formData};
-    closePopoverUsuario();
+    setOpenPopover(false);    
+    setOpenModalPassword(true);
 
   }
   
   const anular = () => {
+    setOpenPopover(false);
     const item = {...formData};
+    item.activo = !item.activo;
+    if (item.id) {
+      update.mutate(({...item}), {
+        onSuccess() {              
+          handleCloseModal();     
+          refresh();          
+        }
+      }) 
+      return;
+    }
     closePopoverUsuario();
 
 
@@ -223,6 +267,14 @@ const Usuarios = () => {
         formData={formData}
       />
 
+      <UsuarioPasswordFormModal                                                          
+        openModal={openModalPassword}
+        handleCloseModal={handleCloseModalPassword}
+        onSubmit={onSubmitPassword}
+        formData={{}}
+        loading={resetPassword.isLoading}
+      />
+
       <ConfirmDialog 
         openModal={openConfirmModal}
         onAceptar={handleEliminar}
@@ -252,8 +304,8 @@ const Usuarios = () => {
 
           <ListItem button onClick={cambiarPassword} sx={{py: 1}}>              
               <ListItemText primary={"Cambiar contraseña"} />
-          </ListItem>
-
+          </ListItem>               
+          
           <ListItem button onClick={anular} sx={{py: 1}}>              
               <ListItemText primary={formData && formData.activo ? 'Anular' : 'Activar'} />
           </ListItem>

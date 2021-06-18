@@ -33,9 +33,10 @@ const UsuariosFormModal = ({openModal, handleCloseModal, onSubmit, formData}: Us
         <Form 
           onSubmit={onSubmit}
           initialValues={{...formData}}                         
-          render={({handleSubmit, submitError}) => (          
+          render={({handleSubmit, submitError, values}) => (          
             <>              
               <form onSubmit={handleSubmit}>
+                
                 <Grid container spacing={2}>                                    
                   <Grid item xs={12} sm={6}>
                     <Field 
@@ -49,8 +50,7 @@ const UsuariosFormModal = ({openModal, handleCloseModal, onSubmit, formData}: Us
                   <Grid item xs={12} sm={6}>
                     <Field 
                       name="apellido"           
-                      fullWidth 
-                      validate={required}
+                      fullWidth                       
                       component={TextFieldAdapter}                       
                       label="Apellido"                             
                     />           
@@ -73,38 +73,48 @@ const UsuariosFormModal = ({openModal, handleCloseModal, onSubmit, formData}: Us
                       label="Correo"                             
                     />           
                   </Grid>
-                  <Grid item xs={12}>
-                    <Field 
-                      name="role"           
-                      fullWidth 
-                      validate={required}
-                      component={SelectAdapter}  
-                      optionlabel="name"
-                      optionvalue="id"
-                      options={roles}                     
-                      label="Cargo"                             
-                    />           
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Field 
-                      type="password"
-                      name="password"           
-                      fullWidth 
-                      validate={required}
-                      component={TextFieldAdapter}                       
-                      label="Contraseña"                             
-                    />           
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Field 
-                      type="password"
-                      name="password_confirmation"           
-                      fullWidth 
-                      validate={required}
-                      component={TextFieldAdapter}                       
-                      label="Confirmar contraseña"                             
-                    />           
-                  </Grid>
+                  {
+                    values && values.role !== "1" ? (
+                      <Grid item xs={12}>
+                        <Field 
+                          name="role"           
+                          fullWidth 
+                          validate={required}
+                          component={SelectAdapter}  
+                          optionlabel="name"
+                          optionvalue="id"
+                          options={roles}                     
+                          label="Cargo"                             
+                        />           
+                      </Grid>                  
+                    ) : null
+                  }
+                  {
+                    values && !values.id ? (
+                      <>
+                        <Grid item xs={12}>
+                          <Field 
+                            type="password"
+                            name="password"           
+                            fullWidth 
+                            validate={required}
+                            component={TextFieldAdapter}                       
+                            label="Contraseña"                             
+                          />           
+                        </Grid>
+                        <Grid item xs={12}>
+                          <Field 
+                            type="password"
+                            name="password_confirmation"           
+                            fullWidth 
+                            validate={required}
+                            component={TextFieldAdapter}                       
+                            label="Confirmar contraseña"                             
+                          />           
+                        </Grid>
+                      </>
+                    ) : null
+                  }
                   <Grid item xs={12}>
                     <Field 
                       name="observacion"           
