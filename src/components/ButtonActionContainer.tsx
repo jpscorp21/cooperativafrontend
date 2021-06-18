@@ -15,12 +15,14 @@ const ButtonActionContainer = ({children, onNew, onRefresh}: React.PropsWithChil
             <Button 
                 variant="outlined"                                                       
                 onClick={onRefresh}  
+                size="small"
                 startIcon={<RefreshIcon />}>
                 Refrescar
             </Button>
             <Button 
                 variant="contained"                                 
-                onClick={onNew}  
+                onClick={onNew}
+                size="small"  
                 startIcon={<AddIcon />}>
                 Nuevo
             </Button>                        

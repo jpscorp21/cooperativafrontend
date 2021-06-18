@@ -9,10 +9,10 @@ import useResponsive from '../utils/hooks/useResponsive';
 import { useHistory } from 'react-router';
 import { makeStyles } from '@material-ui/styles';
 import theme from '../config/theme';
-import { useLocalStorageState } from 'ahooks';
 import { useAtom } from 'jotai';
 import usuarioAtom from '../shared/atoms/usuarioAtom';
 import { deepOrange } from '@material-ui/core/colors';
+import { menuRole } from '../data/menu-data';
 
 const drawerWidth = 300;
 const breakpointDrawer = 'md';
@@ -156,8 +156,9 @@ const AppSidebar = ({children}: PropsWithChildren<{}>) => {
             <Box paddingTop="65px" pl={2} sx={{display: 'flex'}}>
               <Avatar variant="square" sx={{background: deepOrange[500], mr: 1, fontWeight: 'bold'}}>{usuario.nombre[0]}</Avatar>
               <Box display="flex" flexDirection={'column'} justifyContent="start">
-                <Typography fontWeight="bold" sx={{textTransform: 'capitalize'}} >{usuario.nombre || ''} {usuario.apellido || ''}<br/> <small style={{fontWeight: 'normal'}}>{usuario.role}</small></Typography>
-               
+
+                <Typography pb={0} mb={0} fontWeight="bold" sx={{textTransform: 'capitalize'}} >{usuario.nombre || ''} {usuario.apellido || ''}<small style={{fontWeight: 'normal'}}></small></Typography>
+                <small style={{paddingTop: '8px ', margin: 0, lineHeight: '0', color: '#777'}}>{usuario.role}</small>
               </Box>
             </Box>
             ) : null
@@ -166,7 +167,7 @@ const AppSidebar = ({children}: PropsWithChildren<{}>) => {
 
         <List>
           { 
-            menuSidebar.map((item, index) => (
+            !usuario || !usuario.id ? [] : menuRole[usuario.roleId].map((item, index) => (
               <React.Fragment key={index}>
               <MenuItem menu={item} click={handleDrawerClick} collapse={openCollapse} />
               <Divider sx={{mx: 2}} />            

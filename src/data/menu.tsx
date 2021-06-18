@@ -7,6 +7,7 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ArchiveIcon from '@material-ui/icons/Business';
 import React from 'react';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 
 export interface Menu { 
@@ -212,7 +213,11 @@ export const menu: Menu[] = [
     text: 'Acerca de', 
     url: '/acerca-de' 
   },
-  
+  { 
+    icon: <ExitToAppIcon></ExitToAppIcon>, 
+    text: 'Salir',  
+    url: '/login' 
+  },
 ]
 
 interface MenuItemProps {
