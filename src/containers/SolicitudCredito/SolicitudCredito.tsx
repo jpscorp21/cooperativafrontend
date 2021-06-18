@@ -1,4 +1,4 @@
-import { Box, Chip, IconButton, MenuItem, Paper, Select, Stack, TableCell } from "@material-ui/core";
+import { Box, Chip, FormControl, IconButton, InputLabel, MenuItem, Paper, Select, Stack, TableCell } from "@material-ui/core";
 import { ChangeEvent, useMemo, useState } from "react"
 import { useHistory } from "react-router";
 import { SolicitudCreditoAPI } from "../../api/services/SolicitudCreditoAPI";
@@ -105,7 +105,7 @@ const SolicitudCredito = () => {
           </span> 
         </TableCell>
       )                 
-    },        
+    },              
     {
       key: 'acciones',
       label: 'Acciones',
@@ -132,16 +132,19 @@ const SolicitudCredito = () => {
           <BusquedaInput 
             placeholder="Buscar solicitud crédito" 
             onChange={(value) => setParams(value, 'searchQuery')}
-          />               
-           <Select                 
-              value={estadoSelected}
-              onChange={handleChangeEstadoSelect}
-              label="ciudad"          
+          />
+          <FormControl variant="outlined" size="small">
+            {/* <InputLabel id="demo-simple-select-label"></InputLabel>                */}
+            <Select                 
+                value={estadoSelected}              
+                onChange={handleChangeEstadoSelect}
+                
             >
-                  <MenuItem value={'pendiente'} selected>Pendientes</MenuItem>
-                  <MenuItem value={'aprobado'}>Aprobados</MenuItem>
-                  <MenuItem value={'rechazado'}>Rechazados</MenuItem>
+              <MenuItem value={'pendiente'} selected>Pendientes</MenuItem>
+              <MenuItem value={'aprobado'}>Aprobados</MenuItem>
+              <MenuItem value={'rechazado'}>Rechazados</MenuItem>
             </Select>  
+          </FormControl>
           <Spacer />          
           <ButtonActionContainer onNew={handleNew} onRefresh={refresh} />                        
         </Stack>

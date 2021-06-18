@@ -1,10 +1,14 @@
 import api from "..";
 
+const defaultParams = () => ({
+  searchQuery: '',  
+})
+ 
 export const UsuariosAPI = {
 
-    async getAll() {
+    async getAll(params = defaultParams() ) {
         try {
-            const { data } = await api.get(`auth/usuarios`);
+            const { data } = await api.get(`auth/usuarios`, {params});
             return data;
           } catch (e) {
             console.log(e);
