@@ -190,7 +190,7 @@ const CobranzasConceptoFormModal = ({open, onHide, onAceptar}: CobranzasConcepto
         <>
             <Dialog open={open} onClose={onHide} fullWidth>
                 <Paper elevation={6} sx={{p: 2}}>
-                    <pre>{JSON.stringify(values.detalle, null, 2)}</pre>
+                    {/* <pre>{JSON.stringify(values.detalle, null, 2)}</pre> */}
                     <Typography variant="h5" component="h5" sx={{pb: 4}}>
                         Nueva cuenta             
                     </Typography>  
