@@ -18,7 +18,6 @@ import { SociosAPI } from "../../api/services/SociosAPI"
 import useSearchText from "../../utils/hooks/useSearchText"
 import { ISocio } from "../../models/socio-model"
 import { ModalidadPagoAPI } from "../../api/services/ModalidadPagoAPI"
-import { validateLocaleAndSetLanguage } from "typescript"
 
 
 const SolicitudCreditoInnerForm = () => {

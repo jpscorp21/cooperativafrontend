@@ -19,6 +19,7 @@ const SolicitudCreditoForm = () => {
     
     const [formData, setFormData] = useState<any>(solicitudCreditoInitialForm()); 
     const solicitudCreditoAdd = useMutation((body: any) => SolicitudCreditoAPI.create(body))
+    const solicitudCreditoUpdate = useMutation((body: any) => SolicitudCreditoAPI.update(body, body.id))
     const {data: solicitud} = useQuery([SolicitudCreditoAPI.key, params.id], () => SolicitudCreditoAPI.getById(params.id))
 
     useEffect(() => {
@@ -52,11 +53,23 @@ const SolicitudCreditoForm = () => {
     }, [solicitud]);
 
     const onSubmit = async (values: any, form: FormApi) => {           
-        const dataForSave = solicitudCreditoMapForCreate(values);
-        console.log(dataForSave);
+        const dataForSave = solicitudCreditoMapForCreate(values);        
+
+        if (values.id) {
+            solicitudCreditoUpdate.mutate(({...values}), {
+              onSuccess() {    
+                queryClient.invalidateQueries([SolicitudCreditoAPI.key]).then(() => {
+                    history.push('/solicitudcredito');                                              
+                    form.restart();
+                });   
+              }
+            }) 
+            return;
+        }
+
         solicitudCreditoAdd.mutate(dataForSave, {
             onSuccess() {    
-              queryClient.invalidateQueries(SolicitudCreditoAPI.key);   
+              queryClient.invalidateQueries([SolicitudCreditoAPI.key]);   
               history.push('/solicitudcredito');              
               form.restart();
             },      
