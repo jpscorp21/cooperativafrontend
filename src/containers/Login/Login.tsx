@@ -32,7 +32,7 @@ const Login = () => {
   const history = useHistory();
 
   const classes = useStyles();
-  const [usuario, setUsuario] = useAtom(usuarioAtom);
+  const [, setUsuario] = useAtom(usuarioAtom);
   const usuarioRef = useRef<HTMLInputElement | null>();
   const passwordRef = useRef<HTMLInputElement | null>();
 

@@ -1,4 +1,4 @@
-import { Box, Checkbox, Pagination, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@material-ui/core";
+import { Box, Checkbox, Pagination, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow, Typography } from "@material-ui/core";
 import { grey } from "@material-ui/core/colors";
 import React, { useState } from "react";
 
@@ -21,11 +21,11 @@ interface CustomTableProps {
     onClickRow?(item: any): void;
     onCheckboxRow?(item: any): void;
     paginate?: boolean;
-    totalCount?: number;
-
+    totalCount?: number;    
+    footer?: React.ReactNode;
 }
 
-const CustomTable = ({columns, data, onPageChange, count = 100, page = 1, hover = false, onClickRow, paginate = true, totalCount = 0, onCheckboxRow}: CustomTableProps) => {    
+const CustomTable = ({columns, data, onPageChange, count = 100, page = 1, hover = false, onClickRow, paginate = true, totalCount = 0, onCheckboxRow, footer}: CustomTableProps) => {    
 
     const [checkboxItemsSelected, setCheckboxItemsSelected] = useState<any>({});
 
@@ -58,7 +58,7 @@ const CustomTable = ({columns, data, onPageChange, count = 100, page = 1, hover 
     <>
       <Paper sx={{width: '100% ', overflow: 'hidden'}} elevation={0}>
         <TableContainer>
-            <Table>
+            <Table >
                 <TableHead>
                     <TableRow>
                         {onCheckboxRow ? (<TableCell></TableCell>) : null}
@@ -125,6 +125,13 @@ const CustomTable = ({columns, data, onPageChange, count = 100, page = 1, hover 
                         )
                     })}
                 </TableBody>
+                {
+                    footer ? (
+                        <TableFooter>
+                            {footer}                            
+                        </TableFooter>
+                    ) : null
+                }
             </Table>
         </TableContainer>
       </Paper>

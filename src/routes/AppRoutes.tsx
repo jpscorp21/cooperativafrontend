@@ -3,6 +3,7 @@ import AcercaDe from '../containers/AcercaDe/AcercaDe';
 import Aportes from '../containers/Aportes/Aportes';
 import Barrios from '../containers/Barrios/Barrios';
 import CajaAhorroVista from '../containers/CajaAhorro/CajaAhorroVista';
+import CajaAhorroVistaLista from '../containers/CajaAhorro/CajaAhorroVistaLista';
 import Ciudades from '../containers/Ciudades/Ciudades';
 import Cobranzas from '../containers/Cobranzas/Cobranzas';
 import CobranzasForm from '../containers/Cobranzas/CobranzasForm';
@@ -46,8 +47,11 @@ export const AppRoutes = () => {
       <Route path="/barrios">        
         <Barrios />
       </Route>
-      <Route path="/cajaahorrovista">        
+      <Route exact path="/cajaahorrovista">        
         <CajaAhorroVista />
+      </Route>
+      <Route exact path="/cajaahorrovista/lista">        
+        <CajaAhorroVistaLista />
       </Route>
       <Route path="/ciudades">        
         <Ciudades />

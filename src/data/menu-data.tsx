@@ -39,8 +39,13 @@ export const menuRole: {[key: string]: Menu[]} = {
             submenu: [
               {
                 icon: <DescriptionIcon></DescriptionIcon>,
-                text: 'Ahorros a la Vista',
+                text: 'Buscar ahorro a la Vista',
                 url: '/cajaahorrovista',
+              },
+              {
+                icon: <DescriptionIcon></DescriptionIcon>,
+                text: 'Ahorros a la Vista',
+                url: '/cajaahorrovista/lista',
               },
             ]
         },

@@ -70,8 +70,9 @@ const Socios = () => {
           key: 'acciones',
           label: 'Acciones',
           align: 'right',
-          render: (item: any) => <AccionesCell item={item} onEditar={handleEditar} onEliminar={handleOpenConfirmEliminar} />
+          render: (item: any) => <AccionesCell item={item} onEditar={() => handleEditar(item)} onEliminar={handleOpenConfirmEliminar} />
         },
+        // eslint-disable-next-line
     ] as ColumnCustomTable[], [])  
 
     return (

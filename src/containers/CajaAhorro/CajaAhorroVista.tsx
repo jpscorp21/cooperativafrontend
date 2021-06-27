@@ -179,7 +179,7 @@ const CajaAhorroVista = () => {
         <TableCell>
           <span>Individual</span>
         </TableCell>
-      )
+      ) 
     },    
     {
       key: 'saldo',

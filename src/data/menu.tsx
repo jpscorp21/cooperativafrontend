@@ -134,8 +134,13 @@ export const menu: Menu[] = [
     submenu: [
       {
         icon: <DescriptionIcon></DescriptionIcon>,
-        text: 'Ahorros a la Vista',
+        text: 'Buscar caja de ahorro',
         url: '/cajaahorrovista',
+      },
+      {
+        icon: <DescriptionIcon></DescriptionIcon>,
+        text: 'Ahorros a la Vista',
+        url: '/cajaahorrovista/lista',
       },
     ]
   },

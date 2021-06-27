@@ -35,3 +35,9 @@ export const solicitudCreditoMapForCreate = (data: ISolicitudCredito) => ({
 export const mapCodeudoresForCreate = (codeudor: ISocio) => ({    
     socioId: codeudor.id    
 })
+
+export const mapSolicitudForUpdateEstado = (item: ISolicitudCredito, estado: string) => ({        
+    id: item.id,
+    estadoSolicitud: estado,
+    codigo: item.codigo,      
+})

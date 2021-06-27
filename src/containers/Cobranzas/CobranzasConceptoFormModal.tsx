@@ -11,7 +11,6 @@ import CustomTable, { ColumnCustomTable } from "../../components/CustomTable";
 import { IConcepto } from "../../models/concepto-model";
 import useBackend from "../../shared/hooks/useBackend";
 import { alertActions } from "../../slices/alert.slice";
-import { date } from "../../utils/utils";
 
 type CobranzasConceptoFormModalProps = {
     open: boolean;

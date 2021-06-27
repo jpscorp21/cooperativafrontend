@@ -20,7 +20,7 @@ const ConceptosFormModal = ({openModal, handleCloseModal, formData, onSubmit}: C
             <Form
                 onSubmit={onSubmit}
                 initialValues={{...formData}}
-                render={({handleSubmit, values}) => (
+                render={({handleSubmit}) => (
                     
                     <form onSubmit={handleSubmit}>                        
                         <Grid container sx={{mt:2}}>

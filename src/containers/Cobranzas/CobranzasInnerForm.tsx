@@ -1,23 +1,19 @@
-import { Box, Button, Grid, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@material-ui/core';
+import { Box, Button, Grid, Paper, TableCell, Typography } from '@material-ui/core';
 import { useEffect, useMemo, useState } from 'react'
 import { Field, useForm, useFormState } from 'react-final-form';
-import { useQuery } from 'react-query';
-import { SociosAPI } from '../../api/services/SociosAPI';
+// import { useQuery } from 'react-query';
+// import { SociosAPI } from '../../api/services/SociosAPI';
 import DatePickerAdapter from '../../components/control/DatePickerAdapter';
 import TextFieldAdapter from '../../components/control/TextFieldAdapter';
 import SociosAutocomplete from '../../components/SociosAutocomplete';
 import { ISocio } from '../../models/socio-model';
 import { required } from '../../utils/errorMessages';
-import useSearchText from '../../utils/hooks/useSearchText';
+// import useSearchText from '../../utils/hooks/useSearchText';
 import SaveIcon from '@material-ui/icons/Save';
 import AddIcon from '@material-ui/icons/Add';
-import { FieldArray } from 'react-final-form-arrays';
 import { FacturasAPI } from '../../api/services/FacturasAPI';
-import { red } from '@material-ui/core/colors';
-import DeleteIcon from '@material-ui/icons/Delete';
-import useBackend from '../../shared/hooks/useBackend';
-import { ConceptosAPI } from '../../api/services/ConceptosAPI';
-import CustomAutocomplete from '../../components/CustomAutocomplete';
+// import useBackend from '../../shared/hooks/useBackend';
+// import { ConceptosAPI } from '../../api/services/ConceptosAPI';
 import { cobranzaInitialDetalle } from './cobranzas-data';
 import CobranzasConceptoFormModal from './CobranzasConceptoFormModal';
 import CustomTable, { ColumnCustomTable } from '../../components/CustomTable';
@@ -25,25 +21,26 @@ import AccionesCell from '../../components/AccionesCell';
 
 const CobranzasInnerForm = () => {
 
-    const [searchQuery, setSearchText] = useSearchText();  
-    const [socioId, setSocioId] = useState<any>(null);
+    // const [searchQuery, setSearchText] = useSearchText();  
+    const [, setSocioId] = useState<any>(null);
     const [openConceptoFormModal, setOpenConceptoFormModal] = useState(false);
 
     const form = useForm();
     const {values} = useFormState();
 
-    const {data: socios} = useQuery(
-        ['socio', searchQuery], 
-        () => SociosAPI.getAll({searchQuery, pageSize: 50, pageNumber: 1}),
-        {
-          keepPreviousData: true,             
-        }
-    );
+    // const {data: socios} = useQuery(
+    //     ['socio', searchQuery], 
+    //     () => SociosAPI.getAll({searchQuery, pageSize: 50, pageNumber: 1}),
+    //     {
+    //       keepPreviousData: true,             
+    //     }
+    // );
 
-    const {data: conceptos, setParams} = useBackend(ConceptosAPI);
+    // const {data: conceptos, setParams} = useBackend(ConceptosAPI);
 
     useEffect(() => {
         getUltimaFactura();
+    // eslint-disable-next-line
     }, [])
 
     useEffect(() => {
@@ -55,7 +52,7 @@ const CobranzasInnerForm = () => {
         form.change('total', total);
 
         console.log(total);
-
+    // eslint-disable-next-line 
     }, [values.detalle])
 
     const closeOpenConceptoFormModal = () => {
@@ -153,6 +150,7 @@ const CobranzasInnerForm = () => {
           align: 'right',
           render: (item: any) => <AccionesCell item={item} onEditar={handleEditar} onEliminar={quitarDetalle} />
         },
+    // eslint-disable-next-line 
     ] as ColumnCustomTable[], []) 
     
 

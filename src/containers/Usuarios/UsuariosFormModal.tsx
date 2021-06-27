@@ -1,5 +1,5 @@
-import React, { useMemo } from 'react'
-import { Grid, Paper, Typography, TextField, Dialog, Box, Button, Alert  } from '@material-ui/core'
+import { useMemo } from 'react'
+import { Grid, Paper, Typography, Dialog, Box, Button, Alert  } from '@material-ui/core'
 import { Field, Form } from 'react-final-form'
 import TextFieldAdapter from '../../components/control/TextFieldAdapter'
 import { FormModalProps } from '../../types'

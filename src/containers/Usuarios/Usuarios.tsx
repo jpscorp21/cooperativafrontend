@@ -1,4 +1,4 @@
-import { Avatar, Box, Chip, IconButton, List, ListItem, ListItemAvatar, ListItemText, Paper, Popover, Stack, TableCell, Typography } from "@material-ui/core";
+import { Box, Chip, IconButton, List, ListItem, ListItemText, Paper, Popover, Stack, TableCell, Typography } from "@material-ui/core";
 import { FormApi, FORM_ERROR } from "final-form";
 import { useMemo, useState } from "react";
 import { useMutation, useQuery } from "react-query";
@@ -52,6 +52,7 @@ const Usuarios = () => {
       label: "Anulado",
       background: red[700]
     },
+  // eslint-disable-next-line
   }), [])
 
   const refresh = () => {
@@ -69,10 +70,10 @@ const Usuarios = () => {
     setOpenModal(true);
   }
 
-  const handleOpenConfirmEliminar = (item: any) => {
-    setFormData({...item});
-    setOpenConfirmModal(true);
-  }
+  // const handleOpenConfirmEliminar = (item: any) => {
+  //   setFormData({...item});
+  //   setOpenConfirmModal(true);
+  // }
 
   const handleEliminar = () => {
     // remove.mutate(formData.id, {
@@ -234,6 +235,7 @@ const Usuarios = () => {
         </TableCell>
       )
     },
+  // eslint-disable-next-line
   ] as ColumnCustomTable[], [])  
 
   return (

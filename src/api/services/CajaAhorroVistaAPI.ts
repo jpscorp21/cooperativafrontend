@@ -4,7 +4,16 @@ import { BaseAPI } from "./BaseAPI";
 
 export const CajaAhorroVistaAPI = {
     key: 'cajaahorrovista',
-
+    
+    async getAll(params: {searchQuery?: string, pageNumber?: number, pageSize?: number}) {
+        try {
+            const res = await BaseAPI.getAll<any>(this.key, params);
+            return {...res, items: res.items};
+        } catch (e) {
+          console.log(e);
+          throw new Error("Error en el servidor");
+        }
+    },
      async count() {
         try {
           const { data } = await api.get(`${this.key}/count`);      
@@ -13,7 +22,7 @@ export const CajaAhorroVistaAPI = {
           console.log(e);
           throw new Error("Error en el servidor");
         }
-      },
+    },
     
     async ultimos() {
     try {

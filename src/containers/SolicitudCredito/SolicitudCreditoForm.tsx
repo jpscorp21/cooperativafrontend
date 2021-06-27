@@ -24,7 +24,7 @@ const SolicitudCreditoForm = () => {
         console.log(dataForSave);
         solicitudCreditoAdd.mutate(dataForSave, {
             onSuccess() {    
-              queryClient.invalidateQueries('solicitudcredito');   
+              queryClient.invalidateQueries(SolicitudCreditoAPI.key);   
               history.push('/solicitudcredito');              
               form.restart();
             },      

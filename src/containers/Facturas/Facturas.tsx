@@ -25,7 +25,7 @@ const initialForm = () => ({
 
 const Facturas = () => {
 
-  const {data, create, remove, update, setParams, key, refresh} = useBackend(FacturasAPI);
+  const {data, create, remove, update, setParams, refresh} = useBackend(FacturasAPI);
   const {data: timbrados} = useBackend(TimbradosAPI);
 
   const [openModal, setOpenModal] = useState(false)

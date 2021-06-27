@@ -2,8 +2,8 @@ import { AppBar, Avatar, Box, Collapse, Divider, Drawer, IconButton, List, Toolb
 import MenuIcon from '@material-ui/icons/Menu';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import clsx from 'clsx';
-import React, { PropsWithChildren, useEffect, useMemo } from 'react'
-import { menu, MenuItem, Menu } from '../data/menu';
+import React, { PropsWithChildren, useEffect } from 'react'
+import { MenuItem, Menu } from '../data/menu';
 import { cssHelper } from '../utils/helpers';
 import useResponsive from '../utils/hooks/useResponsive';
 import { useHistory } from 'react-router';
@@ -17,7 +17,7 @@ import { menuRole } from '../data/menu-data';
 const drawerWidth = 300;
 const breakpointDrawer = 'md';
 
-const useStyles = makeStyles((theme2) => ({
+const useStyles = makeStyles(() => ({
   root: {
     // display: 'flex',    
   },
@@ -114,11 +114,7 @@ const AppSidebar = ({children}: PropsWithChildren<{}>) => {
 
   const { desktop } = useResponsive();
 
-  const menuSidebar = useMemo(() => [...menu], []); 
-  
-  useEffect(() => {
-    console.log(usuario);
-  }, [])
+  // const menuSidebar = useMemo(() => [...menu], []);     
 
   useEffect(() => {     
     if (desktop) {
