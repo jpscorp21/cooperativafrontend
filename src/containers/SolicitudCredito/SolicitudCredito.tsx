@@ -27,7 +27,7 @@ import { mapSolicitudForUpdateEstado } from "./solicitudcredito-map";
 
 const SolicitudCredito = () => {
 
-  const history = useHistory();
+  const history = useHistory();  
 
   const {params, setParams, resetParams} = useSolicitudCreditoParams();
 
@@ -109,10 +109,6 @@ const SolicitudCredito = () => {
   //   setOpenConfirmModal(true);
   // }
 
-  const handleEliminar = () => {
-
-  }
-
   const imprimir = (url: string) => {
     const elem = document.createElement("a");
     elem.href = `${BASE_URL}${url}`;
@@ -188,14 +184,14 @@ const SolicitudCredito = () => {
           </IconButton>
           {
             (item.estadoSolicitud === 'APR' || item.estadoSolicitud === 'REC') && (
-              <IconButton size="small" color="primary"> 
+              <IconButton size="small" color="primary" onClick={() => handleEditar(item)}> 
                 <RemoveRedEyeIcon color="primary"></RemoveRedEyeIcon>
               </IconButton>
             )
           }
           {
             item.estadoSolicitud === 'PEN' && (
-              <IconButton size="small" color="primary">
+              <IconButton size="small" color="primary" onClick={() => handleEditar(item)}>
                 <EditIcon color="primary"></EditIcon>
               </IconButton>
             )

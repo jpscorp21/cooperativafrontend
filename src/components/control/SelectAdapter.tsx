@@ -14,7 +14,7 @@ const SelectAdapter = ({input, meta, ...rest}: any) => {
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"                                
                 {...input}
-                {...rest}
+                {...rest}                
                 size="small"
                 error={meta.error && meta.touched}                 
             >                

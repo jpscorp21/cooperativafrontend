@@ -150,9 +150,14 @@ export const menu: Menu[] = [
     submenu: [
       {
         icon: <DescriptionIcon></DescriptionIcon>,
-        text: 'Aportes',
+        text: 'Buscar aporte',
         url: '/aportes'
-      }
+      },      
+      {
+        icon: <DescriptionIcon></DescriptionIcon>,
+        text: 'Aportes',
+        url: '/aportes/lista'
+      },      
     ]
   },
   {
@@ -161,8 +166,13 @@ export const menu: Menu[] = [
     submenu: [
       {
         icon: <DescriptionIcon></DescriptionIcon>,
-        text: 'Solidaridad',
+        text: 'Buscar solidaridad',
         url: '/solidaridad', 
+      },
+      {
+        icon: <DescriptionIcon></DescriptionIcon>,
+        text: 'Solidaridades',
+        url: '/solidaridad/lista', 
       }
     ]
   },

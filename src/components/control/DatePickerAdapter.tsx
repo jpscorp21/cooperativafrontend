@@ -10,8 +10,8 @@ const DatePickerAdapter = ({input, meta, ...rest}: any) => {
                 inputFormat="MM/dd/yyyy"
                 label={input.label}
                 value={input.value} 
-                onChange={(value) => input.onChange(value)}
-                readOnly
+                disabled={rest.disabled}
+                onChange={(value) => input.onChange(value)}                
                 renderInput={(params) => (
                     <TextField
                         size="small"

@@ -18,11 +18,12 @@ import { SociosAPI } from "../../api/services/SociosAPI"
 import useSearchText from "../../utils/hooks/useSearchText"
 import { ISocio } from "../../models/socio-model"
 import { ModalidadPagoAPI } from "../../api/services/ModalidadPagoAPI"
+import { validateLocaleAndSetLanguage } from "typescript"
 
 
 const SolicitudCreditoInnerForm = () => {
 
-    const [searchQuery, setSearchText] = useSearchText();    
+    const [searchQuery, setSearchText] = useSearchText();        
 
     const [socioId, setSocioId] = useState<any>(null)
 
@@ -91,7 +92,7 @@ const SolicitudCreditoInnerForm = () => {
     return (
         <>
             <Paper sx={{p: 2}}>
-                <Grid container spacing={2}>
+                <Grid container spacing={2}>                    
                     <Grid item xs={12} mt={1}>
                         <Field
                             validate={required}
@@ -102,6 +103,7 @@ const SolicitudCreditoInnerForm = () => {
                                     autoFocus={true}                                                     
                                     name="socio"                                                        
                                     onChange={handleChangeSocio}
+                                    disabled={!!values.id}
                                 />         
                             )}
                         />                                                                                
@@ -141,6 +143,7 @@ const SolicitudCreditoInnerForm = () => {
                                     value={input.value}                                                    
                                     optionLabel="nombre_completo"
                                     optionSelected="id"
+                                    disabled={!!values.id}
                                     onInputChange={setSearchText}
                                     onChange={(value) => {
                                         if (value) {                         
@@ -162,7 +165,7 @@ const SolicitudCreditoInnerForm = () => {
                             options={cajaAhorroVistas || []}
                             optionlabel="cuentaAhorro"
                             optionvalue="id"
-                            disabled={!!!values.socioId}
+                            disabled={!!!values.socioId || !!values.id}
                             component={SelectAdapter}                                            
                         />
                     </Grid>
@@ -177,6 +180,7 @@ const SolicitudCreditoInnerForm = () => {
                             options={tiposSolicitudes?.items || []}
                             optionlabel="descripcion"
                             optionvalue="id"
+                            disabled={!!values.id}
                             component={SelectAdapter}  
                         />
                     </Grid>                    
@@ -189,6 +193,7 @@ const SolicitudCreditoInnerForm = () => {
                             options={tiposGarantias?.items || []}
                             optionlabel="descripcion"
                             optionvalue="id"
+                            disabled={!!values.id}
                             component={SelectAdapter}   
                         />
                     </Grid>
@@ -202,6 +207,7 @@ const SolicitudCreditoInnerForm = () => {
                             options={tiposCreditos?.items || []}
                             optionlabel="descripcion"
                             optionvalue="id"
+                            disabled={!!values.id}
                             component={SelectAdapter}   
                         />
                     </Grid>                    
@@ -216,6 +222,7 @@ const SolicitudCreditoInnerForm = () => {
                                     validate={required} 
                                     component={TextFieldAdapter} 
                                     fullWidth 
+                                    disabled={values.estadoSolicitud !== 'PEN'}
                                     label="Importe" 
                                     name="importe" 
                                 />
@@ -225,6 +232,7 @@ const SolicitudCreditoInnerForm = () => {
                                     fullWidth 
                                     label="Plazo" 
                                     name="plazo" 
+                                    disabled={values.estadoSolicitud !== 'PEN'}
                                     component={TextFieldAdapter} 
                                     validate={required} 
                                 />
@@ -234,6 +242,7 @@ const SolicitudCreditoInnerForm = () => {
                                     fullWidth 
                                     label="Fecha Primer Pago" 
                                     name="fechaPrimerPago" 
+                                    disabled={values.estadoSolicitud !== 'PEN'}
                                     validate={required} 
                                     component={DatePickerAdapter}  
                                 />
@@ -243,6 +252,7 @@ const SolicitudCreditoInnerForm = () => {
                                     fullWidth 
                                     label="Observación" 
                                     multiline 
+                                    disabled={values.estadoSolicitud !== 'PEN'}
                                     name="observacion" 
                                     rows={4} 
                                     component={TextFieldAdapter}

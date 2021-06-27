@@ -1,6 +1,7 @@
 import { Route, Switch } from 'react-router-dom';
 import AcercaDe from '../containers/AcercaDe/AcercaDe';
 import Aportes from '../containers/Aportes/Aportes';
+import AportesLista from '../containers/Aportes/AportesLista';
 import Barrios from '../containers/Barrios/Barrios';
 import CajaAhorroVista from '../containers/CajaAhorro/CajaAhorroVista';
 import CajaAhorroVistaLista from '../containers/CajaAhorro/CajaAhorroVistaLista';
@@ -25,6 +26,7 @@ import SociosForm from '../containers/Socios/SociosForm';
 import SolicitudCredito from '../containers/SolicitudCredito/SolicitudCredito';
 import SolicitudCreditoForm from '../containers/SolicitudCredito/SolicitudCreditoForm';
 import Solidaridad from '../containers/Solidaridad/Solidaridad';
+import SolidaridadLista from '../containers/Solidaridad/SolidaridadLista';
 import Timbrados from '../containers/Timbrados/Timbrados';
 import TipoCredito from '../containers/TipoCredito/TipoCredito';
 import TipoCuenta from '../containers/TipoCuenta/TipoCuenta';
@@ -41,8 +43,11 @@ export const AppRoutes = () => {
       <Route path="/acerca-de">
         <AcercaDe />        
       </Route>
-      <Route path="/aportes">        
+      <Route exact path="/aportes">        
         <Aportes />
+      </Route>
+      <Route path="/aportes/lista">        
+        <AportesLista />
       </Route>
       <Route path="/barrios">        
         <Barrios />
@@ -110,11 +115,17 @@ export const AppRoutes = () => {
       <Route exact path="/solicitudcredito">        
         <SolicitudCredito />
       </Route>
-      <Route path="/solicitudcredito/form">         
+      <Route exact path="/solicitudcredito/form">         
         <SolicitudCreditoForm />
       </Route>
-      <Route path="/solidaridad">        
+      <Route path="/solicitudcredito/form/:id">         
+        <SolicitudCreditoForm />
+      </Route>
+      <Route exact path="/solidaridad">        
         <Solidaridad />
+      </Route>
+      <Route path="/solidaridad/lista">        
+        <SolidaridadLista />
       </Route>
       <Route path="/timbrados">        
         <Timbrados />

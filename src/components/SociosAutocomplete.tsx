@@ -11,9 +11,10 @@ type SociosAutocompleteProps = {
     value: any;
     name?: string;
     autoFocus?: boolean;
+    disabled?: boolean;
 }
 
-const SociosAutocomplete = ({onChange, fullWidth = true, value, name = '', autoFocus = false}: SociosAutocompleteProps) => {
+const SociosAutocomplete = ({onChange, fullWidth = true, value, name = '', autoFocus = false, disabled = false}: SociosAutocompleteProps) => {
 
     const [searchQuery, setSearchText] = useSearchText();    
 
@@ -30,7 +31,9 @@ const SociosAutocomplete = ({onChange, fullWidth = true, value, name = '', autoF
           options={socios?.items || []}   
           fullWidth={fullWidth}                                                           
           onChange={onChange}
-          value={value}        
+          value={value}      
+          autoFocus={autoFocus}
+          disabled={disabled}  
           label={"Socio"}
           optionLabel="nombre_completo"          
           optionSelected="id"

@@ -14,7 +14,7 @@ import BusquedaInput from '../../components/BusquedaInput';
 
 const Socios = () => {
 
-    const history = useHistory();
+    const history = useHistory();    
 
     const {data, remove, setParams, refresh} = useBackend(SociosAPI);
     

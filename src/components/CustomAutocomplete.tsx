@@ -15,6 +15,7 @@ type CustomAutocompleteProps = {
     placeholder?: string;
     autoFocus?: boolean;
     multiple?: boolean;
+    disabled?: boolean;
     renderOption?(props: any, value: any): React.ReactNode;
 }
 
@@ -33,7 +34,8 @@ const CustomAutocomplete = (
         placeholder = "",
         name = "",
         label = "",
-        renderOption
+        renderOption,
+        disabled = false
     }: CustomAutocompleteProps) => {
     return (
         <Autocomplete        
@@ -70,7 +72,8 @@ const CustomAutocomplete = (
                         <Typography component="p">{option[optionLabel]}</Typography>                    
                     </Box>
                 )
-            )}   
+            )}     
+            disabled={disabled}          
             sx={{maxWidth: '100%'}}         
             renderInput={(params) => (
                 <TextField 
