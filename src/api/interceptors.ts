@@ -41,7 +41,7 @@ export const authInterceptor = (config: AxiosRequestConfig) => {
 
 // Interceptores de Respuesta
 export const errorInterceptor = (error: AxiosError) => {  
-  store.dispatch(alertActions.open({message: 'Problemas del servidor XD'}));
+  // store.dispatch(alertActions.open({message: 'Problemas del servidor'}));
   // Ver el tema del error
 
   if (!error.response) {
